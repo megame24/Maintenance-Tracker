@@ -50,12 +50,16 @@ a {
   }
 }
 
+.blue {
+    color: #00bcd4;
+}
+
 @media only screen and (min-width: 48em) {
-  .right {
+  .not-mobile-right {
     float: right;
   }
 
-  .left {
+  .not-mobile-left {
     float: left;
   }
 
@@ -240,9 +244,9 @@ a {
   }
 }
 
-/* ================== 
-        SIGN UP
-   ================== */
+/* ======================= 
+        SIGN UP & LOGIN
+   ======================= */
 
 .form {
   width: 100%;
@@ -261,7 +265,6 @@ a {
 }
 .form .form-icon {
   margin: 0 auto 15px auto;
-  color: #00bcd4;
   border: 1px solid #00bcd4;
   border-radius: 50%;
   width: 60px;
@@ -293,7 +296,7 @@ a {
   font-size: 19px;
   background-color: #00bcd4;
   color: #fff;
-  margin-bottom: 25px;
+  cursor: pointer;
 }
 
 input:focus {
@@ -305,10 +308,12 @@ input:focus {
   background-color: rgb(240, 240, 240);
   padding: 20px 10px;
   text-align: center;
+  margin-top: 30px;
 }
 
-.form-footer a {
-  color: #00bcd4;
+.forgot-password {
+    width: 90%;
+    margin: 0 auto;
 }
 
 @media only screen and (min-width: 48em) {
