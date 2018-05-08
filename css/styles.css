@@ -36,6 +36,10 @@ a {
   clear: both;
 }
 
+.hide {
+    display: none;
+}
+
 @media only screen and (max-width: 47.9375em) {
   .mobile-container.container {
     padding: 0;
@@ -84,6 +88,7 @@ nav {
 
 .nav-header .toggle-menu {
   float: right;
+  cursor: pointer;
 }
 
 .nav-header a {
@@ -109,7 +114,6 @@ nav ul li {
 
 .drop-down-menu {
     margin: 0 15px 10px 15px;
-    /* background-color: rgb(247, 247, 247); */
 }
 
 .drop-down-menu  a {
