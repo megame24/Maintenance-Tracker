@@ -161,7 +161,7 @@ a {
   }
 
   .nav-header {
-    padding: 15px 15px;
+    padding: 15px 15px 15px 0;
     font-size: 24px;
     display: inline-block;
     width: 20%;
@@ -228,7 +228,7 @@ a {
   }
 
   .drop-down-menu a:hover {
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(240, 240, 240);
   }
 }
 
@@ -335,4 +335,22 @@ input:focus {
     width: 40%;
     margin: 30px auto;
   }
+}
+
+/* ============= 
+      PROFILE
+   ============= */
+
+.profile h2 {
+  margin-top: 30px;
+}
+
+.profile h3 {
+  margin: 10px 0;
+}
+
+.profile .bio {
+  border: 1px solid #dad8d8;
+  padding: 5px 15px 15px 15px;
+  border-radius: 3px;
 }
