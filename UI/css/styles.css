@@ -73,13 +73,13 @@ a {
 
 @media only screen and (min-width: 62em) {
   .container {
-    width: 970px;
+    width: 870px;
   }
 }
 
 @media only screen and (min-width: 75em) {
   .container {
-    width: 1170px;
+    width: 1070px;
   }
 }
 
@@ -234,13 +234,13 @@ a {
 
 @media only screen and (min-width: 62em) {
   .right-menu {
-    width: 60%;
+    width: 65%;
   }
 }
 
 @media only screen and (min-width: 75em) {
   .right-menu {
-    width: 50%;
+    width: 60%;
   }
 }
 
@@ -353,4 +353,5 @@ input:focus {
   border: 1px solid #dad8d8;
   padding: 5px 15px 15px 15px;
   border-radius: 3px;
+  width: 80%;
 }
