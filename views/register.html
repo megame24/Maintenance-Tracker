@@ -72,27 +72,31 @@
             <div class="clearfix"></div>
         </div>
     </nav>
-    <div class="container">
-        <div class="form">
-            <div class="form-icon-container">
-            <div class="form-icon">
-                <i class="icon ion-edit"></i>
-            </div>
-            </div>
-            <h1>Create Account</h1>
-            <form>
-                <input type="text" placeholder="Full Name">
-                <input type="text" placeholder="Email">
-                <input type="username" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <input type="password" placeholder="Confirm Password">
-                <input class="btn" type="submit" value="Create Account">
-            </form>
-            <div class="form-footer">
-                <p>Alread a member? &nbsp; <a href="#">Login</a></p>
+    <section id="register">
+        <div class="container">
+            <div class="form">
+                <div class="form-icon-container">
+                    <div class="form-icon">
+                        <i class="icon ion-edit"></i>
+                    </div>
+                </div>
+                <h1>Create Account</h1>
+                <form>
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="text" name="email" placeholder="Email" required>
+                    <input type="username" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" placeholder="Confirm Password" required>
+                    <input type="submit" value="Create Account">
+                </form>
+                <div class="form-footer">
+                    <p>Alread a member? &nbsp;
+                        <a href="#">Login</a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
     <script src="../js/script.js"></script>
 </body>
 

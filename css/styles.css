@@ -257,7 +257,7 @@ a {
 }
 
 .form-icon-container {
-    padding-top: 30px;
+  padding-top: 30px;
 }
 .form .form-icon {
   margin: 0 auto 15px auto;
@@ -296,12 +296,38 @@ a {
   margin-bottom: 25px;
 }
 
+input:focus {
+  outline: none;
+  border-color: #00bcd4;
+}
+
 .form-footer {
-  background-color: rgb(243, 242, 242);
+  background-color: rgb(240, 240, 240);
   padding: 20px 10px;
   text-align: center;
 }
 
 .form-footer a {
   color: #00bcd4;
+}
+
+@media only screen and (min-width: 48em) {
+  .form {
+    width: 60%;
+    margin: 20px auto;
+  }
+}
+
+@media only screen and (min-width: 62em) {
+  .form {
+    width: 50%;
+    margin: 25px auto;
+  }
+}
+
+@media only screen and (min-width: 75em) {
+  .form {
+    width: 40%;
+    margin: 30px auto;
+  }
 }
