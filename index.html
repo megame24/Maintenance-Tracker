@@ -6,69 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maintenace Tracker</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
     <nav>
-        <a href="#">M-Tracker</a>
-        <span>
-            <i class="fas fa-bars"></i>
-        </span>
-        <ul>
-            <div>
-                <li>
-                    <a href="#">Login</a>
-                </li>
-                <li>
-                    <a href="#">Sign UP</a>
-                </li>
+        <div class="mobile-container container">
+            <div class="nav-header">
+                <a href="#">M-Tracker</a>
+                <span class="mobile toggle-menu">
+                    <i class="fas fa-bars"></i>
+                </span>
+                <!-- <div class="clearfix"></div> -->
             </div>
             <div>
-                <li>
+                <ul>
                     <div>
-                        <a href="#">Admin</a>
-                        <span>
-                            <i class="fas fa-caret-down"></i>
-                        </span>
+                        <li>
+                            <a href="#" class="nav-item">Login</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-item">Sign UP</a>
+                        </li>
                     </div>
                     <div>
-                        <a href="#">Profile</a>
-                        <a href="#">Dashboard</a>
-                        <a href="#">Logout</a>
+                        <li>
+                            <div class="admin">
+                                <a href="#" class="nav-item">Admin
+                                    <span class="not-mobile">
+                                        <i class="fas fa-caret-down"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="drop-down-menu">
+                                <a href="#">Profile</a>
+                                <a href="#">Dashboard</a>
+                                <a href="#">Logout</a>
+                            </div>
+                        </li>
                     </div>
-                </li>
+                    <div>
+                        <li>
+                            <div class="request">
+                                <a href="#" class="nav-item">Request
+                                    <span class="not-mobile">
+                                        <i class="fas fa-caret-down"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="drop-down-menu">
+                                <a href="#">Create Request</a>
+                                <a href="#">All Request</a>
+                            </div>
+                        </li>
+                        <li class="nav-shadow">
+                            <div class="user">
+                                <a href="#" class="nav-item">User
+                                    <span class="not-mobile">
+                                        <i class="fas fa-caret-down"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="drop-down-menu">
+                                <a href="#">Profile</a>
+                                <a href="#">Logout</a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
             </div>
-            <div>
-                <li>
-                    <div>
-                        <a href="#">Request</a>
-                        <span>
-                            <i class="fas fa-caret-down"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <a href="#">Create Request</a>
-                        <a href="#">All Request</a>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <a href="#">User</a>
-                        <span>
-                            <i class="fas fa-caret-down"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <a href="#">Profile</a>
-                        <a href="#">Logout</a>
-                    </div>
-                </li>
-            </div>
-        </ul>
     </nav>
-    <h1>Welcome to Maintenance Tracker</h1>
+    <div class="container">
+        <h1>Welcome to Maintenance Tracker</h1>
+    </div>
     <script src="./js/script.js"></script>
 </body>
 
