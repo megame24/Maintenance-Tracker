@@ -40,6 +40,10 @@ a {
   display: none;
 }
 
+.gray-body {
+  background-color: rgb(226, 226, 226);
+}
+
 @media only screen and (max-width: 47.9375em) {
   .mobile-container.container {
     padding: 0;
@@ -153,7 +157,7 @@ a {
   }
 
   .nav-header {
-    padding: 20px 15px;
+    padding: 15px 15px;
     font-size: 24px;
     display: inline-block;
     width: 20%;
@@ -175,14 +179,23 @@ a {
     display: inline-block;
     width: calc(100% / 5);
     text-align: center;
-    padding: 25px 15px;
   }
 
   .right-menu li:hover {
     background-color: #00b4cc;
   }
+
+  .right-menu li.active {
+    background-color: #00b4cc;
+  }
+
+  .right-menu li.active .nav-item {
+    cursor: default;
+  }
+
   .nav-item {
     display: inline-block;
+    padding: 20px 15px;
   }
 
   .admin,
@@ -196,14 +209,14 @@ a {
   .user .drop-down-menu {
     position: absolute;
     width: 100%;
-    top: 73px;
+    top: 62px;
     left: 0;
     background-color: rgb(247, 247, 247);
     box-shadow: 1px 1px 1px #dad8d8;
   }
   .drop-down-menu a {
-      display: block;
-      padding: 15px 0;
+    display: block;
+    padding: 15px 0;
     color: #545454;
     font-size: 90%;
     width: 100%;
@@ -225,4 +238,70 @@ a {
   .right-menu {
     width: 50%;
   }
+}
+
+/* ================== 
+        SIGN UP
+   ================== */
+
+.form {
+  width: 100%;
+  background-color: #fff;
+  margin: 15px 0 15px 0;
+  box-shadow: 3px 3px 3px #c0c0c0;
+}
+
+.form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-icon-container {
+    padding-top: 30px;
+}
+.form .form-icon {
+  margin: 0 auto 15px auto;
+  color: #00bcd4;
+  border: 1px solid #00bcd4;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  font-size: 150%;
+  display: table;
+  background-color: #fff;
+}
+
+.form-icon .icon {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.form input {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 15px 10px;
+  border: 1px solid #e7e7e7;
+  margin-bottom: 15px;
+  border-radius: 3px;
+}
+
+.form input[type="submit"] {
+  background: none;
+  border: none;
+  font-size: 19px;
+  background-color: #00bcd4;
+  color: #fff;
+  margin-bottom: 25px;
+}
+
+.form-footer {
+  background-color: rgb(243, 242, 242);
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.form-footer a {
+  color: #00bcd4;
 }
