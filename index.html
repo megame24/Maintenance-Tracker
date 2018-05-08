@@ -14,69 +14,63 @@
 <body>
     <nav>
         <div class="mobile-container container">
-            <div class="nav-header nav-header-shadow">
+            <div class="nav-header nav-header-shadow left">
                 <a href="#">M-Tracker</a>
                 <span class="mobile toggle-menu">
                     <i class="fas fa-bars"></i>
                 </span>
-                <!-- <div class="clearfix"></div> -->
+                <div class="clearfix"></div>
             </div>
-            <div class="mobile-menu hide">
-                <ul>
+            <ul class="right-menu not-mobile right">
+                <li>
+                    <a href="#" class="nav-item">Login</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item">Sign UP</a>
+                </li>
+                <li class="admin">
                     <div>
-                        <li>
-                            <a href="#" class="nav-item">Login</a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-item">Sign UP</a>
-                        </li>
+                        <a href="#" class="nav-item">Admin
+                            <span class="not-mobile">
+                                <i class="fas fa-caret-down"></i>
+                            </span>
+                        </a>
                     </div>
+                    <div class="drop-down-menu hide">
+                        <a href="#">Profile</a>
+                        <a href="#">Dashboard</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </li>
+                <li class="request">
                     <div>
-                        <li class="admin">
-                            <div>
-                                <a href="#" class="nav-item">Admin
-                                    <span class="not-mobile">
-                                        <i class="fas fa-caret-down"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="drop-down-menu hide">
-                                <a href="#">Profile</a>
-                                <a href="#">Dashboard</a>
-                                <a href="#">Logout</a>
-                            </div>
-                        </li>
+                        <a href="#" class="nav-item">Requests
+                            <span class="not-mobile">
+                                <i class="fas fa-caret-down"></i>
+                            </span>
+                        </a>
                     </div>
+                    <div class="drop-down-menu hide">
+                        <a href="#">Create Request</a>
+                        <a href="#">All Request</a>
+                    </div>
+                </li>
+                <li class="user">
                     <div>
-                        <li class="request">
-                            <div>
-                                <a href="#" class="nav-item">Request
-                                    <span class="not-mobile">
-                                        <i class="fas fa-caret-down"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="drop-down-menu hide">
-                                <a href="#">Create Request</a>
-                                <a href="#">All Request</a>
-                            </div>
-                        </li>
-                        <li class="nav-shadow user">
-                            <div>
-                                <a href="#" class="nav-item">User
-                                    <span class="not-mobile">
-                                        <i class="fas fa-caret-down"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="drop-down-menu hide">
-                                <a href="#">Profile</a>
-                                <a href="#">Logout</a>
-                            </div>
-                        </li>
+                        <a href="#" class="nav-item">User
+                            <span class="not-mobile">
+                                <i class="fas fa-caret-down"></i>
+                            </span>
+                        </a>
                     </div>
-                </ul>
-            </div>
+                    <div class="drop-down-menu hide">
+                        <a href="#">Profile</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
     </nav>
     <div class="container">
         <h1>Welcome to Maintenance Tracker</h1>

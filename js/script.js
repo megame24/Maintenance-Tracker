@@ -5,13 +5,13 @@
 
 var mobileMenuToggle = document.querySelector(".toggle-menu");
 var navHeader = document.querySelector(".nav-header");
-var mobileMenu = document.querySelector(".mobile-menu");
+var rightMenu = document.querySelector(".right-menu");
 mobileMenuToggle.onclick = function() {
-    if (!mobileMenu.classList.contains("hide")) {
-      mobileMenu.classList.add("hide");
+    if (!rightMenu.classList.contains("not-mobile")) {
+      rightMenu.classList.add("not-mobile");
       navHeader.classList.add("nav-header-shadow");
     } else {
-      mobileMenu.classList.remove("hide");
+      rightMenu.classList.remove("not-mobile");
       navHeader.classList.remove("nav-header-shadow");
     }
 }
