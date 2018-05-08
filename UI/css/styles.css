@@ -51,7 +51,7 @@ a {
 }
 
 .blue {
-    color: #00bcd4;
+  color: #00bcd4;
 }
 
 @media only screen and (min-width: 48em) {
@@ -312,8 +312,8 @@ input:focus {
 }
 
 .forgot-password {
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
 
 @media only screen and (min-width: 48em) {
@@ -353,5 +353,11 @@ input:focus {
   border: 1px solid #dad8d8;
   padding: 5px 15px 15px 15px;
   border-radius: 3px;
-  width: 80%;
+  width: 100%;
+}
+
+@media only screen and (min-width: 62em) {
+  .profile .bio {
+    width: 80%;
+  }
 }
