@@ -74,7 +74,19 @@
     </nav>
     <section id="make-request" class="min-height">
         <div class="container">
-            <h1>Make Request page</h1>
+            <h2>Make a new request</h2>
+            <p>A request can be a maintenance or a repair request</p>
+            <hr />
+            <form>
+                <label for="title">Request title</label>
+                <input type="text" name="title" placeholder="E.g. Broken side mirror">
+                <label for="description">Request Description</label>
+                <textarea type="text" name="description"></textarea>
+                <label for="type">Request type</label>
+                <span><input type="radio" name="type"> Maintenance</span>
+                <span><input type="radio" name="type"> Repair</span>
+                <input type="submit" value="Make Request" class="btn btn-primary">
+            </form>
         </div>
     </section>
     <footer>
