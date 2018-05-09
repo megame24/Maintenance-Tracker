@@ -48,9 +48,12 @@ a {
   float: right;
 }
 
+section {
+  padding: 30px 0;
+}
+
 .min-height {
   min-height: 79.3vh;
-  padding: 30px 0;
 }
 
 .btn {
@@ -81,12 +84,32 @@ a {
   background-color: #99001c;
 }
 
+.form-input {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 15px 10px;
+  border: 1px solid #e7e7e7;
+  margin-bottom: 15px;
+  border-radius: 3px;
+}
+
+.form-input[type="submit"] {
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #00bcd4;
+}
+
 @media only screen and (max-width: 47.9375em) {
   .mobile-container.container {
     padding: 0;
   }
-  .min-height {
-    padding-top: 15px 0;
+  section {
+    padding: 15px 0;
   }
   .btn {
     padding: 7px 15px;
@@ -295,7 +318,7 @@ a {
 .form {
   width: 100%;
   background-color: #fff;
-  margin: 15px 0 15px 0;
+  margin: 0 0 15px 0;
   box-shadow: 3px 3px 3px #c0c0c0;
 }
 
@@ -324,25 +347,6 @@ a {
   vertical-align: middle;
 }
 
-.form input {
-  display: block;
-  width: 90%;
-  margin: 0 auto;
-  padding: 15px 10px;
-  border: 1px solid #e7e7e7;
-  margin-bottom: 15px;
-  border-radius: 3px;
-}
-
-.form input[type="submit"] {
-  font-size: 19px;
-  cursor: pointer;
-}
-
-input:focus {
-  outline: none;
-  border-color: #00bcd4;
-}
 
 .form-footer {
   background-color: rgb(240, 240, 240);
@@ -359,21 +363,19 @@ input:focus {
 @media only screen and (min-width: 48em) {
   .form {
     width: 60%;
-    margin: 20px auto;
+    margin: 0 auto;
   }
 }
 
 @media only screen and (min-width: 62em) {
   .form {
     width: 50%;
-    margin: 25px auto;
   }
 }
 
 @media only screen and (min-width: 75em) {
   .form {
     width: 40%;
-    margin: 30px auto;
   }
 }
 
@@ -414,4 +416,31 @@ footer {
 
 footer p {
   display: inline-block;
+}
+
+
+/* ================= 
+      MAKE REQUEST
+   ================= */
+
+
+.make-request h2 {
+  margin-bottom: 5px;
+}
+
+.make-request hr {
+  height: 1px;
+  border: none;
+  background-color: #e7e7e7;
+  margin: 20px 0;
+}
+
+.make-request label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.make-request .form-input {
+  width: 100%;
 }
