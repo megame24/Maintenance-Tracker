@@ -104,6 +104,26 @@ section {
   border-color: #00bcd4;
 }
 
+.background-primary {
+  background-color: #c6dafc;
+  color: #000;
+}
+
+.background-success {
+  background-color: #b7e1cd;
+  color: #000;
+}
+
+.background-danger {
+  background-color: #f4c7c3;
+  color: #000;
+}
+
+.background-tertiary {
+  background-color: #fce8b2;
+  color: #000;
+}
+
 @media only screen and (max-width: 47.9375em) {
   .mobile-container.container {
     padding: 0;
@@ -424,11 +444,11 @@ footer p {
    ================= */
 
 
-.make-request h2 {
+.request h2 {
   margin-bottom: 5px;
 }
 
-.make-request hr {
+.request hr {
   height: 1px;
   border: none;
   background-color: #e7e7e7;
@@ -456,4 +476,35 @@ footer p {
   .make-request {
     width: 70%;
   }
+}
+
+/* ================== 
+      VIEW REQUESTS
+   ================== */
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #e7e7e7;
+  text-align: left;
+  padding: 10px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.table-link {
+  padding: 0;
+}
+
+.table-link a {
+  width: 100%;
+  display: inline-block;
+  padding: 10px;
+  color: inherit;
 }
