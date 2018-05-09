@@ -75,7 +75,59 @@
     <section id="admin-dashboard" class="min-height">
         <div class="container">
             <div class="all-requests r-m-request">
-                <h2>Dashboard</h2>
+                <h2>Requests</h2>
+                <p>To view the details of a request, click it's title.</p>
+                <hr />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th class="table-not-mobile">Type</th>
+                            <th>Approve / Disapprove</th>
+                            <th>Resolve</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-link">
+                                <a href="./user-request-detail.html">Broken side mirror</a>
+                            </td>
+                            <td class="table-not-mobile">Repair</td>
+                            <td class="background-danger">Disapproved</td>
+                            <td class="background-danger"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-link">
+                                <a href="./user-request-detail.html">Oil change</a>
+                            </td>
+                            <td class="table-not-mobile">Maintenance</td>
+                            <td class="background-success">Approved</td>
+                            <td>
+                                <a href="#" class="btn btn-small btn-success">Resolve</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-link">
+                                <a href="./user-request-detail.html">Tire check</a>
+                            </td>
+                            <td class="table-not-mobile">Maintenance</td>
+                            <td>
+                                <a href="#" class="btn btn-small btn-success">Approve</a>&nbsp;&nbsp;&nbsp;
+                                <a href="#" class="btn btn-small btn-danger">Disapprove</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="table-link">
+                                <a href="./user-request-detail.html">Nasty scratch on the hood</a>
+                            </td>
+                            <td class="table-not-mobile">repair</td>
+                            <td class="background-success">Approved</td>
+                            <td class="background-success">Resolved</td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
