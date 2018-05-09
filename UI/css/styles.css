@@ -48,6 +48,10 @@ a {
   float: right;
 }
 
+.left {
+  float: left;
+}
+
 section {
   padding: 30px 0;
 }
@@ -78,7 +82,7 @@ section {
 }
 
 .btn-success {
-  background-color: #00BFA5;
+  background-color: #00bfa5;
 }
 
 .btn-success:hover {
@@ -90,11 +94,11 @@ section {
 }
 
 .btn-danger {
-  background-color: #b00020;
+  background-color: #c62828;
 }
 
 .btn-danger:hover {
-  background-color: #99001c;
+  background-color: #be2727;
 }
 
 .form-input {
@@ -112,7 +116,8 @@ section {
   cursor: pointer;
 }
 
-.form-input:focus {
+.form-input:focus,
+select:focus {
   outline: none;
   border-color: #00bcd4;
 }
@@ -383,7 +388,6 @@ section {
   vertical-align: middle;
 }
 
-
 .form-footer {
   background-color: rgb(240, 240, 240);
   padding: 20px 10px;
@@ -454,11 +458,9 @@ footer p {
   display: inline-block;
 }
 
-
 /* ================= 
       MAKE REQUEST
    ================= */
-
 
 .r-m-request h2 {
   margin-bottom: 5px;
@@ -498,13 +500,13 @@ footer p {
       VIEW REQUESTS
    ================== */
 
-
 table {
   border-collapse: collapse;
   width: 100%;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #e7e7e7;
   text-align: left;
   padding: 10px;
@@ -570,5 +572,22 @@ tbody tr:nth-child(odd) {
 @media only screen and (min-width: 75em) {
   .request-detail-parent {
     width: 70%;
+  }
+}
+
+/* ==================== 
+      ADMIN DASHBOARD
+   ==================== */
+
+@media only screen and (max-width: 47.9375em) {
+  .admin-dashboard td a:last-of-type {
+    margin-top: 5px;
+  }
+  .admin-dashboard .filter {
+    margin-top: 10px;
+    float: none;
+  }
+  .admin-dashboard p {
+    float: none;
   }
 }
