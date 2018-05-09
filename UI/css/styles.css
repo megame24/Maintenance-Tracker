@@ -64,12 +64,25 @@ section {
   border-radius: 3px;
 }
 
+.btn-small {
+  padding: 5px;
+  font-size: 80%;
+}
+
 .btn:hover {
   transition: background-color 0.3s ease;
 }
 
 .btn-primary {
   background-color: #00bcd4;
+}
+
+.btn-success {
+  background-color: #00BFA5;
+}
+
+.btn-success:hover {
+  background-color: #00b39b;
 }
 
 .btn-primary:hover {
@@ -133,6 +146,9 @@ section {
   }
   .btn {
     padding: 7px 15px;
+  }
+  .table-not-mobile {
+    display: none;
   }
 }
 
