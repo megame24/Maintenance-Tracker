@@ -61,6 +61,10 @@ a {
   border-radius: 3px;
 }
 
+.btn:hover {
+  transition: background-color 0.3s ease;
+}
+
 .btn-primary {
   background-color: #00bcd4;
 }
@@ -225,6 +229,7 @@ a {
   }
 
   .right-menu li:hover {
+    transition: background-color 0.3s ease;
     background-color: #00b4cc;
   }
 
