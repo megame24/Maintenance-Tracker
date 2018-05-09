@@ -40,13 +40,24 @@ a {
   display: none;
 }
 
-.gray-body {
+.gray {
   background-color: rgb(226, 226, 226);
+}
+
+.right {
+  float: right;
+}
+
+.min-height {
+  min-height: 79.3vh;
+  padding: 30px 0;
 }
 
 @media only screen and (max-width: 47.9375em) {
   .mobile-container.container {
     padding: 0;
+  }.min-height {
+    padding-top: 15px 0;
   }
 }
 
@@ -341,10 +352,6 @@ input:focus {
       PROFILE
    ============= */
 
-.profile h2 {
-  margin-top: 30px;
-}
-
 .profile h3 {
   margin: 10px 0;
 }
@@ -360,4 +367,18 @@ input:focus {
   .profile .bio {
     width: 80%;
   }
+}
+
+/* ============= 
+      FOOTER
+   ============= */
+
+footer {
+  padding: 30px;
+  text-align: center;
+  background-color: rgb(226, 226, 226);
+}
+
+footer p {
+  display: inline-block;
 }
