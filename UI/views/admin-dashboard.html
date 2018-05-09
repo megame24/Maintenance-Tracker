@@ -74,9 +74,18 @@
     </nav>
     <section id="admin-dashboard" class="min-height">
         <div class="container">
-            <div class="all-requests r-m-request">
+            <div class="admin-dashboard r-m-request">
                 <h2>Requests</h2>
-                <p>To view the details of a request, click it's title.</p>
+                <p class="left">To view the details of a request, click it's title.</p>
+                <div class="filter right">
+                    <span>Filter</span>&nbsp;&nbsp;
+                    <select>
+                        <option value="none">None</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="repar">Repair</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
                 <hr />
                 <table>
                     <thead>
@@ -101,7 +110,7 @@
                                 <a href="./user-request-detail.html">Oil change</a>
                             </td>
                             <td class="table-not-mobile">Maintenance</td>
-                            <td class="background-success">Approved</td>
+                            <td class="background-primary">Approved</td>
                             <td>
                                 <a href="#" class="btn btn-small btn-success">Resolve</a>
                             </td>
@@ -112,7 +121,7 @@
                             </td>
                             <td class="table-not-mobile">Maintenance</td>
                             <td>
-                                <a href="#" class="btn btn-small btn-success">Approve</a>&nbsp;&nbsp;&nbsp;
+                                <a href="#" class="btn btn-small btn-primary">Approve</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" class="btn btn-small btn-danger">Disapprove</a>
                             </td>
                             <td></td>
@@ -122,7 +131,7 @@
                                 <a href="./user-request-detail.html">Nasty scratch on the hood</a>
                             </td>
                             <td class="table-not-mobile">repair</td>
-                            <td class="background-success">Approved</td>
+                            <td class="background-primary">Approved</td>
                             <td class="background-success">Resolved</td>
                         </tr>
 
