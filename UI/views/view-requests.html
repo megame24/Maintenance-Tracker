@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
-<body class="gray">
+<body>
     <nav>
         <div class="mobile-container container">
             <div class="nav-header nav-header-shadow not-mobile-left">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="drop-down-menu hide">
                         <a href="./make-request.html">Make Request</a>
-                        <a href="./view-requests.html">View Requests</a>
+                        <a href="#">View Requests</a>
                     </div>
                 </li>
                 <li class="user">
@@ -62,8 +62,8 @@
                         <a href="#">Logout</a>
                     </div>
                 </li>
-                <li class="active">
-                    <a href="#" class="nav-item">Login</a>
+                <li>
+                    <a href="./login.html" class="nav-item">Login</a>
                 </li>
                 <li>
                     <a href="./register.html" class="nav-item">Sign Up</a>
@@ -72,29 +72,11 @@
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section id="login">
+    <section id="make-request" class="min-height">
         <div class="container">
-            <div class="form">
-                <div class="form-icon-container">
-                    <div class="form-icon blue">
-                        <i class="icon ion-person"></i>
-                    </div>
-                </div>
-                <h1>Login</h1>
-                <form>
-                    <input class="form-input" type="username" name="username" placeholder="Username" required>
-                    <input class="form-input" type="password" name="password" placeholder="Password" required>
-                    <input class="form-input btn btn-primary" type="submit" value="Login">
-                </form>
-                <div class="forgot-password">
-                    <a href="#" class="blue">Forgot password?</a>
-                </div>
-                <div class="clearfix"></div>
-                <div class="form-footer">
-                    <p>Not a member? &nbsp;
-                        <a href="./register.html" class="blue">Create Account</a>
-                    </p>
-                </div>
+            <div class="all-requests request">
+                <h2>All requests</h2>
+                <hr />
             </div>
         </div>
     </section>
