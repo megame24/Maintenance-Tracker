@@ -53,11 +53,39 @@ a {
   padding: 30px 0;
 }
 
+.btn {
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.btn-primary {
+  background-color: #00bcd4;
+}
+
+.btn-primary:hover {
+  background-color: #00b4cc;
+}
+
+.btn-danger {
+  background-color: #b00020;
+}
+
+.btn-danger:hover {
+  background-color: #99001c;
+}
+
 @media only screen and (max-width: 47.9375em) {
   .mobile-container.container {
     padding: 0;
-  }.min-height {
+  }
+  .min-height {
     padding-top: 15px 0;
+  }
+  .btn {
+    padding: 7px 15px;
   }
 }
 
@@ -302,11 +330,7 @@ a {
 }
 
 .form input[type="submit"] {
-  background: none;
-  border: none;
   font-size: 19px;
-  background-color: #00bcd4;
-  color: #fff;
   cursor: pointer;
 }
 
@@ -361,6 +385,10 @@ input:focus {
   padding: 5px 15px 15px 15px;
   border-radius: 3px;
   width: 100%;
+}
+
+.profile a {
+  margin-top: 15px;
 }
 
 @media only screen and (min-width: 62em) {
