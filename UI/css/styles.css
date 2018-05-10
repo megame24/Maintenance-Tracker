@@ -104,6 +104,14 @@ section {
   background-color: #00b39b;
 }
 
+.btn-tertiary {
+  background-color: #f9a825;
+}
+
+.btn-tertiary:hover {
+  background-color: #f99c06;
+}
+
 .btn-danger {
   background-color: #c62828;
 }
@@ -667,4 +675,54 @@ tbody tr:nth-child(odd) {
 
 p {
   line-height: 1.4;
+}
+
+/* =============== 
+      LANDING
+   =============== */
+
+#landing {
+  padding-top: 0;
+}
+
+#hero .background-img {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  background-image: linear-gradient(
+      rgba(0, 90, 102, 0.1),
+      rgba(0, 90, 102, 0.1)
+    ),
+    url(../img/hero.png);
+  background-position: center;
+  background-size: cover;
+  padding-top: 50px;
+}
+
+#hero .text p,
+#hero .text h1 {
+  color: #fff;
+  text-shadow: 1px 1px 4px #545454;
+}
+
+#hero h1 {
+  font-size: 400%;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+#hero p {
+  font-size: 150%;
+}
+
+#hero .btn {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 62em) {
+  #hero .btn {
+    padding: 10px;
+  }
+  #hero .background-img {
+    min-height: 560px;
+  }
 }
