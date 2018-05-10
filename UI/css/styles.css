@@ -688,11 +688,8 @@ p {
 #hero .background-img {
   width: 100%;
   min-height: calc(100vh - 60px);
-  background-image: linear-gradient(
-      rgba(0, 90, 102, 0.1),
-      rgba(0, 90, 102, 0.1)
-    ),
-    url(../img/hero.png);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url(../img/hero2.png);
   background-position: center;
   background-size: cover;
   padding-top: 50px;
@@ -718,6 +715,65 @@ p {
   margin-top: 10px;
 }
 
+.how-it-works {
+  text-align: center;
+  margin: 30px 0 30px 0;
+}
+
+#landing h2::after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid #00bcd4;
+  width: 50px;
+  margin: 10px auto 20px auto;
+}
+
+.how-it-works i {
+  font-size: 300%;
+}
+
+.how-it-works h4 {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 47.9375em) {
+  .how-it-works div div:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  #landing h2::after {
+    margin-bottom: 30px;
+  }
+
+  .how-it-works {
+    margin: 40px 0 30px 0;
+  }
+
+  .how-it-works .flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .how-it-works .flex div {
+    display: inline-block;
+    width: calc(100% / 3);
+    padding: 10px;
+  }
+  #landing h4 {
+    font-size: 130%;
+    font-weight: 200;
+  }
+  #landing h2 {
+    font-size: 180%;
+  }
+  .how-it-works i {
+    font-size: 350%;
+  }
+}
+
 @media only screen and (max-width: 62em) {
   #hero .btn {
     padding: 10px;
@@ -725,4 +781,14 @@ p {
   #hero .background-img {
     min-height: 560px;
   }
+}
+
+@media only screen and (min-width: 62em) {
+  #hero .background-img {
+    padding-top: 60px;
+  }
+}
+
+.center {
+  text-align: center;
 }
