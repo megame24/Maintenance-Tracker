@@ -72,18 +72,24 @@
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section id="user-request-detail" class="min-height">
+    <section id="admin-request-detail" class="min-height">
         <div class="container">
             <div class="request-detail-parent">
-                <a href="./view-requests.html" class="btn btn-primary-ghost">Back</a>
+                <a href="./admin-dashboard.html" class="btn btn-primary-ghost">Back</a>
                 <div class="request-detail">
                     <h2>Tire check</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                         ex ea commodo consequat.</p>
-                    <div class="status background-tertiary">Approval pending</div>
                     <div class="request-type">Maintenance</div>
                 </div>
+                <hr />
+                <form>
+                    <label for="feedback">Provide feedback</label>
+                    <textarea name="feedback" class="form-input"></textarea>
+                    <input type="submit" class="btn btn-primary form-input" value="Approve"> &nbsp; &nbsp; 
+                    <input type="submit" class="btn btn-danger form-input" value="Disapprove"> 
+                </form>
             </div>
         </div>
     </section>

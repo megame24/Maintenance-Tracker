@@ -74,11 +74,26 @@ section {
 }
 
 .btn:hover {
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .btn-primary {
   background-color: #00bcd4;
+}
+
+.btn-primary:hover {
+  background-color: #00b4cc;
+}
+
+.btn-primary-ghost {
+  background-color: #fff;
+  border: 1px solid #00bcd4;
+  color: #00bcd4;
+}
+
+.btn-primary-ghost:hover {
+  background-color: #00bcd4;
+  color: #fff;
 }
 
 .btn-success {
@@ -87,10 +102,6 @@ section {
 
 .btn-success:hover {
   background-color: #00b39b;
-}
-
-.btn-primary:hover {
-  background-color: #00b4cc;
 }
 
 .btn-danger {
@@ -103,7 +114,7 @@ section {
 
 .form-input {
   display: block;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   padding: 15px 10px;
   border: 1px solid #e7e7e7;
@@ -363,6 +374,10 @@ select:focus {
   box-shadow: 3px 3px 3px #c0c0c0;
 }
 
+.form .form-input {
+  width: 90%;
+}
+
 .form h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -462,25 +477,21 @@ footer p {
       MAKE REQUEST
    ================= */
 
-.r-m-request h2 {
+h2 {
   margin-bottom: 5px;
 }
 
-.r-m-request hr {
+hr {
   height: 1px;
   border: none;
   background-color: #e7e7e7;
   margin: 20px 0;
 }
 
-.make-request label {
+label {
   font-weight: 600;
   display: block;
   margin-bottom: 10px;
-}
-
-.make-request .form-input {
-  width: 100%;
 }
 
 @media only screen and (min-width: 62em) {
@@ -533,6 +544,7 @@ tbody tr:nth-child(odd) {
 
 .request-detail {
   border: 1px solid #e7e7e7;
+  border-radius: 3px;
   padding: 15px 15px 30px 15px;
   position: relative;
   z-index: -1;
@@ -542,8 +554,11 @@ tbody tr:nth-child(odd) {
   margin-bottom: 15px;
 }
 
+.request-detail p {
+  margin-bottom: 15px;
+}
+
 .request-detail .status {
-  margin-top: 15px;
   padding: 10px;
   border: 1px solid #e7e7e7;
   display: inline-block;
@@ -558,8 +573,8 @@ tbody tr:nth-child(odd) {
   padding: 5px;
 }
 
-#user-request-detail a {
-  margin-top: 20px;
+.request-detail-parent a {
+  margin-bottom: 20px;
 }
 
 @media only screen and (min-width: 62em) {
@@ -589,5 +604,22 @@ tbody tr:nth-child(odd) {
   }
   .admin-dashboard p {
     float: none;
+  }
+}
+
+/* ========================== 
+      ADMIN REQUEST DETAILS
+   ========================== */
+
+#admin-request-detail input[type="submit"] {
+  display: inline-block;
+  font-size: 100%;
+  width: auto;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 47.9375em) {
+  #admin-request-detail input[type="submit"] {
+    padding: 5px;
   }
 }
