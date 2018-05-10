@@ -577,6 +577,14 @@ tbody tr:nth-child(odd) {
   margin-bottom: 20px;
 }
 
+.feedback {
+  margin-top: 15px;
+  border-left: 7px solid #00bcd4;
+  background-color: #f1fcfd;
+  min-height: 50px;
+  padding: 10px;
+}
+
 @media only screen and (min-width: 62em) {
   .request-detail-parent {
     width: 80%;
