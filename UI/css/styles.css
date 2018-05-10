@@ -619,6 +619,10 @@ tbody tr:nth-child(odd) {
       ADMIN REQUEST DETAILS
    ========================== */
 
+#admin-request-detail .btn {
+  margin-top: 15px;
+}
+
 #admin-request-detail input[type="submit"] {
   display: inline-block;
   font-size: 100%;
@@ -628,6 +632,9 @@ tbody tr:nth-child(odd) {
 
 @media only screen and (max-width: 47.9375em) {
   #admin-request-detail input[type="submit"] {
+    padding: 5px;
+  }
+  #admin-request-detail .btn {
     padding: 5px;
   }
 }
