@@ -623,7 +623,7 @@ tbody tr:nth-child(odd) {
       ADMIN REQUEST DETAILS
    ========================== */
 
-#admin-request-detail input[type="submit"] {
+.admin-request-detail input[type="submit"] {
   display: inline-block;
   font-size: 100%;
   width: auto;
@@ -631,7 +631,40 @@ tbody tr:nth-child(odd) {
 }
 
 @media only screen and (max-width: 47.9375em) {
-  #admin-request-detail input[type="submit"] {
+  .admin-request-detail input[type="submit"] {
     padding: 5px;
   }
+}
+
+/* =============== 
+      ABOUT US
+   =============== */
+
+.about {
+  text-align: center;
+  padding: 10px;
+}
+
+.about h1 {
+  font-weight: 200;
+  margin-bottom: 10px;
+}
+
+.about p:not(.center) {
+  text-align: justify;
+}
+
+.about p:first-of-type {
+  margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 48em) {
+  .about {
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+
+p {
+  line-height: 1.4;
 }
