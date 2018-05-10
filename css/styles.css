@@ -592,7 +592,8 @@
       url(../img/hero2.png);
     background-position: center;
     background-size: cover;
-    padding-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
   }
   .hero .text p,
   .hero .text h1 {
@@ -664,7 +665,7 @@
       padding: 10px;
     }
     .hero {
-      min-height: 560px;
+      min-height: 500px;
     }
   }
   @media only screen and (min-width: 62em) {
