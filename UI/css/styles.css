@@ -577,6 +577,10 @@ tbody tr:nth-child(odd) {
   margin-bottom: 20px;
 }
 
+.request-detail-parent .btn-danger {
+  margin-top: 15px;
+}
+
 .feedback {
   margin-top: 15px;
   border-left: 7px solid #00bcd4;
@@ -618,10 +622,6 @@ tbody tr:nth-child(odd) {
 /* ========================== 
       ADMIN REQUEST DETAILS
    ========================== */
-
-#admin-request-detail .btn {
-  margin-top: 15px;
-}
 
 #admin-request-detail input[type="submit"] {
   display: inline-block;
