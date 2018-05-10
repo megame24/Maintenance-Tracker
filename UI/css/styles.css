@@ -161,7 +161,7 @@ select:focus {
     padding: 15px 0;
   }
   .btn {
-    padding: 7px 15px;
+    padding: 5px;
   }
   .table-not-mobile {
     display: none;
@@ -632,9 +632,6 @@ tbody tr:nth-child(odd) {
 
 @media only screen and (max-width: 47.9375em) {
   #admin-request-detail input[type="submit"] {
-    padding: 5px;
-  }
-  #admin-request-detail .btn {
     padding: 5px;
   }
 }
