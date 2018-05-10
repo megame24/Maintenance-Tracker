@@ -585,7 +585,7 @@
   #landing {
     padding-top: 0;
   }
-  #hero .background-img {
+  .hero {
     width: 100%;
     min-height: calc(100vh - 60px);
     background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
@@ -594,20 +594,20 @@
     background-size: cover;
     padding-top: 50px;
   }
-  #hero .text p,
-  #hero .text h1 {
+  .hero .text p,
+  .hero .text h1 {
     color: #fff;
     text-shadow: 1px 1px 4px #545454;
   }
-  #hero h1 {
+  .hero h1 {
     font-size: 400%;
     text-transform: uppercase;
     margin-bottom: 5px;
   }
-  #hero p {
+  .hero p {
     font-size: 150%;
   }
-  #hero .btn {
+  .hero .btn {
     margin-top: 10px;
   }
   .how-it-works {
