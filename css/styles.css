@@ -663,12 +663,12 @@
     #hero .btn {
       padding: 10px;
     }
-    #hero .background-img {
+    #hero {
       min-height: 560px;
     }
   }
   @media only screen and (min-width: 62em) {
-    #hero .background-img {
+    #hero {
       padding-top: 60px;
     }
   }
