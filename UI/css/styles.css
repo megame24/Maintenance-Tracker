@@ -589,6 +589,30 @@ footer p {
   }
 }
 
+/* ================== 
+        EDIT PROFILE
+     ================== */
+
+.edit-profile h2 {
+  margin-top: 10px;
+}
+.edit-profile form,
+.edit-profile hr {
+  width: 80%;
+}
+.edit-profile .btn {
+  display: inline-block;
+  width: auto;
+  padding: 10px;
+  font-size: 100%;
+}
+@media only screen and (max-width: 47.9375em) {
+  .edit-profile form,
+  .edit-profile hr {
+    width: 100%;
+  }
+}
+
 /* =============== 
         LANDING
      =============== */
