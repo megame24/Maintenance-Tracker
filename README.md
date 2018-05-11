@@ -8,21 +8,21 @@ Maintenance Tracker App is an application that provides users with the ability t
 
 The app has the following features(only UI templates at the moment) for the respective categories;
 
-* A User:
+* A User can:
 
-  * can create an account and login.
-  * can make maintenance or repairs request.
-  * can view all his/her requests.
-  * can view the details of a single request, which includes a feedback from an admin if any.
+  * create an account and login.
+  * make maintenance or repairs request.
+  * view all his/her requests.
+  * view the details of a single request, which includes a feedback from an admin if any.
 
-* An admin:
+* An admin can:
 
-  * can approve/reject a repair/maintenance request.
-  * can mark request as resolved once it is done.
-  * can view all maintenance/repairs requests on the application.
-  * can filter requests.
-  * can view the details of a request.
-  * can provide feedback on approving/disapproving and on resolving a request.
+  * approve/reject a repair/maintenance request.
+  * mark request as resolved once it is done.
+  * view all maintenance/repairs requests on the application.
+  * filter requests.
+  * view the details of a request.
+  * provide feedback on approving/disapproving and on resolving a request.
 
 ## Technologies
 
