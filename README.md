@@ -14,15 +14,18 @@ The app has the following features(only UI templates at the moment) for the resp
   * make maintenance or repairs request.
   * view all his/her requests.
   * view the details of a single request, which includes a feedback from an admin if any.
+  * update a request, if it is yet to be approved.
+  * delete a resolved, yet to be approved, or a disapproved request from the 'view requests' page(might still be present in the dashboard of an admin).
 
 * An admin can:
 
-  * approve/reject a repair/maintenance request.
+  * approve/disapprove a repair/maintenance request.
   * mark request as resolved once it is done.
   * view all maintenance/repairs requests on the application.
   * filter requests.
   * view the details of a request.
-  * provide feedback on approving/disapproving and on resolving a request.
+  * provide feedback on approving/disapproving or on resolving a request.
+  * delete a resolved or a disapproved request from the 'dashboard' page(might still be present in the 'view requests' page of a user).
 
 ## Technologies
 
