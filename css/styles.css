@@ -142,6 +142,9 @@ select:focus {
 .blue {
   color: #00bcd4;
 }
+.dark-blue {
+  color: #00b4cc;
+}
 h2 {
   margin-bottom: 5px;
 }
