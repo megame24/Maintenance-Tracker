@@ -1,6 +1,6 @@
 export default [
   {
-    Id: 1,
+    id: 1,
     fullname: 'John Wick',
     username: 'black1234',
     email: 'johnwick@gmail.com',
