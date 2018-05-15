@@ -2,7 +2,7 @@ import JWToken from '../helpers/JWToken';
 
 const authMiddleware = {
   verifyUser(req, res, next) {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization || req.query.token;
     if (token) {
       const decoded = JWToken.verifyToken(token);
       if (decoded) {
