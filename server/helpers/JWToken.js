@@ -4,7 +4,7 @@ const secret = 'hehehe';
 
 const JWToken = {
   generateToken(userDetails) {
-    return jwt.sign(userDetails, secret, { expiresIn: 60 * 60 });
+    return jwt.sign(userDetails, secret, { expiresIn: 60 * 60 * 24 });
   },
   verifyToken(token) {
     try {

@@ -3,8 +3,9 @@ import requestsController from '../controllers/requestsController';
 
 const router = express.Router();
 
-router.get('/', requestsController.getRequests);
 router.post('/', requestsController.createRequest);
+router.get('/', requestsController.getRequests);
 router.get('/:id', requestsController.getRequestById);
+router.put('/:id', requestsController.updateRequest);
 
 export default router;
