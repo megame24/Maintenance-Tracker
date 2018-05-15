@@ -89,9 +89,9 @@ export default [
     description: 'I need a complete body work done on my baby, I don\'t care how much it cost. Get it done',
     type: 'repair',
     resolved: false,
-    approved: true,
+    approved: false,
     disapproved: false,
-    trashed: true,
+    trashed: false,
     feedback: 'Your vehicle was badly damaged. Good news is we can fix it, but it will take a while.',
     ownerId: 4
   }
