@@ -9,10 +9,10 @@ const authMiddleware = {
         req.decoded = decoded;
         next();
       } else {
-        res.status(401).json({ errors: { message: 'Authentication failed' } });
+        res.status(401).json({ error: { message: 'Authentication failed' } });
       }
     } else {
-      res.status(401).json({ errors: { message: 'Authentication failed' } });
+      res.status(401).json({ error: { message: 'Authentication failed' } });
     }
   }
 };
