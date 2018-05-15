@@ -1,14 +1,21 @@
 /* eslint-disable no-console */
 
+import express from 'express';
+import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import app from './app';
+import users from './routes/users';
 
+const app = express();
 const port = process.env.PORT || 8080;
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+app.use('/api/v1/users', users);
+
 app.get('*', (req, res) => {
-  res.send(200, 'Welcome to m-tracker\'s api');
+  res.status(200).json({ message: 'Welcome to m-tracker\'s api' });
 });
 
 app.listen(port, () => {
