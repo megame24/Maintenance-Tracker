@@ -1,5 +1,5 @@
 import users from '../db/users';
-import auth from '../helpers/auth';
+import JWToken from '../helpers/JWToken';
 
 const usersController = {
   login(req, res) {
@@ -13,7 +13,7 @@ const usersController = {
             username: user.username,
             role: user.role
           };
-          const token = auth.generateToken(userDetails);
+          const token = JWToken.generateToken(userDetails);
           res.status(200).json({ token, messaage: 'user logged in' });
         } else {
           res.status(401).json({ errors: { messaage: 'incorrect password' } });
