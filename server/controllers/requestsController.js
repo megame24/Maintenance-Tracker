@@ -33,9 +33,15 @@ const requestsController = {
       type,
       decoded
     } = req.body;
+    const duplicateRequest = requests.filter(element => element.title === title)[0];
     switch (false) {
       case !!title: {
         res.status(400).json({ error: { message: 'title is required' } });
+        break;
+      }
+      // Ensure request title is unique
+      case !duplicateRequest: {
+        res.status(400).json({ error: { message: 'request with that title already exists' } });
         break;
       }
       case !!description: {
