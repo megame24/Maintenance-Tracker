@@ -1,10 +1,10 @@
 import express from 'express';
 import requestsController from '../controllers/requestsController';
-import authMiddleware from '../middlewares/authMiddleware';
 
 const router = express.Router();
 
-router.get('/', authMiddleware.verifyUser, requestsController.getRequests);
-router.get('/:id', authMiddleware.verifyUser, requestsController.getRequestById);
+router.get('/', requestsController.getRequests);
+router.post('/', requestsController.createRequest);
+router.get('/:id', requestsController.getRequestById);
 
 export default router;
