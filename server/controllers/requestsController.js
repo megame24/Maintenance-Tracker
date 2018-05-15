@@ -20,10 +20,10 @@ const requestsController = {
       if ((decoded.role === 'admin') || (decoded.id === request.ownerId)) {
         res.status(200).json({ request });
       } else {
-        res.status(403).json({ error: { message: 'you do not have permission to view this page' } });
+        res.status(403).json({ error: { message: 'You do not have permission to view this page' } });
       }
     } else {
-      res.status(404).json({ error: { message: 'request not found' } });
+      res.status(404).json({ error: { message: 'Request not found' } });
     }
   },
   createRequest(req, res) {
@@ -36,20 +36,20 @@ const requestsController = {
     const duplicateRequest = requests.filter(element => element.title === title)[0];
     switch (false) {
       case !!title: {
-        res.status(400).json({ error: { message: 'title is required' } });
+        res.status(400).json({ error: { message: 'Title is required' } });
         break;
       }
       // Ensure request title is unique
       case !duplicateRequest: {
-        res.status(400).json({ error: { message: 'request with that title already exists' } });
+        res.status(400).json({ error: { message: 'Request with that title already exists' } });
         break;
       }
       case !!description: {
-        res.status(400).json({ error: { message: 'description is required' } });
+        res.status(400).json({ error: { message: 'Description is required' } });
         break;
       }
       case !!type: {
-        res.status(400).json({ error: { message: 'request type is required' } });
+        res.status(400).json({ error: { message: 'Request type is required' } });
         break;
       }
       default: {
