@@ -26,7 +26,7 @@ const requestsController = {
         res
           .status(403)
           .json({
-            error: { message: 'You do not have permission to view this page' }
+            error: { message: 'You do not have permission to retrieve this request' }
           });
       }
     } else {
@@ -197,6 +197,27 @@ const requestsController = {
             res.status(400).json({ error: { message: 'Invalid request' } });
           }
         }
+      }
+    } else {
+      res.status(404).json({ error: { message: 'Request not found' } });
+    }
+  },
+
+  deleteRequest(req, res) {
+    const { decoded } = req.body;
+    const requestId = Number(req.params.id);
+    const request = requests.filter(element => element.id === requestId)[0];
+    if (request) {
+      if (decoded.id === request.ownerId) {
+        // remove request from memory
+        requests.splice(requests.findIndex(ele => ele.id === request.id), 1);
+        res.status(200).json({ success: { message: 'Request has been deleted' } });
+      } else {
+        res
+          .status(403)
+          .json({
+            error: { message: 'You do not have permission to delete this request' }
+          });
       }
     } else {
       res.status(404).json({ error: { message: 'Request not found' } });
