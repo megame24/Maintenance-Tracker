@@ -97,7 +97,7 @@ const requestsController = {
           return res.status(400)
             .json({ error: { message: `Request not ${statusUpdate} due to status conflict` } });
         };
-        
+
         switch (true) {
           case (!!status && status.toLowerCase() === 'resolve'): {
             return updateStatus('resolved', (request.status === 'approved'));
@@ -119,8 +119,14 @@ const requestsController = {
         if (request.status === 'pending') {
           const title = req.body.title || request.title;
           const description = req.body.description || request.description;
-          const type = req.body.type || request.type;
-          const updatedRequest = Object.assign({}, request, { title, description, type });
+          let typeUpdate = req.body.type;
+          if (!typeUpdate 
+            || (typeUpdate.toLowerCase() !== 'maintenance' 
+            || typeUpdate.toLowerCase() !== 'repair')) {
+            typeUpdate = request.type;
+          }
+          const updatedRequest = Object
+            .assign({}, request, { title, description, type: typeUpdate });
           // store updated request in memory
           requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
           return res.status(200).json(updatedRequest);
