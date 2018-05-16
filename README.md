@@ -40,7 +40,7 @@ Follow the steps below to setup a local development environment.
 3.  Run `npm install` on the terminal to install dependencies.
 4.  Run `npm start` to start the application.
 
-## Api Endpoints
+## Api EndPoints
 
 EndPoint                      |   Functionality
 ------------------------------|------------------------
@@ -67,7 +67,7 @@ Follow the steps below to test the api endpoints in postman:
     - `{ title, description, type: ('maintenance' or 'repair') }`
   * PUT `/users/requests/<requestId>`, requires:
     - if logged in user is a regular user: `{ title(optional), description(optional), type(optional): ('maintenance' or 'repair') }`
-    - if logged in user is an admin: `{ status: ('approved' or 'disapproved' or 'resolved') }`
+    - if logged in user is an admin: `{ status: ('approved' or 'disapproved' or 'resolved'), feedback(optional) }`
   * DELETE `/users/requests/<requestId>`
 
 ## Licence
