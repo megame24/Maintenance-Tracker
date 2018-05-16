@@ -2,9 +2,9 @@ export default [
   {
     id: 1,
     fullname: 'John Wick',
-    username: 'black1234',
+    username: 'john',
     email: 'johnwick@gmail.com',
-    password: 'john',
+    password: 'wick',
     role: 'admin'
   },
   {
@@ -26,9 +26,9 @@ export default [
   {
     id: 4,
     fullname: 'Uzumaki Naruto',
-    username: 'naruto24',
+    username: 'uzumaki',
     email: 'uzumakinaruto@gmail.com',
-    password: 'uzumaki',
+    password: 'naruto',
     role: 'user'
   }
 ];
