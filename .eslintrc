@@ -9,6 +9,7 @@
   "rules": {
     "consistent-return": 0,
     "comma-dangle": 0,
+    "no-trailing-spaces": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "linebreak-style": 0
