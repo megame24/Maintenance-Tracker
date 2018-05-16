@@ -11,6 +11,7 @@
     "instrument": false
   },
   "scripts": {
+    "start": "babel-node server",
     "dev": "concurrently \"npm run start:dev\" \"npm run lint:watch\" \"npm run test:watch\"",
     "start:dev": "nodemon --exec babel-node -- server",
     "test": "nyc mocha server/test/",
