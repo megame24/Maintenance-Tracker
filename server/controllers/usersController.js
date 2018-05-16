@@ -14,18 +14,13 @@ const usersController = {
             role: user.role
           };
           const token = JWToken.generateToken(userDetails);
-          res.status(200).json({ token, success: { messaage: 'Logged in successfully' } });
-        } else {
-          res.status(401).json({ error: { messaage: 'Incorrect password' } });
+          return res.status(200).json({ token, success: { messaage: 'Logged in successfully' } });
         }
-      } else {
-        res.status(404).json({ error: { messaage: 'User not found' } });
+        return res.status(401).json({ error: { messaage: 'Incorrect password' } });
       }
-    } else {
-      res
-        .status(401)
-        .json({ error: { messaage: 'Username and password required' } });
+      return res.status(404).json({ error: { messaage: 'User not found' } });
     }
+    return res.status(401).json({ error: { messaage: 'Username and password required' } });
   }
 };
 
