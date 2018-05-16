@@ -3,11 +3,11 @@ import requests from '../db/requests';
 const requestsController = {
   getRequests(req, res) {
     const { decoded } = req.body;
-    // return all requests if loggedin user is an admin
+    // return all requests if logged in user is an admin
     if (decoded.role === 'admin') {
       return res.status(200).json(requests);
     }
-    // return only the requests made by loggedin user
+    // return only the requests made by logged in user
     const userRequests = requests.filter(elem => elem.ownerId === decoded.id);
     return res.status(200).json(userRequests);
   },
@@ -20,11 +20,9 @@ const requestsController = {
       if (decoded.role === 'admin' || decoded.id === request.ownerId) {
         return res.status(200).json(request);
       }
-
       return res.status(403)
         .json({ error: { message: 'You do not have permission to retrieve this request' } });
     }
-
     return res.status(404).json({ error: { message: 'Request not found' } });
   },
 
@@ -80,18 +78,26 @@ const requestsController = {
       if (decoded.role === 'admin') {
         const { status } = req.body;
         const feedback = req.body.feedback || request.feedback;
-        const updateStatus = (setStatus, condition) => {
-          if (request.status === setStatus) {
-            return res.status(200).json({ success: { message: `Request already ${setStatus}` } });
+
+        /**
+         * update the status of a request(set status to approved, disapproved, or resolved)
+         * @param {String} statusUpdate - update for request's status
+         * @param {Boolean} condition - update status if condition is true
+         */
+        const updateStatus = (statusUpdate, condition) => {
+          if (request.status === statusUpdate) {
+            return res.status(200).json({ success: { message: `Request already ${statusUpdate}` } });
           }
           if (condition) {
-            const updatedRequest = Object.assign({}, request, { status: setStatus, feedback });
+            const updatedRequest = Object.assign({}, request, { status: statusUpdate, feedback });
+            // store updated request in memory
             requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
-            return res.status(200).json({ success: { message: `Request ${setStatus}` } });
+            return res.status(200).json({ success: { message: `Request ${statusUpdate}` } });
           }
           return res.status(400)
-            .json({ error: { message: `Request not ${setStatus} due to status conflict` } });
+            .json({ error: { message: `Request not ${statusUpdate} due to status conflict` } });
         };
+        
         switch (true) {
           case (!!status && status.toLowerCase() === 'resolve'): {
             return updateStatus('resolved', (request.status === 'approved'));
@@ -111,19 +117,10 @@ const requestsController = {
       // users can only update/edit pending requests
       if (decoded.id === request.ownerId) {
         if (request.status === 'pending') {
-          const { title, description, type } = req.body;
-          // update request without mutating it's state
-          const requestUpdate = (
-            titleUpdate = request.title,
-            descriptionUpdate = request.description,
-            typeUpdate = request.type
-          ) =>
-            Object.assign({}, request, {
-              title: titleUpdate,
-              description: descriptionUpdate,
-              type: typeUpdate
-            });
-          const updatedRequest = requestUpdate(title, description, type);
+          const title = req.body.title || request.title;
+          const description = req.body.description || request.description;
+          const type = req.body.type || request.type;
+          const updatedRequest = Object.assign({}, request, { title, description, type });
           // store updated request in memory
           requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
           return res.status(200).json(updatedRequest);
@@ -142,18 +139,20 @@ const requestsController = {
     const requestId = Number(req.params.id);
     const request = requests.filter(element => element.id === requestId)[0];
     if (request) {
-      // do not delete requests being worked on
+      // do not delete unresolved requests
       if (request.status !== 'approved') {
-        // admin can only trash(remove from dashboard, not delete)
-        // resolved and disapproved requests
+        // admin can only trash resolved or disapproved requests
         if (decoded.role === 'admin' && request.status !== 'pending') {
           if (request.trashed) {
             return res.status(200).json({ success: { message: 'Request already trashed' } });
           }
           const trashedRequest = Object.assign({}, request, { trashed: true });
+          // trash request in memory
           requests[requests.findIndex(elem => elem.id === request.id)] = trashedRequest;
           return res.status(200).json({ success: { message: 'Request has been trashed' } });
         }
+
+        // user can only delete a request if they made it
         if (decoded.id === request.ownerId) {
           // remove request from memory
           requests.splice(requests.findIndex(ele => ele.id === request.id), 1);

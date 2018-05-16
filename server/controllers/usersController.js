@@ -6,19 +6,16 @@ const usersController = {
     const { username, password } = req.body;
     if (username && password) {
       const user = users.filter(element => element.username === username)[0];
-      if (user) {
-        if (password === user.password) {
-          const userDetails = {
-            id: user.id,
-            username: user.username,
-            role: user.role
-          };
-          const token = JWToken.generateToken(userDetails);
-          return res.status(200).json({ token, success: { messaage: 'Logged in successfully' } });
-        }
-        return res.status(401).json({ error: { messaage: 'Incorrect password' } });
+      if (user && (password === user.password)) {
+        const userDetails = {
+          id: user.id,
+          username: user.username,
+          role: user.role
+        };
+        const token = JWToken.generateToken(userDetails);
+        return res.status(200).json({ token, success: { messaage: 'Logged in successfully' } });
       }
-      return res.status(404).json({ error: { messaage: 'User not found' } });
+      return res.status(404).json({ error: { messaage: 'Invalid username or password' } });
     }
     return res.status(401).json({ error: { messaage: 'Username and password required' } });
   }
