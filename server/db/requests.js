@@ -74,7 +74,7 @@ export default [
     title: 'Smashed my car',
     description: 'I need a complete body work done on my baby, I don\'t care how much it cost. Get it done',
     type: 'repair',
-    status: 'disapproved',
+    status: 'pending',
     trashed: false,
     feedback: 'Your vehicle was badly damaged. Good news is we can fix it, but it will take a while.',
     ownerId: 4
