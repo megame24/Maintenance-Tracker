@@ -7,16 +7,15 @@ const authMiddleware = {
       const decoded = JWToken.verifyToken(token);
       if (decoded) {
         req.body.decoded = decoded;
-        next();
-      } else {
-        res.status(401).json({ error: { message: 'Authentication failed' } });
+        return next();
       }
-    } else {
-      res.status(401).json({ error: { message: 'Authentication failed' } });
+      return res.status(401).json({ error: { message: 'Authentication failed' } });
     }
+    return res.status(401).json({ error: { message: 'Authentication failed' } });
   },
+
   allowUnverified(req, res, next) {
-    next();
+    return next();
   }
 };
 
