@@ -12,10 +12,6 @@ const authMiddleware = {
       return res.status(401).json({ error: { message: 'Authentication failed' } });
     }
     return res.status(401).json({ error: { message: 'Authentication failed' } });
-  },
-
-  allowUnverified(req, res, next) {
-    return next();
   }
 };
 
