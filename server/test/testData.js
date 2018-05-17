@@ -56,5 +56,6 @@ export default {
     feedback: 'Your request has been resolved, check your email for further instructions.',
     ownerId: 4
   },
-  invalidId: 10000
+  invalidId: 10000,
+  invalidToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1enVtYWtpIiwicm9sZSI6InVzZXIiLCJpYXQiOjE1MjY1NDk0NDIsImV4cCI6MTUyNjYzNTg0Mn0.9UB3ic-ZtyOEWS7wgTDeec-jGmQ-1M2G4VIfnxL7Cmw1'
 };
