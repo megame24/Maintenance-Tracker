@@ -13,11 +13,11 @@ const usersController = {
           role: user.role
         };
         const token = JWToken.generateToken(userDetails);
-        return res.status(200).json({ token, success: { messaage: 'Logged in successfully' } });
+        return res.status(200).json({ token, success: { message: 'Logged in successfully' } });
       }
-      return res.status(404).json({ error: { messaage: 'Invalid username or password' } });
+      return res.status(401).json({ error: { message: 'Invalid username or password' } });
     }
-    return res.status(401).json({ error: { messaage: 'Username and password required' } });
+    return res.status(401).json({ error: { message: 'Username and password required' } });
   }
 };
 
