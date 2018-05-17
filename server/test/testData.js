@@ -46,5 +46,15 @@ export default {
     feedback: 'Sorry, the requested service is not available at the moment. We are out of side mirror frames',
     ownerId: 3
   },
+  request4: {
+    id: 4,
+    title: 'Nasty scratch on the hood',
+    description: 'I need help!!!, I scratched my wife\'s new mercedes.',
+    type: 'repair',
+    status: 'resolved',
+    trashed: true,
+    feedback: 'Your request has been resolved, check your email for further instructions.',
+    ownerId: 4
+  },
   invalidId: 10000
 };
