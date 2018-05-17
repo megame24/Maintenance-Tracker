@@ -154,14 +154,17 @@ const requestsController = {
       // do not delete unresolved requests
       if (request.status !== 'approved') {
         // admin can only trash resolved or disapproved requests
-        if (decoded.role === 'admin' && request.status !== 'pending') {
-          if (request.trashed) {
-            return res.status(200).json({ success: { message: 'Request already trashed' } });
+        if (decoded.role === 'admin') {
+          if (request.status !== 'pending') {
+            if (request.trashed) {
+              return res.status(200).json({ success: { message: 'Request already trashed' } });
+            }
+            const trashedRequest = Object.assign({}, request, { trashed: true });
+            // trash request in memory
+            requests[requests.findIndex(elem => elem.id === request.id)] = trashedRequest;
+            return res.status(200).json({ success: { message: 'Request has been trashed' } });
           }
-          const trashedRequest = Object.assign({}, request, { trashed: true });
-          // trash request in memory
-          requests[requests.findIndex(elem => elem.id === request.id)] = trashedRequest;
-          return res.status(200).json({ success: { message: 'Request has been trashed' } });
+          return res.status(400).json({ error: { message: 'Request can not be trashed yet' } });
         }
 
         // user can only delete a request if they made it
