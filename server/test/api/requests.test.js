@@ -60,14 +60,15 @@ describe('Requests', () => {
 
   // Get requests route
   describe('Making a GET request to /users/requests', () => {
-    it('Should return all requests if user is an admin', (done) => {
+    it('Should return all untrashed requests if user is an admin', (done) => {
+      const numOfRequests = requests.filter(elem => !elem.trashed).length;
       chai.request(server)
         .get('/api/v1/users/requests')
         .set({ authorization: adminToken })
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('array');
-          expect(res.body.length).to.equal(requests.length);
+          expect(res.body.length).to.equal(numOfRequests);
           done();
         });
     });
