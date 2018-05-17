@@ -99,7 +99,7 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should only allow an admin or the owner of the request to retrieve it', (done) => {
+    it('Should only allow an admin or the owner of a request to retrieve it', (done) => {
       chai.request(server)
         .get(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser2Token })
@@ -110,7 +110,7 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should allow the owner of the request to retrieve it', (done) => {
+    it('Should allow the owner of a request to retrieve it', (done) => {
       chai.request(server)
         .get(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser1Token })
@@ -132,7 +132,7 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should allow admin to retrieve the request if it is not trashed', (done) => {
+    it('Should allow admin to retrieve any request if it is not trashed', (done) => {
       chai.request(server)
         .get(`/api/v1/users/requests/${regularUser1.requestsId[1]}`)
         .set({ authorization: adminToken })
@@ -275,7 +275,7 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should only allow an admin or the owner of the request to update it', (done) => {
+    it('Should only allow an admin or the owner of a request to update it', (done) => {
       chai.request(server)
         .put(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser2Token })
@@ -311,7 +311,7 @@ describe('Requests', () => {
               done();
             });
         });
-        it('Should return a success message(Request already approved/dissaproved/resolved) if request\'s status is up to date', (done) => {
+        it('Should return a success message if request\'s status is up to date', (done) => {
           chai.request(server)
             .put(`/api/v1/users/requests/${request1.id}`)
             .send({ status: 'disapprove' })
@@ -406,7 +406,7 @@ describe('Requests', () => {
         });
       });
       describe('A user making a PUT request to /users/requests/<requestId>', () => {
-        it('Should not allow the user to update the request if the user did not make the request', (done) => {
+        it('Should not update if request do not belong to user', (done) => {
           chai.request(server)
             .put(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
             .set({ authorization: regularUser2Token })
@@ -417,7 +417,7 @@ describe('Requests', () => {
               done();
             });
         });
-        it('Should not update the request if the request\'s status do not have a value of pending', (done) => {
+        it('Should not update if the request\'s status do not have a value of pending', (done) => {
           chai.request(server)
             .put(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
             .set({ authorization: regularUser1Token })
@@ -428,7 +428,7 @@ describe('Requests', () => {
               done();
             });
         });
-        it('Should update a request if the request\'s status has a value of pending', (done) => {
+        it('Should update if the request\'s status has a value of pending', (done) => {
           chai.request(server)
             .put(`/api/v1/users/requests/${regularUser1.requestsId[3]}`)
             .send({ title: 'updated title' })
@@ -468,7 +468,7 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should only allow an admin or the owner of the request to trash or delete the request respectively', (done) => {
+    it('Should only allow an admin or the owner to trash or delete the request respectively', (done) => {
       chai.request(server)
         .delete(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser2Token })
@@ -491,7 +491,7 @@ describe('Requests', () => {
             done();
           });
       });
-      it('Should return message(Request already trashed) if request\'s trash has a value of true and status not equal to pending', (done) => {
+      it('Should return message(Request already trashed) if request\'s trash has a value of true', (done) => {
         chai.request(server)
           .delete(`/api/v1/users/requests/${request4.id}`)
           .set({ authorization: adminToken })
