@@ -72,7 +72,7 @@ const requestsController = {
         }
       }
     }
-    res.status(400).json({ error: { message: 'You do not have permission to create a request' } });
+    res.status(403).json({ error: { message: 'You do not have permission to create a request' } });
   },
 
   updateRequest(req, res) {
