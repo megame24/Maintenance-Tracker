@@ -18,7 +18,13 @@ const requestsController = {
     const requestId = Number(req.params.id);
     const request = requests.filter(elem => elem.id === requestId)[0];
     if (request) {
-      if (decoded.role === 'admin' || decoded.id === request.ownerId) {
+      if (decoded.role === 'admin') {
+        if (!request.trashed) {
+          return res.status(200).json(request);
+        }
+        return res.status(400).json({ error: { message: 'Cannot retrieve trashed request' } });
+      }
+      if (decoded.id === request.ownerId) {
         return res.status(200).json(request);
       }
       return res.status(403)
