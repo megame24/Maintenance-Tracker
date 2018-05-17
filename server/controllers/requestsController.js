@@ -3,9 +3,10 @@ import requests from '../db/requests';
 const requestsController = {
   getRequests(req, res) {
     const { decoded } = req.body;
-    // return all requests if logged in user is an admin
+    // return all untrashed requests if logged in user is an admin
     if (decoded.role === 'admin') {
-      return res.status(200).json(requests);
+      const adminRequests = requests.filter(elem => !elem.trashed);
+      return res.status(200).json(adminRequests);
     }
     // return only the requests made by logged in user
     const userRequests = requests.filter(elem => elem.ownerId === decoded.id);
