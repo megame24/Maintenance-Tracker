@@ -57,7 +57,7 @@ describe('Requests', () => {
         done();
       });
   });
-
+ 
   // Get requests route
   describe('Making a GET request to /users/requests', () => {
     it('Should return all untrashed requests if user is an admin', (done) => {
@@ -121,9 +121,20 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should allow an admin to retrieve the request', (done) => {
+    it('Should not retrieve a trashed request for an admin', (done) => {
       chai.request(server)
         .get(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Cannot retrieve trashed request');
+          done();
+        });
+    });
+    it('Should allow admin to retrieve the request if it is not trashed', (done) => {
+      chai.request(server)
+        .get(`/api/v1/users/requests/${regularUser1.requestsId[1]}`)
         .set({ authorization: adminToken })
         .end((err, res) => {
           expect(res.status).to.equal(200);
