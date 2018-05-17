@@ -33,40 +33,46 @@ const requestsController = {
       type,
       decoded
     } = req.body;
-    const duplicateRequest = requests.filter(elem => elem.title === title)[0];
-    switch (false) {
-      case !!title: {
-        return res.status(400).json({ error: { message: 'Title is required' } });
-      }
-      // Ensure request title is unique
-      case !duplicateRequest: {
-        return res.status(400)
-          .json({ error: { message: 'Request with that title already exists' } });
-      }
-      case !!description: {
-        return res.status(400).json({ error: { message: 'Description is required' } });
-      }
-      case !!type: {
-        return res.status(400).json({ error: { message: 'Request type is required' } });
-      }
-      default: {
-        // create id for new request by incrementing the id of the last request
-        const id = requests[requests.length - 1].id + 1;
-        const newRequest = {
-          id,
-          title,
-          description,
-          type,
-          status: 'pending',
-          trashed: false,
-          feedback: '',
-          ownerId: decoded.id
-        };
-        // store the new request in memory
-        requests.push(newRequest);
-        return res.status(201).json(newRequest);
+    if (decoded.role === 'user') {
+      const duplicateRequest = requests.filter(elem => elem.title === title)[0];
+      switch (false) {
+        case !!title: {
+          return res.status(400).json({ error: { message: 'Title is required' } });
+        }
+        // Ensure request title is unique
+        case !duplicateRequest: {
+          return res.status(400)
+            .json({ error: { message: 'Request with that title already exists' } });
+        }
+        case !!description: {
+          return res.status(400).json({ error: { message: 'Description is required' } });
+        }
+        case !!type: {
+          return res.status(400).json({ error: { message: 'Request type is required' } });
+        }
+        case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair': {
+          return res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
+        }
+        default: {
+          // create id for new request by incrementing the id of the last request
+          const id = requests[requests.length - 1].id + 1;
+          const newRequest = {
+            id,
+            title,
+            description,
+            type: type.toLowerCase(),
+            status: 'pending',
+            trashed: false,
+            feedback: '',
+            ownerId: decoded.id
+          };
+          // store the new request in memory
+          requests.push(newRequest);
+          return res.status(201).json(newRequest);
+        }
       }
     }
+    res.status(400).json({ error: { message: 'You do not have permission to create a request' } });
   },
 
   updateRequest(req, res) {
@@ -113,7 +119,7 @@ const requestsController = {
           }
         }
       }
-
+    
       // users can only update/edit pending requests
       if (decoded.id === request.ownerId) {
         if (request.status === 'pending') {
@@ -126,7 +132,7 @@ const requestsController = {
             typeUpdate = request.type;
           }
           const updatedRequest = Object
-            .assign({}, request, { title, description, type: typeUpdate });
+            .assign({}, request, { title, description, type: typeUpdate.toLowerCase() });
           // store updated request in memory
           requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
           return res.status(200).json(updatedRequest);
