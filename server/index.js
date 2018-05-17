@@ -11,7 +11,10 @@ const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use('/api/v1/users', users);
 app.use('/api/v1/users/requests', requests);
@@ -23,3 +26,5 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
+
+export default app;
