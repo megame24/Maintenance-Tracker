@@ -7,8 +7,7 @@
     "start": "babel-node server",
     "dev": "concurrently \"npm run start:dev\" \"npm run lint:watch\"",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node -- server",
-    "test": "cross-env NODE_ENV=test mocha --require babel-core/register server/test/**/*.js",
-    "test:watch": "npm run test -- --watch",
+    "test": "cross-env NODE_ENV=test nodemon --exec \"mocha --recursive --require babel-core/register server/test/**/*.js\"",
     "lint": "./node_modules/.bin/esw  server",
     "lint:watch": "npm run lint -- --watch"
   },
