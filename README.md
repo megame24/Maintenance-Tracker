@@ -1,6 +1,6 @@
 # Maintenance-Tracker
 
-[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=feature-api-v1)](https://travis-ci.org/megame24/Maintenance-Tracker)
+[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=feature-api-v1)](https://travis-ci.org/megame24/Maintenance-Tracker) [![Coverage Status](https://coveralls.io/repos/github/megame24/Maintenance-Tracker/badge.svg?branch=feature-api-v1)](https://coveralls.io/github/megame24/Maintenance-Tracker?branch=feature-api-v1)
 
 Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
 
