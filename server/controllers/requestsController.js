@@ -30,7 +30,6 @@ const requestsController = {
       case !!title: {
         return res.status(400).json({ error: { message: 'Title is required' } });
       }
-      // Ensure request title is unique
       case !duplicateRequest: {
         return res.status(400).json({ error: { message: 'Request with that title already exists' } });
       }
@@ -41,10 +40,10 @@ const requestsController = {
         return res.status(400).json({ error: { message: 'Request type is required' } });
       }
       case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair': {
-        return res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
+        res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
+        break;
       }
       default: {
-        // create id for new request by incrementing the id of the last request
         const id = requests[requests.length - 1].id + 1;
         const newRequest = {
           id,
@@ -56,7 +55,6 @@ const requestsController = {
           feedback: '',
           ownerId: req.body.decoded.id
         };
-        // store the new request in memory
         requests.push(newRequest);
         res.status(201).json(newRequest);
       }
@@ -65,7 +63,6 @@ const requestsController = {
 
   updateRequest(req, res) {
     const { decoded, request } = req.body;
-    // admin can update requests' status through this endpoint
     if (decoded.role === 'admin') {
       const { status } = req.body;
       const feedback = req.body.feedback || request.feedback;
@@ -89,7 +86,6 @@ const requestsController = {
       }
       const updatedRequest = Object
         .assign({}, request, { title, description, type: typeUpdate.toLowerCase() });
-      // store updated request in memory
       requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
       return res.status(200).json(updatedRequest);
     }
@@ -100,12 +96,10 @@ const requestsController = {
     // admin can only trash resolved or disapproved requests
     if (decoded.role === 'admin') {
       const trashedRequest = Object.assign({}, request, { trashed: true });
-      // trash request in memory
       requests[requests.findIndex(elem => elem.id === request.id)] = trashedRequest;
       return res.status(200).json({ success: { message: 'Request has been trashed' } });
     }
     if (decoded.id === request.ownerId) {
-      // remove request from memory
       requests.splice(requests.findIndex(ele => ele.id === request.id), 1);
       return res.status(200).json({ success: { message: 'Request has been deleted' } });
     }
