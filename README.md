@@ -1,5 +1,7 @@
 # Maintenance-Tracker
 
+[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=feature-api-v1)](https://travis-ci.org/megame24/Maintenance-Tracker)
+
 Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
 
 [Click here](https://megame24.github.io/Maintenance-Tracker/) to view the app on github pages.
