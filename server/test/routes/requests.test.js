@@ -106,7 +106,7 @@ describe('Requests', () => {
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('You do not have permission to retrieve this request');
+          expect(res.body.error.message).to.equal('You do not have permission to do that');
           done();
         });
     });
@@ -154,7 +154,7 @@ describe('Requests', () => {
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('You do not have permission to create a request');
+          expect(res.body.error.message).to.equal('You do not have permission to do that');
           done();
         });
     });
@@ -282,7 +282,7 @@ describe('Requests', () => {
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('You do not have permission to update this request');
+          expect(res.body.error.message).to.equal('You do not have permission to do that');
           done();
         });
     });
@@ -311,18 +311,6 @@ describe('Requests', () => {
               done();
             });
         });
-        it('Should return a success message if request\'s status is up to date', (done) => {
-          chai.request(server)
-            .put(`/api/v1/users/requests/${request1.id}`)
-            .send({ status: 'disapprove' })
-            .set({ authorization: adminToken })
-            .end((err, res) => {
-              expect(res.status).to.equal(200);
-              expect(res.body).to.be.a('object');
-              expect(res.body.success.message).to.equal('Request already disapproved');
-              done();
-            });
-        });
         it('Should not approve a request if the request is already disapproved or resolved', (done) => {
           chai.request(server)
             .put(`/api/v1/users/requests/${request1.id}`)
@@ -331,7 +319,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request not approved due to status conflict');
+              expect(res.body.error.message).to.equal('Invalid request');
               done();
             });
         });
@@ -343,7 +331,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request not disapproved due to status conflict');
+              expect(res.body.error.message).to.equal('Invalid request');
               done();
             });
         });
@@ -355,7 +343,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request not resolved due to status conflict');
+              expect(res.body.error.message).to.equal('Invalid request');
               done();
             });
         });
@@ -413,7 +401,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(403);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('You do not have permission to update this request');
+              expect(res.body.error.message).to.equal('You do not have permission to do that');
               done();
             });
         });
@@ -475,7 +463,7 @@ describe('Requests', () => {
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('You do not have permission to delete/trash this request');
+          expect(res.body.error.message).to.equal('You do not have permission to do that');
           done();
         });
     });
@@ -487,7 +475,7 @@ describe('Requests', () => {
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.be.a('object');
-            expect(res.body.error.message).to.equal('Request can not be trashed yet');
+            expect(res.body.error.message).to.equal('Request can not be trashed');
             done();
           });
       });
@@ -496,9 +484,9 @@ describe('Requests', () => {
           .delete(`/api/v1/users/requests/${request4.id}`)
           .set({ authorization: adminToken })
           .end((err, res) => {
-            expect(res.status).to.equal(200);
+            expect(res.status).to.equal(400);
             expect(res.body).to.be.a('object');
-            expect(res.body.success.message).to.equal('Request already trashed');
+            expect(res.body.error.message).to.equal('Request can not be trashed');
             done();
           });
       });
