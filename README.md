@@ -40,6 +40,14 @@ Follow the steps below to setup a local development environment.
 3.  Run `npm install` on the terminal to install dependencies.
 4.  Run `npm start` to start the application.
 
+## Testing
+
+Follow the steps below to test the application.
+
+1.  Navigate to the project directory through a terminal
+2.  If you haven't, install dependencies `npm install`
+3.  Run `npm test`
+  
 ## Api EndPoints
 
 EndPoint                      |   Functionality
@@ -50,25 +58,6 @@ GET /users/requests/:id       |   Get a single request through it's id.
 POST /users/requests          |   Creates a new request
 PUT /users/requests/:id       |   Updates a request (admin can resolve, approve, or disapprove a request through this endpoint)
 DELETE /users/requests/:id    |   Deletes a request (admin can trash(remove from admin's workspace) a request through this endpoint)
-
-## Testing
-
-### Testing with Postman
-
-Follow the steps below to test the api endpoints in postman:
-
-1.  Enter the url `http://localhost:8080/api/v1/users/login` and set `x-www-form-urlencoded` key/value pairs to `{ username: 'john', password: 'wick' }` to login as an admin or `{ username: 'uzumaki', password: 'naruto' }` to login as a regular user.
-2.  Copy the returned `token`.
-3.  Set `authorization` to the copied `token` in the header. Or pass it as a url query string in the form `?token=<copied-token>` on every request to the server.
-4. Test the following endpoints, passing in the appropriate data if any:
-  * GET `/users/requests`
-  * GET `/users/requests/<requestId>`
-  * POST `/users/requests`, requires:
-    - `{ title, description, type: ('maintenance' or 'repair') }`
-  * PUT `/users/requests/<requestId>`, requires:
-    - if logged in user is a regular user: `{ title(optional), description(optional), type(optional): ('maintenance' or 'repair') }`
-    - if logged in user is an admin: `{ status: ('approved' or 'disapproved' or 'resolved'), feedback(optional) }`
-  * DELETE `/users/requests/<requestId>`
 
 ## Licence
 
