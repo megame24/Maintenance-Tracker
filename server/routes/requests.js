@@ -36,7 +36,7 @@ router.delete(
     authMiddleware.verifyUser,
     requestsMiddleware.findRequest,
     requestsMiddleware.adminOrOwner,
-    requestsMiddleware.freeToDelete
+    requestsMiddleware.beforeDelete
   ],
   requestsController.deleteRequest
 );
