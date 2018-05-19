@@ -297,7 +297,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request update failed');
+              expect(res.body.error.message.title).to.equal('Invalid Request');
               done();
             });
         });
@@ -309,7 +309,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request update failed');
+              expect(res.body.error.message.title).to.equal('Invalid Request');
               done();
             });
         });
@@ -321,7 +321,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request update failed');
+              expect(res.body.error.message.title).to.equal('Invalid Request');
               done();
             });
         });
@@ -333,7 +333,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request update failed');
+              expect(res.body.error.message.title).to.equal('Invalid Request');
               done();
             });
         });
@@ -345,7 +345,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request update failed');
+              expect(res.body.error.message.title).to.equal('Invalid Request');
               done();
             });
         });
@@ -414,7 +414,7 @@ describe('Requests', () => {
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Request update failed');
+              expect(res.body.error.message).to.equal('Only requests with status pending can be updated');
               done();
             });
         });
