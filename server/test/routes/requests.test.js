@@ -20,10 +20,12 @@ let regularUser2Token;
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const baseUrl = '/api/v1/users';
+
 describe('Requests', () => {
   before((done) => {
     chai.request(server)
-      .post('/api/v1/users/login')
+      .post(`${baseUrl}/login`)
       .send({
         username: admin.username,
         password: admin.password
@@ -35,7 +37,7 @@ describe('Requests', () => {
   });
   before((done) => {
     chai.request(server)
-      .post('/api/v1/users/login')
+      .post(`${baseUrl}/login`)
       .send({
         username: regularUser1.username,
         password: regularUser1.password
@@ -47,7 +49,7 @@ describe('Requests', () => {
   });
   before((done) => {
     chai.request(server)
-      .post('/api/v1/users/login')
+      .post(`${baseUrl}/login`)
       .send({
         username: regularUser2.username,
         password: regularUser2.password
@@ -63,7 +65,7 @@ describe('Requests', () => {
     it('Should return all untrashed requests if user is an admin', (done) => {
       const numOfRequests = requests.filter(elem => !elem.trashed).length;
       chai.request(server)
-        .get('/api/v1/users/requests')
+        .get(`${baseUrl}/requests`)
         .set({ authorization: adminToken })
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -75,7 +77,7 @@ describe('Requests', () => {
     it('Should return all requests belonging to a logged in user', (done) => {
       const numOfRequests = requests.filter(elem => elem.ownerId === regularUser1.id).length;
       chai.request(server)
-        .get('/api/v1/users/requests')
+        .get(`${baseUrl}/requests`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -90,7 +92,7 @@ describe('Requests', () => {
   describe('Making a GET request to /users/requests/<requestId>', () => {
     it('Should return a 404 error(request not found) if id is invalid', (done) => {
       chai.request(server)
-        .get(`/api/v1/users/requests/${invalidId}`)
+        .get(`${baseUrl}/requests/${invalidId}`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(404);
@@ -101,7 +103,7 @@ describe('Requests', () => {
     });
     it('Should only allow an admin or the owner of a request to retrieve it', (done) => {
       chai.request(server)
-        .get(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+        .get(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser2Token })
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -112,7 +114,7 @@ describe('Requests', () => {
     });
     it('Should allow the owner of a request to retrieve it', (done) => {
       chai.request(server)
-        .get(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+        .get(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -123,7 +125,7 @@ describe('Requests', () => {
     });
     it('Should not retrieve a trashed request for an admin', (done) => {
       chai.request(server)
-        .get(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+        .get(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: adminToken })
         .end((err, res) => {
           expect(res.status).to.equal(400);
@@ -134,7 +136,7 @@ describe('Requests', () => {
     });
     it('Should allow admin to retrieve any request if it is not trashed', (done) => {
       chai.request(server)
-        .get(`/api/v1/users/requests/${regularUser1.requestsId[1]}`)
+        .get(`${baseUrl}/requests/${regularUser1.requestsId[1]}`)
         .set({ authorization: adminToken })
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -149,7 +151,7 @@ describe('Requests', () => {
   describe('Making a POST request to /users/requests', () => {
     it('Should only allow users to create a request', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .set({ authorization: adminToken })
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -160,7 +162,7 @@ describe('Requests', () => {
     });
     it('Should not create a request if no \'title\' was provided', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(400);
@@ -171,7 +173,7 @@ describe('Requests', () => {
     });
     it('Should not create a request if provided \'title\' is not unique', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .send({ title: request1.title })
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
@@ -183,7 +185,7 @@ describe('Requests', () => {
     });
     it('Should not create a request if no \'description\' was provided', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .send({ title: 'New request' })
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
@@ -195,7 +197,7 @@ describe('Requests', () => {
     });
     it('Should not create a request if no \'type\' was provided', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .send({
           title: 'New request',
           description: 'This is a new request'
@@ -210,7 +212,7 @@ describe('Requests', () => {
     });
     it('Should not create a request if \'type\' is niether \'maintenance\' nor \'repair\'', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .send({
           title: 'New request',
           description: 'This is a new request',
@@ -226,7 +228,7 @@ describe('Requests', () => {
     });
     it('Should create a request if title and description are provide and type equals maintenance', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .send({
           title: 'New request',
           description: 'This is a new request',
@@ -244,7 +246,7 @@ describe('Requests', () => {
     });
     it('Should create a request if title and description are provide and type equals repair', (done) => {
       chai.request(server)
-        .post('/api/v1/users/requests')
+        .post(`${baseUrl}/requests`)
         .send({
           title: 'New request',
           description: 'This is a new request',
@@ -266,7 +268,7 @@ describe('Requests', () => {
   describe('Making a PUT request to /users/requests/<requestId>', () => {
     it('Should return a 404 error(request not found) if id is invalid', (done) => {
       chai.request(server)
-        .put(`/api/v1/users/requests/${invalidId}`)
+        .put(`${baseUrl}/requests/${invalidId}`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(404);
@@ -277,7 +279,7 @@ describe('Requests', () => {
     });
     it('Should only allow an admin or the owner of a request to update it', (done) => {
       chai.request(server)
-        .put(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+        .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser2Token })
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -290,60 +292,60 @@ describe('Requests', () => {
       describe('Error', () => {
         it('Should return a 400 error(Invalid request) if no \'status\' was provided', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request1.id}`)
+            .put(`${baseUrl}/requests/${request1.id}`)
             .set({ authorization: adminToken })
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Invalid request');
+              expect(res.body.error.message).to.equal('Request update failed');
               done();
             });
         });
         it('Should return a 400 error(Invalid request) if provided \'status\' does not have value equal to \'approve\', \'disapprove\', nor \'resolve\'', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request1.id}`)
+            .put(`${baseUrl}/requests/${request1.id}`)
             .send({ status: 'invalid' })
             .set({ authorization: adminToken })
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Invalid request');
+              expect(res.body.error.message).to.equal('Request update failed');
               done();
             });
         });
         it('Should not approve a request if the request is already disapproved or resolved', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request1.id}`)
+            .put(`${baseUrl}/requests/${request1.id}`)
             .send({ status: 'approve' })
             .set({ authorization: adminToken })
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Invalid request');
+              expect(res.body.error.message).to.equal('Request update failed');
               done();
             });
         });
         it('Should not disapprove a request if the request is already approved or resolved', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request2.id}`)
+            .put(`${baseUrl}/requests/${request2.id}`)
             .send({ status: 'disapprove' })
             .set({ authorization: adminToken })
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Invalid request');
+              expect(res.body.error.message).to.equal('Request update failed');
               done();
             });
         });
         it('Should not resolve a request if the request is not approved', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request1.id}`)
+            .put(`${baseUrl}/requests/${request1.id}`)
             .send({ status: 'resolve' })
             .set({ authorization: adminToken })
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('Invalid request');
+              expect(res.body.error.message).to.equal('Request update failed');
               done();
             });
         });
@@ -358,7 +360,7 @@ describe('Requests', () => {
         });
         it('Should disapprove a pending request if provided \'status\' has a value of \'disapprove\'', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request3.id}`)
+            .put(`${baseUrl}/requests/${request3.id}`)
             .send({ status: 'disapprove' })
             .set({ authorization: adminToken })
             .end((err, res) => {
@@ -370,7 +372,7 @@ describe('Requests', () => {
         });
         it('Should approve a pending request if provided \'status\' has a value of \'approve\'', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request3.id}`)
+            .put(`${baseUrl}/requests/${request3.id}`)
             .send({ status: 'approve' })
             .set({ authorization: adminToken })
             .end((err, res) => {
@@ -382,7 +384,7 @@ describe('Requests', () => {
         });
         it('Should resolve an approved request if provided \'status\' has a value of \'resolve\'', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${request2.id}`)
+            .put(`${baseUrl}/requests/${request2.id}`)
             .send({ status: 'resolve' })
             .set({ authorization: adminToken })
             .end((err, res) => {
@@ -396,7 +398,7 @@ describe('Requests', () => {
       describe('A user making a PUT request to /users/requests/<requestId>', () => {
         it('Should not update if request do not belong to user', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+            .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
             .set({ authorization: regularUser2Token })
             .end((err, res) => {
               expect(res.status).to.equal(403);
@@ -407,18 +409,18 @@ describe('Requests', () => {
         });
         it('Should not update if the request\'s status do not have a value of pending', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+            .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
             .set({ authorization: regularUser1Token })
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body).to.be.a('object');
-              expect(res.body.error.message).to.equal('You can only edit requests with status: pending');
+              expect(res.body.error.message).to.equal('Request update failed');
               done();
             });
         });
         it('Should update if the request\'s status has a value of pending', (done) => {
           chai.request(server)
-            .put(`/api/v1/users/requests/${regularUser1.requestsId[3]}`)
+            .put(`${baseUrl}/requests/${regularUser1.requestsId[3]}`)
             .send({ title: 'updated title' })
             .set({ authorization: regularUser1Token })
             .end((err, res) => {
@@ -436,7 +438,7 @@ describe('Requests', () => {
   describe('Making a DELETE request to /users/requests/<requestId>', () => {
     it('Should return a 404 error(request not found) if id is invalid', (done) => {
       chai.request(server)
-        .delete(`/api/v1/users/requests/${invalidId}`)
+        .delete(`${baseUrl}/requests/${invalidId}`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(404);
@@ -447,7 +449,7 @@ describe('Requests', () => {
     });
     it('Should not delete or trash a request if the request\'s status has a value of approved', (done) => {
       chai.request(server)
-        .delete(`/api/v1/users/requests/${regularUser1.requestsId[1]}`)
+        .delete(`${baseUrl}/requests/${regularUser1.requestsId[1]}`)
         .set({ authorization: regularUser1Token })
         .end((err, res) => {
           expect(res.status).to.equal(400);
@@ -458,7 +460,7 @@ describe('Requests', () => {
     });
     it('Should only allow an admin or the owner to trash or delete the request respectively', (done) => {
       chai.request(server)
-        .delete(`/api/v1/users/requests/${regularUser1.requestsId[0]}`)
+        .delete(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
         .set({ authorization: regularUser2Token })
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -470,7 +472,7 @@ describe('Requests', () => {
     describe('Admin making a DELETE request to /users/requests/<requestId>', () => {
       it('Should not trash a pending request', (done) => {
         chai.request(server)
-          .delete(`/api/v1/users/requests/${request3.id}`)
+          .delete(`${baseUrl}/requests/${request3.id}`)
           .set({ authorization: adminToken })
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -481,7 +483,7 @@ describe('Requests', () => {
       });
       it('Should return message(Request already trashed) if request\'s trash has a value of true', (done) => {
         chai.request(server)
-          .delete(`/api/v1/users/requests/${request4.id}`)
+          .delete(`${baseUrl}/requests/${request4.id}`)
           .set({ authorization: adminToken })
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -492,7 +494,7 @@ describe('Requests', () => {
       });
       it('Should trash a request that has been dissaproved or resolved', (done) => {
         chai.request(server)
-          .delete(`/api/v1/users/requests/${request2.id}`)
+          .delete(`${baseUrl}/requests/${request2.id}`)
           .set({ authorization: adminToken })
           .end((err, res) => {
             expect(res.status).to.equal(200);
@@ -505,7 +507,7 @@ describe('Requests', () => {
     describe('A user making a DELETE request to /users/requests/<requestId>', () => {
       it('Should delete the request if the user made the request', (done) => {
         chai.request(server)
-          .delete(`/api/v1/users/requests/${regularUser1.requestsId[2]}`)
+          .delete(`${baseUrl}/requests/${regularUser1.requestsId[2]}`)
           .set({ authorization: regularUser1Token })
           .end((err, res) => {
             expect(res.status).to.equal(200);
