@@ -9,12 +9,14 @@ const {
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const url = '/api/v1/users/login';
+
 describe('Users', () => {
   // Log in user
   describe('Making a POST request to /users/login', () => {
     it('Should fail if either username or password was not provided', (done) => {
       chai.request(server)
-        .post('/api/v1/users/login')
+        .post(`${url}`)
         .end((err, res) => {
           expect(res.status).to.equal(401);
           expect(res.body).to.a('object');
@@ -24,7 +26,7 @@ describe('Users', () => {
     });
     it('Should fail if user with provided username do not exist', (done) => {
       chai.request(server)
-        .post('/api/v1/users/login')
+        .post(`${url}`)
         .send({ username: 'invalidUsername', password: 'password' })
         .end((err, res) => {
           expect(res.status).to.equal(401);
@@ -35,7 +37,7 @@ describe('Users', () => {
     });
     it('Should fail if password is incorrect', (done) => {
       chai.request(server)
-        .post('/api/v1/users/login')
+        .post(`${url}`)
         .send({ username: regularUser1.username, password: 'password' })
         .end((err, res) => {
           expect(res.status).to.equal(401);
@@ -46,7 +48,7 @@ describe('Users', () => {
     });
     it('Should login a user and return a token if credentials are correct', (done) => {
       chai.request(server)
-        .post('/api/v1/users/login')
+        .post(`${url}`)
         .send({
           username: regularUser1.username,
           password: regularUser1.password
