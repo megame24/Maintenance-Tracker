@@ -109,42 +109,7 @@ describe('requestsMiddleware', () => {
       done();
     });
   });
-
-  // isAUser
-  describe('Calling isAUser', () => {
-    it('Should call the callback if role is user', (done) => {
-      const request = httpMocks.createRequest({
-        body: { decoded: regularUser1 }
-      });
-      const response = httpMocks.createResponse({
-        eventEmitter: events.EventEmitter
-      });
-      const callback = () => {
-        expect(1).to.equal(1);
-      };
-      requestsMiddleware.isAUser(request, response, callback);
-      expect(response.statusCode).to.equal(200);
-      done();
-    });
-    it('Should return a 403 error if role is not user', (done) => {
-      const request = httpMocks.createRequest({
-        body: { decoded: admin }
-      });
-      const response = httpMocks.createResponse({
-        eventEmitter: events.EventEmitter
-      });
-      const callback = () => {
-        expect(1).to.equal(2);
-      };
-      requestsMiddleware.isAUser(request, response, callback);
-      expect(response.statusCode).to.equal(403);
-      const data = JSON.parse(response._getData());
-      expect(data).to.be.a('object');
-      expect(data.error.message).to.equal('You do not have permission to do that');
-      done();
-    });
-  });
-
+  
   // beforeUpdate
   describe('Calling beforeUpdate', () => {
     describe('When role is user', () => {
@@ -182,14 +147,17 @@ describe('requestsMiddleware', () => {
         expect(response.statusCode).to.equal(400);
         const data = JSON.parse(response._getData());
         expect(data).to.be.a('object');
-        expect(data.error.message).to.equal('You can only edit requests with status: pending');
+        expect(data.error.message).to.equal('Request update failed');
         done();
       });
     });
     describe('When role is admin', () => {
       it('Should return 400 error if status is missing in request body', (done) => {
         const request = httpMocks.createRequest({
-          body: { decoded: admin }
+          body: {
+            decoded: admin,
+            request: { status: 'pending' }
+          }
         });
         const response = httpMocks.createResponse({
           eventEmitter: events.EventEmitter
@@ -201,13 +169,14 @@ describe('requestsMiddleware', () => {
         expect(response.statusCode).to.equal(400);
         const data = JSON.parse(response._getData());
         expect(data).to.be.a('object');
-        expect(data.error.message).to.equal('Invalid request');
+        expect(data.error.message).to.equal('Request update failed');
         done();
       });
       it('Should return 400 error if status is not resolve, disapprove nor approve', (done) => {
         const request = httpMocks.createRequest({
           body: {
             decoded: admin,
+            request: { status: 'pending' },
             status: 'invalid'
           }
         });
@@ -221,7 +190,7 @@ describe('requestsMiddleware', () => {
         expect(response.statusCode).to.equal(400);
         const data = JSON.parse(response._getData());
         expect(data).to.be.a('object');
-        expect(data.error.message).to.equal('Invalid request');
+        expect(data.error.message).to.equal('Request update failed');
         done();
       });
       it('Should return 400 error if status is \'resolve\', but request\'s status is not \'approved\'', (done) => {
@@ -242,7 +211,7 @@ describe('requestsMiddleware', () => {
         expect(response.statusCode).to.equal(400);
         const data = JSON.parse(response._getData());
         expect(data).to.be.a('object');
-        expect(data.error.message).to.equal('Invalid request');
+        expect(data.error.message).to.equal('Request update failed');
         done();
       });
       it('Should call the callback if status is \'resolve\', and request\'s status is \'approved\'', (done) => {
@@ -281,7 +250,7 @@ describe('requestsMiddleware', () => {
         expect(response.statusCode).to.equal(400);
         const data = JSON.parse(response._getData());
         expect(data).to.be.a('object');
-        expect(data.error.message).to.equal('Invalid request');
+        expect(data.error.message).to.equal('Request update failed');
         done();
       });
       it('Should call the callback if status is \'approve\' or \'disapprove\', and request\'s status is \'pending\'', (done) => {
