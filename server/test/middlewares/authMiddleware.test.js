@@ -14,10 +14,12 @@ let regularUser1Token;
 const { expect } = chai;
 chai.use(chaiHttp);
 
+const baseUrl = '/api/v1/users';
+
 describe('AuthMiddleware', () => {
   before((done) => {
     chai.request(server)
-      .post('/api/v1/users/login')
+      .post(`${baseUrl}/login`)
       .send({
         username: regularUser1.username,
         password: regularUser1.password
@@ -31,7 +33,7 @@ describe('AuthMiddleware', () => {
     it('Should grant user access if valid token is provided', (done) => {
       const request = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/v1/users/requests',
+        url: `${baseUrl}/requests`,
         headers: { authorization: regularUser1Token }
       });
       const response = httpMocks.createResponse({
@@ -48,7 +50,7 @@ describe('AuthMiddleware', () => {
     it('Should deny user access if invalid token is provided', (done) => {
       const request = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/v1/users/requests',
+        url: `${baseUrl}/requests`,
         headers: { authorization: invalidToken }
       });
       const response = httpMocks.createResponse({
@@ -65,7 +67,7 @@ describe('AuthMiddleware', () => {
     it('Should deny user access if no token is provided', (done) => {
       const request = httpMocks.createRequest({
         method: 'GET',
-        url: '/api/v1/users/requests'
+        url: `${baseUrl}/requests`
       });
       const response = httpMocks.createResponse({
         eventEmitter: events.EventEmitter
