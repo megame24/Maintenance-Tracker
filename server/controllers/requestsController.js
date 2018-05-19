@@ -1,4 +1,5 @@
 import requests from '../db/requests';
+import requestsHelper from '../helpers/requestsHelper';
 
 const requestsController = {
   getRequests(req, res) {
@@ -25,84 +26,64 @@ const requestsController = {
 
   createRequest(req, res) {
     const { title, description, type } = req.body;
+    // only allow users to make a request
+    if (!requestsHelper.isAUser(req)) {
+      return res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+    }
     const duplicateRequest = requests.filter(elem => elem.title === title)[0];
     switch (false) {
-      case !!title: {
+      case !!title: 
         return res.status(400).json({ error: { message: 'Title is required' } });
-      }
-      case !duplicateRequest: {
+      case !duplicateRequest: 
         return res.status(400).json({ error: { message: 'Request with that title already exists' } });
-      }
-      case !!description: {
+      case !!description: 
         return res.status(400).json({ error: { message: 'Description is required' } });
-      }
-      case !!type: {
+      case !!type: 
         return res.status(400).json({ error: { message: 'Request type is required' } });
-      }
-      case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair': {
+      case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
         res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
         break;
-      }
       default: {
-        const id = requests[requests.length - 1].id + 1;
-        const newRequest = {
-          id,
-          title,
-          description,
-          type: type.toLowerCase(),
-          status: 'pending',
-          trashed: false,
-          feedback: '',
-          ownerId: req.body.decoded.id
-        };
-        requests.push(newRequest);
+        const newRequest = requestsHelper.createRequest(req);
         res.status(201).json(newRequest);
       }
     }
   },
 
   updateRequest(req, res) {
-    const { decoded, request } = req.body;
+    const canUpdate = requestsHelper.canUpdate(req);
+    if (canUpdate.error) {
+      return res.status(400).json({ error: { message: canUpdate.message } });
+    }
+    const { decoded } = req.body;
     if (decoded.role === 'admin') {
       const { status } = req.body;
-      const feedback = req.body.feedback || request.feedback;
-      if (status === 'resolve') {
-        const updatedRequest = Object.assign({}, request, { status: 'resolved', feedback });
-        requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
-        return res.status(200).json({ success: { message: 'Request resolved' } });
-      }
-      if ((status === 'approve') || (status === 'disapprove')) {
-        const updatedRequest = Object.assign({}, request, { status: `${status}d`, feedback });
-        requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
-        return res.status(200).json({ success: { message: `Request ${status}d` } });
+      switch (true) {
+        case status === 'approve':
+          return requestsHelper.adminUpdateSuccess(req, res, 'approved');
+        case status === 'disapprove':
+          return requestsHelper.adminUpdateSuccess(req, res, 'disapproved');
+        default:
+          return requestsHelper.adminUpdateSuccess(req, res, 'resolved');
       }
     }
-    if (decoded.id === request.ownerId) {
-      const title = req.body.title || request.title;
-      const description = req.body.description || request.description;
-      let typeUpdate = req.body.type || request.type;
-      if (typeUpdate.toLowerCase() !== 'maintenance' || typeUpdate.toLowerCase() !== 'repair') {
-        typeUpdate = request.type;
-      }
-      const updatedRequest = Object
-        .assign({}, request, { title, description, type: typeUpdate.toLowerCase() });
-      requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
-      return res.status(200).json(updatedRequest);
-    }
+    return requestsHelper.userUpdateSuccess(req, res);
   },
 
   deleteRequest(req, res) {
+    const canDelete = requestsHelper.canDelete(req);
+    if (canDelete.error) {
+      return res.status(400).json({ error: { message: canDelete.message } });
+    }
     const { decoded, request } = req.body;
-    // admin can only trash resolved or disapproved requests
     if (decoded.role === 'admin') {
+      // trash request in mock db by setting trashed to true
       const trashedRequest = Object.assign({}, request, { trashed: true });
       requests[requests.findIndex(elem => elem.id === request.id)] = trashedRequest;
       return res.status(200).json({ success: { message: 'Request has been trashed' } });
     }
-    if (decoded.id === request.ownerId) {
-      requests.splice(requests.findIndex(ele => ele.id === request.id), 1);
-      return res.status(200).json({ success: { message: 'Request has been deleted' } });
-    }
+    requests.splice(requests.findIndex(ele => ele.id === request.id), 1);
+    return res.status(200).json({ success: { message: 'Request has been deleted' } });
   }
 };
 
