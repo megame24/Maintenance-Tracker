@@ -4,7 +4,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import httpMocks from 'node-mocks-http';
 import events from 'events';
-import server from '../../index';
+import server from '../../app';
 import testData from '../testData';
 import authMiddleware from '../../middlewares/authMiddleware';
 
