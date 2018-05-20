@@ -54,7 +54,8 @@ Follow the steps below to test the application.
 
 EndPoint                      |   Functionality
 ------------------------------|------------------------
-POST /users/login             |   Logs in a user.
+POST /users/register          |   User sign up.
+POST /users/login             |   User login.
 GET /users/requests           |   Gets all requests of a logged in user (if user is an admin, gets all requests in database).
 GET /users/requests/:id       |   Get a single request through it's id.
 POST /users/requests          |   Creates a new request
