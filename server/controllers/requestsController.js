@@ -35,13 +35,13 @@ const requestsController = {
     const duplicateRequest = requests.filter(elem => elem.title === title)[0];
     switch (false) {
       case !!title: 
-        return res.status(400).json({ error: { message: 'Title is required' } });
+        return res.status(400).json({ error: { message: 'title is required' } });
       case !duplicateRequest: 
         return res.status(400).json({ error: { message: 'Request with that title already exists' } });
       case !!description: 
-        return res.status(400).json({ error: { message: 'Description is required' } });
+        return res.status(400).json({ error: { message: 'description is required' } });
       case !!type: 
-        return res.status(400).json({ error: { message: 'Request type is required' } });
+        return res.status(400).json({ error: { message: 'type is required' } });
       case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
         res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
         break;

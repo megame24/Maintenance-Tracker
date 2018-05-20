@@ -28,15 +28,15 @@ const usersController = {
     const duplicateUser = users.filter(elem => elem.username === username)[0];
     switch (false) {
       case !!fullname: 
-        return res.status(400).json({ error: { message: 'Fullname is required' } });
+        return res.status(400).json({ error: { message: 'fullname is required' } });
       case !!email: 
-        return res.status(400).json({ error: { message: 'Email is required' } });
+        return res.status(400).json({ error: { message: 'email is required' } });
       case !!username: 
-        return res.status(400).json({ error: { message: 'Username is required' } });
+        return res.status(400).json({ error: { message: 'username is required' } });
       case !duplicateUser: 
         return res.status(400).json({ error: { message: 'User with that username already exists' } });
       case !!password:
-        res.status(400).json({ error: { message: 'Password is required' } }); break;
+        res.status(400).json({ error: { message: 'password is required' } }); break;
       default: {
         const successResponse = usersHelper.registerUser(req);
         res.status(201).json(successResponse);
