@@ -68,7 +68,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Fullname is required');
+          expect(res.body.error.message).to.equal('fullname is required');
           done();
         });
     });
@@ -81,7 +81,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Email is required');
+          expect(res.body.error.message).to.equal('email is required');
           done();
         });
     });
@@ -95,7 +95,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Username is required');
+          expect(res.body.error.message).to.equal('username is required');
           done();
         });
     });
@@ -125,7 +125,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Password is required');
+          expect(res.body.error.message).to.equal('password is required');
           done();
         });
     });
