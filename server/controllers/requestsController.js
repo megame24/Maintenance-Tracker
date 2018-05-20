@@ -25,9 +25,11 @@ const requestsController = {
   },
 
   createRequest(req, res) {
-    const { title, description, type } = req.body;
+    const {
+      title, description, type, decoded
+    } = req.body;
     // only allow users to make a request
-    if (!requestsHelper.isAUser(req)) {
+    if (!requestsHelper.isAUser(decoded)) {
       return res.status(403).json({ error: { message: 'You do not have permission to do that' } });
     }
     const duplicateRequest = requests.filter(elem => elem.title === title)[0];

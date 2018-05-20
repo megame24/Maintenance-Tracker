@@ -11,8 +11,7 @@ export default {
     return false;
   },
 
-  isAUser(req) {
-    const { decoded } = req.body;
+  isAUser(decoded) {
     if (decoded.role === 'user') {
       return true;
     }
@@ -20,7 +19,9 @@ export default {
   },
 
   createRequest(req) {
-    const { title, description, type } = req.body;
+    const {
+      title, description, type, decoded
+    } = req.body;
     // create new request's id by increasing the id of the last request in mock db(requests)
     const id = requests[requests.length - 1].id + 1;
     const newRequest = {
@@ -31,7 +32,7 @@ export default {
       status: 'pending',
       trashed: false,
       feedback: '',
-      ownerId: req.body.decoded.id
+      ownerId: decoded.id
     };
     requests.push(newRequest);
     return newRequest;
