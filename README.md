@@ -5,6 +5,7 @@
 Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
 
 [Click here](https://megame24.github.io/Maintenance-Tracker/) to view the app on github pages.
+The link to the api deployed to heroku: https://in-maintenance-tracker.herokuapp.com/api/v1
 
 ## Features
 
