@@ -1,25 +1,25 @@
 import express from 'express';
-import requestsController from '../controllers/requestsController';
-import authMiddleware from '../middlewares/authMiddleware';
+import RequestsController from '../controllers/RequestsController';
+import AuthMiddleware from '../middlewares/AuthMiddleware';
 
 const router = express.Router();
 
-router.get('/', authMiddleware.verifyUser, requestsController.getRequests);
-router.post('/', authMiddleware.verifyUser, requestsController.createRequest);
+router.get('/users/requests', AuthMiddleware.verifyUser, RequestsController.getRequests);
+router.post('/users/requests', AuthMiddleware.verifyUser, RequestsController.createRequest);
 router.get(
-  '/:id',
-  [authMiddleware.verifyUser, authMiddleware.authorized],
-  requestsController.getRequestById
+  '/users/requests/:id',
+  [AuthMiddleware.verifyUser, AuthMiddleware.authorized],
+  RequestsController.getRequestById
 );
 router.put(
-  '/:id',
-  [authMiddleware.verifyUser, authMiddleware.authorized],
-  requestsController.updateRequest
+  '/users/requests/:id',
+  [AuthMiddleware.verifyUser, AuthMiddleware.authorized],
+  RequestsController.updateRequest
 );
 router.delete(
-  '/:id',
-  [authMiddleware.verifyUser, authMiddleware.authorized],
-  requestsController.deleteRequest
+  '/users/requests/:id',
+  [AuthMiddleware.verifyUser, AuthMiddleware.authorized],
+  RequestsController.deleteRequest
 );
 
 export default router;

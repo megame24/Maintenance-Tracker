@@ -6,7 +6,7 @@ import httpMocks from 'node-mocks-http';
 import events from 'events';
 import server from '../../app';
 import testData from '../testData';
-import authMiddleware from '../../middlewares/authMiddleware';
+import AuthMiddleware from '../../middlewares/AuthMiddleware';
 
 const { regularUser1, invalidToken } = testData;
 let regularUser1Token;
@@ -43,7 +43,7 @@ describe('AuthMiddleware', () => {
         expect(request.body.decoded.id).to.equal(regularUser1.id);
         expect(request.body.decoded.username).to.equal(regularUser1.username);
       };
-      authMiddleware.verifyUser(request, response, callback);
+      AuthMiddleware.verifyUser(request, response, callback);
       expect(response.statusCode).to.equal(200);
       done();
     });
@@ -57,7 +57,7 @@ describe('AuthMiddleware', () => {
         eventEmitter: events.EventEmitter
       });
       const callback = () => {};
-      authMiddleware.verifyUser(request, response, callback);
+      AuthMiddleware.verifyUser(request, response, callback);
       expect(response.statusCode).to.equal(401);
       const data = JSON.parse(response._getData());
       expect(data).to.be.a('object');
@@ -73,7 +73,7 @@ describe('AuthMiddleware', () => {
         eventEmitter: events.EventEmitter
       });
       const callback = () => {};
-      authMiddleware.verifyUser(request, response, callback);
+      AuthMiddleware.verifyUser(request, response, callback);
       expect(response.statusCode).to.equal(401);
       const data = JSON.parse(response._getData());
       expect(data).to.be.a('object');

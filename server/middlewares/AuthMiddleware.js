@@ -1,8 +1,8 @@
 import JWToken from '../helpers/JWToken';
 import requestsHelper from '../helpers/requestsHelper';
 
-const authMiddleware = {
-  verifyUser(req, res, next) {
+class AuthMiddleware {
+  static verifyUser(req, res, next) {
     const token = req.headers.authorization || req.query.token;
     if (token) {
       const decoded = JWToken.verifyToken(token);
@@ -13,9 +13,9 @@ const authMiddleware = {
       return res.status(401).json({ error: { message: 'Authentication failed' } });
     }
     return res.status(401).json({ error: { message: 'Authentication failed' } });
-  },
+  }
 
-  authorized(req, res, next) {
+  static authorized(req, res, next) {
     if (!requestsHelper.foundRequest(req)) {
       return res.status(404).json({ error: { message: 'Request not found' } });
     }
@@ -28,6 +28,6 @@ const authMiddleware = {
     }
     res.status(403).json({ error: { message: 'You do not have permission to do that' } });
   }
-};
+}
 
-export default authMiddleware;
+export default AuthMiddleware;

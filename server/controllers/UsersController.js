@@ -2,8 +2,8 @@ import users from '../db/users';
 import JWToken from '../helpers/JWToken';
 import usersHelper from '../helpers/usersHelper';
 
-const usersController = {
-  login(req, res) {
+class UsersController {
+  static login(req, res) {
     const { username, password } = req.body;
     if (username && password) {
       const user = users.filter(element => element.username === username)[0];
@@ -11,6 +11,7 @@ const usersController = {
         const userDetails = {
           id: user.id,
           username: user.username,
+          fullname: user.fullname,
           role: user.role
         };
         const token = JWToken.generateToken(userDetails);
@@ -19,9 +20,9 @@ const usersController = {
       return res.status(401).json({ error: { message: 'Invalid username or password' } });
     }
     return res.status(401).json({ error: { message: 'Username and password required' } });
-  },
+  }
 
-  register(req, res) {
+  static register(req, res) {
     const {
       fullname, email, username, password
     } = req.body;
@@ -43,6 +44,6 @@ const usersController = {
       }
     }
   }
-};
+}
 
-export default usersController;
+export default UsersController;

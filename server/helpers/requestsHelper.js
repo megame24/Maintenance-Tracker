@@ -32,6 +32,8 @@ export default {
       status: 'pending',
       trashed: false,
       feedback: '',
+      owner: decoded.fullname,
+      date: Date.now(),
       ownerId: decoded.id
     };
     requests.push(newRequest);

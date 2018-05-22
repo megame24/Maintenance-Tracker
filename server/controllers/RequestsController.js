@@ -1,8 +1,8 @@
 import requests from '../db/requests';
 import requestsHelper from '../helpers/requestsHelper';
 
-const requestsController = {
-  getRequests(req, res) {
+class RequestsController {
+  static getRequests(req, res) {
     const { decoded } = req.body;
     if (decoded.role === 'admin') {
       const adminRequests = requests.filter(elem => !elem.trashed);
@@ -10,9 +10,9 @@ const requestsController = {
     }
     const userRequests = requests.filter(elem => elem.ownerId === decoded.id);
     return res.status(200).json(userRequests);
-  },
+  }
 
-  getRequestById(req, res) {
+  static getRequestById(req, res) {
     const { decoded, request } = req.body;
     if (decoded.id === request.ownerId) {
       return res.status(200).json(request);
@@ -22,9 +22,9 @@ const requestsController = {
     } else {
       res.status(400).json({ error: { message: 'Cannot retrieve trashed request' } });
     }
-  },
+  }
 
-  createRequest(req, res) {
+  static createRequest(req, res) {
     const {
       title, description, type, decoded
     } = req.body;
@@ -50,9 +50,9 @@ const requestsController = {
         res.status(201).json(newRequest);
       }
     }
-  },
+  }
 
-  updateRequest(req, res) {
+  static updateRequest(req, res) {
     const canUpdate = requestsHelper.canUpdate(req);
     if (canUpdate.error) {
       return res.status(400).json({ error: { message: canUpdate.message } });
@@ -70,9 +70,9 @@ const requestsController = {
       }
     }
     return requestsHelper.userUpdateSuccess(req, res);
-  },
+  }
 
-  deleteRequest(req, res) {
+  static deleteRequest(req, res) {
     const canDelete = requestsHelper.canDelete(req);
     if (canDelete.error) {
       return res.status(400).json({ error: { message: canDelete.message } });
@@ -87,6 +87,6 @@ const requestsController = {
     requests.splice(requests.findIndex(ele => ele.id === request.id), 1);
     return res.status(200).json({ success: { message: 'Request has been deleted' } });
   }
-};
+}
 
-export default requestsController;
+export default RequestsController;

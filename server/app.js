@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/v1/users', users);
-app.use('/api/v1/users/requests', requests);
+app.use('/api/v1', users);
+app.use('/api/v1', requests);
 
 export default app;

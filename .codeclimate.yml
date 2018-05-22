@@ -1,0 +1,11 @@
+engines:
+  duplication:
+    enabled: false
+    config:
+      languages:
+      - javascript
+ratings:
+  paths:
+  - "server/**/*.js"
+exclude_paths:
+  - "server/test/**/*"
