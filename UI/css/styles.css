@@ -289,12 +289,13 @@ tbody tr:nth-child(odd) {
   .right-menu {
     width: 75%;
     display: flex;
+    flex: auto auto;
     flex-direction: row;
+    justify-content: flex-end;
     flex-wrap: wrap;
   }
   .right-menu li {
     display: inline-block;
-    width: calc(100% / 5);
     text-align: center;
   }
   .right-menu li:hover {
@@ -309,7 +310,7 @@ tbody tr:nth-child(odd) {
   }
   .nav-item {
     display: inline-block;
-    padding: 20px 15px;
+    padding: 20px 30px;
   }
   .admin,
   .request,
