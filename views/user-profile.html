@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
-<body class="gray">
+<body>
     <nav>
         <div class="mobile-container container">
             <div class="nav-header nav-header-shadow not-mobile-left">
@@ -22,20 +22,6 @@
                 <div class="clearfix"></div>
             </div>
             <ul class="right-menu not-mobile not-mobile-right">
-                <li class="admin">
-                    <div>
-                        <a href="#" class="nav-item">Admin
-                            <span class="not-mobile">
-                                <i class="icon ion-android-arrow-dropdown"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="drop-down-menu hide">
-                        <a href="./admin-profile.html">Profile</a>
-                        <a href="./admin-dashboard.html">Dashboard</a>
-                        <a href="#">Logout</a>
-                    </div>
-                </li>
                 <li class="request">
                     <div>
                         <a href="#" class="nav-item">Requests
@@ -51,49 +37,32 @@
                 </li>
                 <li class="user">
                     <div>
-                        <a href="#" class="nav-item">User
+                        <a href="#" class="nav-item">Welcome &#60;username&#62;
                             <span class="not-mobile">
                                 <i class="icon ion-android-arrow-dropdown"></i>
                             </span>
                         </a>
                     </div>
                     <div class="drop-down-menu hide">
-                        <a href="./user-profile.html">Profile</a>
+                        <a href="#">Profile</a>
                         <a href="#">Logout</a>
                     </div>
-                </li>
-                <li>
-                    <a href="./login.html" class="nav-item">Login</a>
-                </li>
-                <li class="active">
-                    <a href="#" class="nav-item">Sign Up</a>
                 </li>
             </ul>
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section id="register">
+    <section id="user-profile" class="min-height">
         <div class="container">
-            <div class="form">
-                <div class="form-icon-container">
-                    <div class="center form-icon blue">
-                        <i class="icon ion-edit"></i>
-                    </div>
+            <div class="profile">
+                <h2>Name: Monkey D. Luffy</h2>
+                <h3>Username: Strawhat</h3>
+                <div class="bio">
+                    <h3>Bio</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam.</p>
                 </div>
-                <h1 class="center">Create Account</h1>
-                <form>
-                    <input class="form-input" type="text" name="name" placeholder="Full Name" required autofocus/>
-                    <input class="form-input" type="text" name="email" placeholder="Email" required/>
-                    <input class="form-input" type="username" name="username" placeholder="Username" required/>
-                    <input class="form-input" type="password" name="password" placeholder="Password" required/>
-                    <input class="form-input" type="password" placeholder="Confirm Password" required/>
-                    <input  class="form-input btn btn-primary" type="submit" value="Create Account"/>
-                </form>
-                <div class="form-footer center">
-                    <p>Alread a member? &nbsp;
-                        <a href="./login.html" class="blue">Login</a>
-                    </p>
-                </div>
+                <a href="./user-edit-profile.html" class="btn btn-tertiary">Edit &nbsp;<i class="icon ion-edit"></i></a>
             </div>
         </div>
     </section>

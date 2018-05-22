@@ -22,20 +22,6 @@
                 <div class="clearfix"></div>
             </div>
             <ul class="right-menu not-mobile not-mobile-right">
-                <li class="admin">
-                    <div>
-                        <a href="#" class="nav-item">Admin
-                            <span class="not-mobile">
-                                <i class="icon ion-android-arrow-dropdown"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="drop-down-menu hide">
-                        <a href="../admin-profile.html">Profile</a>
-                        <a href="../admin-dashboard.html">Dashboard</a>
-                        <a href="#">Logout</a>
-                    </div>
-                </li>
                 <li class="request">
                     <div>
                         <a href="#" class="nav-item">Requests
@@ -51,7 +37,7 @@
                 </li>
                 <li class="user">
                     <div>
-                        <a href="#" class="nav-item">User
+                        <a href="#" class="nav-item">Welcome &#60;username&#62;
                             <span class="not-mobile">
                                 <i class="icon ion-android-arrow-dropdown"></i>
                             </span>
@@ -62,29 +48,32 @@
                         <a href="#">Logout</a>
                     </div>
                 </li>
-                <li>
-                    <a href="../login.html" class="nav-item">Login</a>
-                </li>
-                <li>
-                    <a href="../register.html" class="nav-item">Sign Up</a>
-                </li>
             </ul>
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section class="admin-request-detail min-height">
+    <section class="user-request-detail min-height">
         <div class="container">
             <div class="request-detail-parent">
-                <a href="../admin-dashboard.html" class="btn btn-primary-ghost">Back</a>
+                <a href="../view-requests.html" class="btn btn-primary-ghost">Back</a>
                 <div class="request-detail">
-                    <h2>Nasty scratch on the hood</h2>
+                    <h2>Tire check</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                         ex ea commodo consequat.</p>
-                    <div class="status background-success">Resolved</div>
-                    <div class="request-type">Repair</div>
+                        <p><strong>Request date:</strong> May 21, 2018.</p>
+                    <div class="status background-tertiary">Approval pending</div>
+                    <div class="request-type">Maintenance</div>
                 </div>
-                <a href="#" class="btn btn-danger">Trash&nbsp;
+                <hr />
+                <h4>Feedback from an admin</h4>
+                <div class="feedback">
+                    <p></p>
+                </div>
+                <a href="../edit-request.html" class="btn btn-tertiary">Edit&nbsp;
+                    <i class="icon ion-edit"></i>
+                </a> &nbsp; &nbsp;
+                <a href="#" class="btn btn-danger">Delete&nbsp;
                     <i class="icon ion-android-delete"></i>
                 </a>
             </div>
