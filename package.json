@@ -8,6 +8,8 @@
     "dev": "concurrently \"npm run start:dev\" \"npm run lint:watch\"",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node -- server",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/**/*.js",
+    "pretest": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./server/db/tables/createTables && cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./server/db/seeders/",
+    "posttest": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./server/db/tables/dropTables",
     "test:watch": "npm test -- --watch",
     "lint": "./node_modules/.bin/esw  server",
     "lint:watch": "npm run lint -- --watch"
@@ -42,9 +44,11 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
