@@ -1,4 +1,4 @@
-import requests from '../db/requests';
+import requests from '../db/mock/mock-requests';
 
 export default {
   foundRequest(req) {

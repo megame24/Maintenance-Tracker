@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../app';
-import requests from '../../db/requests';
+import requests from '../../db/mock/mock-requests';
 import testData from '../testData';
 
 const {
@@ -25,7 +25,7 @@ const baseUrl = '/api/v1/users';
 describe('Requests', () => {
   before((done) => {
     chai.request(server)
-      .post(`${baseUrl}/login`)
+      .post('/api/v1/auth/login')
       .send({
         username: admin.username,
         password: admin.password
@@ -37,7 +37,7 @@ describe('Requests', () => {
   });
   before((done) => {
     chai.request(server)
-      .post(`${baseUrl}/login`)
+      .post('/api/v1/auth/login')
       .send({
         username: regularUser1.username,
         password: regularUser1.password
@@ -49,7 +49,7 @@ describe('Requests', () => {
   });
   before((done) => {
     chai.request(server)
-      .post(`${baseUrl}/login`)
+      .post('/api/v1/auth/login')
       .send({
         username: regularUser2.username,
         password: regularUser2.password

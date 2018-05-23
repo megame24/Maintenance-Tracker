@@ -19,7 +19,7 @@ const baseUrl = '/api/v1/users';
 describe('AuthMiddleware', () => {
   before((done) => {
     chai.request(server)
-      .post(`${baseUrl}/login`)
+      .post('/api/v1/auth/login')
       .send({
         username: regularUser1.username,
         password: regularUser1.password

@@ -9,7 +9,7 @@ const {
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const baseUrl = '/api/v1/users';
+const baseUrl = '/api/v1/auth';
 
 describe('Users', () => {
   // Log in user
@@ -61,10 +61,10 @@ describe('Users', () => {
         });
     });
   });
-  describe('Making a POST request to /users/register', () => {
+  describe('Making a POST request to /users/signup', () => {
     it('Should fail if fullname was not provided', (done) => {
       chai.request(server)
-        .post(`${baseUrl}/register`)
+        .post(`${baseUrl}/signup`)
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
@@ -74,7 +74,7 @@ describe('Users', () => {
     });
     it('Should fail if email was not provided', (done) => {
       chai.request(server)
-        .post(`${baseUrl}/register`)
+        .post(`${baseUrl}/signup`)
         .send({
           fullname: 'Full name'
         })
@@ -87,7 +87,7 @@ describe('Users', () => {
     });
     it('Should fail if username was not provided', (done) => {
       chai.request(server)
-        .post(`${baseUrl}/register`)
+        .post(`${baseUrl}/signup`)
         .send({
           fullname: 'Full name',
           email: 'emil@gmail.com'
@@ -101,7 +101,7 @@ describe('Users', () => {
     });
     it('Should fail if username is not unique', (done) => {
       chai.request(server)
-        .post(`${baseUrl}/register`)
+        .post(`${baseUrl}/signup`)
         .send({
           fullname: 'Full name',
           email: 'emil@gmail.com',
@@ -116,7 +116,7 @@ describe('Users', () => {
     });
     it('Should fail if password was not provided', (done) => {
       chai.request(server)
-        .post(`${baseUrl}/register`)
+        .post(`${baseUrl}/signup`)
         .send({
           fullname: 'Full name',
           email: 'emil@gmail.com',
@@ -129,9 +129,9 @@ describe('Users', () => {
           done();
         });
     });
-    it('Should register a user if all the needed data was provided', (done) => {
+    it('Should signup a user if all the needed data was provided', (done) => {
       chai.request(server)
-        .post(`${baseUrl}/register`)
+        .post(`${baseUrl}/signup`)
         .send({
           fullname: 'Full name',
           email: 'emil@gmail.com',
@@ -141,7 +141,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body).to.be.a('object');
-          expect(res.body.success.message).to.equal('Registered successfully');
+          expect(res.body.success.message).to.equal('Registered successfully, login to make a request');
           done();
         });
     });

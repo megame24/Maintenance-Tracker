@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 
 import db from '../';
-import users from '../users';
-import requests from '../requests';
+import users from './seed-users';
+import requests from './seed-requests';
 
 
 db.query('DELETE FROM users', [])
+  .then(() => db.query('TRUNCATE TABLE users RESTART IDENTITY', []))
   .then(() => {
     users.forEach((elem) => {
       db.query(
@@ -22,6 +23,7 @@ db.query('DELETE FROM users', [])
   });
 
 db.query('DELETE FROM requests', [])
+  .then(() => db.query('TRUNCATE TABLE requests RESTART IDENTITY', []))
   .then(() => {
     requests.forEach((elem) => {
       db.query(
