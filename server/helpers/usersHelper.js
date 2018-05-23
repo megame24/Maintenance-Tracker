@@ -1,25 +1,28 @@
-import users from '../db/users';
-import JWToken from '../helpers/JWToken';
+/* eslint-disable no-console */
+
+import bcrypt from 'bcrypt';
+import db from '../db/';
+
+require('dotenv').config();
+
+const salt = Number(process.env.SALT);
 
 export default {
   registerUser(req) {
     const {
       fullname, email, username, password
     } = req.body;
-    // create new user's id by increasing the id of the last user in mock db(users)
-    const id = users[users.length - 1].id + 1;
-    const newUser = {
-      id,
+    // encrypt password
+    const hash = bcrypt.hashSync(password, salt);
+
+    const newUser = [
       fullname,
-      email,
       username,
-      password,
-      role: 'user'
-    };
-    users.push(newUser);
-    const token = JWToken.generateToken({
-      id: newUser.id, username: newUser.username, role: newUser.role
-    });
-    return { token, success: { message: 'Registered successfully' } };
+      email,
+      hash,
+      'user'
+    ];
+    return db.query('INSERT INTO users (fullname, username, email, password, role) VALUES ($1, $2, $3, $4, $5)', newUser)
+      .then(() => ({ success: { message: 'Registered successfully, login to make a request' } }));
   }
 };
