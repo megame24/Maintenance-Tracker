@@ -1,4 +1,3 @@
-import requests from '../db/mock/mock-requests';
 import requestDB from '../models/requestDB';
 
 export default {

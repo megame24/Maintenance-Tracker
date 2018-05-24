@@ -9,6 +9,21 @@ class AdminController {
     requestDB.getAllRequests()
       .then(result => res.status(200).json(result.rows));
   }
+
+  static approveRequest(req, res) {
+    const { request, status } = req.body;
+    switch (true) {
+      case status !== 'approve':
+        return res.status(400).json({ error: { message: 'status is required to be equal to \'approve\'' } });
+      case request.status === 'approved':
+        return res.status(400).json({ error: { message: 'Request already approved' } });
+      case request.status !== 'pending':
+        return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
+      default: 
+        requestDB.approveRequest([status, request.id])
+          .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }));
+    }
+  }
 }
 
 export default AdminController;
