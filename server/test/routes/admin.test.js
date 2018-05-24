@@ -10,6 +10,7 @@ const {
   request3,
   request2,
   request1,
+  request6,
   invalidId
 } = testData;
 let adminToken;
@@ -19,7 +20,7 @@ chai.use(chaiHttp);
 
 const baseUrl = '/api/v1';
 
-describe('Requests', () => {
+describe('Admin', () => {
   before((done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
@@ -143,6 +144,58 @@ describe('Requests', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('object');
           expect(res.body.success.message).to.equal('Request has been approved');
+          done();
+        });
+    });
+  });
+
+  // Disapprove request route
+  describe('Making a PUT request to /requests/<requestId>/disapprove', () => {
+    it('Should return an error if provided status is not equal to disapprove', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request3.id}/disapprove`)
+        .set({ authorization: adminToken })
+        .send({ status: 'approve' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('status is required to be equal to \'disapprove\'');
+          done();
+        });
+    });
+    it('Should return an error if request is already disapproved', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request1.id}/disapprove`)
+        .set({ authorization: adminToken })
+        .send({ status: 'disapprove' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request already disapproved');
+          done();
+        });
+    });
+    it('Should return an error if request\'s status is not pending', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request2.id}/disapprove`)
+        .set({ authorization: adminToken })
+        .send({ status: 'disapprove' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Only requests with status pending can be approved');
+          done();
+        });
+    });
+    it('Should disapprove the request if no error was encountered', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request6.id}/disapprove`)
+        .set({ authorization: adminToken })
+        .send({ status: 'disapprove' })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request has been disapproved');
           done();
         });
     });

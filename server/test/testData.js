@@ -59,6 +59,26 @@ export default {
     feedback: 'Your request has been resolved, check your email for further instructions.',
     ownerId: 4
   },
+  request5: {
+    id: 8,
+    title: 'Smashed my car',
+    description: 'I need a complete body work done on my baby, I don\'t care how much it cost. Get it done',
+    type: 'repair',
+    status: 'pending',
+    trashed: false,
+    feedback: 'Your vehicle was badly damaged. Good news is we can fix it, but it will take a while.',
+    ownerId: 4
+  },
+  request6: {
+    id: 5,
+    title: 'Interior re-design',
+    description: 'Hello, I\'ll like to have the interior of my vehicle re-designed. I want a leopard skin cover on the seats.',
+    type: 'maintenance',
+    status: 'pending',
+    trashed: false,
+    feedback: 'Your request has been resolved, you\'ll really love your new seats. Check your email for further instructions.',
+    ownerId: 3
+  },
   invalidId: 10000,
   invalidToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1enVtYWtpIiwicm9sZSI6InVzZXIiLCJpYXQiOjE1MjY1NDk0NDIsImV4cCI6MTUyNjYzNTg0Mn0.9UB3ic-ZtyOEWS7wgTDeec-jGmQ-1M2G4VIfnxL7Cmw1'
 };

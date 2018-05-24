@@ -5,16 +5,11 @@ import requests from '../../db/mock/mock-requests';
 import testData from '../testData';
 
 const {
-  admin,
   regularUser1,
   regularUser2,
   request1,
-  request2,
-  request3,
-  request4,
   invalidId
 } = testData;
-let adminToken;
 let regularUser1Token;
 let regularUser2Token;
 const { expect } = chai;
@@ -23,18 +18,6 @@ chai.use(chaiHttp);
 const baseUrl = '/api/v1/users';
 
 describe('Requests', () => {
-  before((done) => {
-    chai.request(server)
-      .post('/api/v1/auth/login')
-      .send({
-        username: admin.username,
-        password: admin.password
-      })
-      .end((err, res) => {
-        adminToken = res.body.token;
-        done();
-      });
-  });
   before((done) => {
     chai.request(server)
       .post('/api/v1/auth/login')
@@ -62,18 +45,6 @@ describe('Requests', () => {
  
   // Get requests route
   describe('Making a GET request to /users/requests', () => {
-    // it('Should return all untrashed requests if user is an admin', (done) => {
-    //   const numOfRequests = requests.filter(elem => !elem.trashed).length;
-    //   chai.request(server)
-    //     .get(`${baseUrl}/requests`)
-    //     .set({ authorization: adminToken })
-    //     .end((err, res) => {
-    //       expect(res.status).to.equal(200);
-    //       expect(res.body).to.be.a('array');
-    //       expect(res.body.length).to.equal(numOfRequests);
-    //       done();
-    //     });
-    // });
     it('Should return all requests belonging to a logged in user', (done) => {
       const numOfRequests = requests.filter(elem => elem.ownerId === regularUser1.id).length;
       chai.request(server)
@@ -123,28 +94,6 @@ describe('Requests', () => {
           done();
         });
     });
-    // it('Should not retrieve a trashed request for an admin', (done) => {
-    //   chai.request(server)
-    //     .get(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
-    //     .set({ authorization: adminToken })
-    //     .end((err, res) => {
-    //       expect(res.status).to.equal(400);
-    //       expect(res.body).to.be.a('object');
-    //       expect(res.body.error.message).to.equal('Cannot retrieve trashed request');
-    //       done();
-    //     });
-    // });
-    // it('Should allow admin to retrieve any request if it is not trashed', (done) => {
-    //   chai.request(server)
-    //     .get(`${baseUrl}/requests/${regularUser1.requestsId[1]}`)
-    //     .set({ authorization: adminToken })
-    //     .end((err, res) => {
-    //       expect(res.status).to.equal(200);
-    //       expect(res.body).to.be.a('object');
-    //       expect(res.body.ownerId).to.not.equal(admin.id);
-    //       done();
-    //     });
-    // });
   });
 
   // Create request route

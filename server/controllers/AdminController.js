@@ -20,8 +20,23 @@ class AdminController {
       case request.status !== 'pending':
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
-        requestDB.approveRequest([status, request.id])
+        requestDB.updateStatus([status, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }));
+    }
+  }
+
+  static disapproveRequest(req, res) {
+    const { request, status } = req.body;
+    switch (true) {
+      case status !== 'disapprove':
+        return res.status(400).json({ error: { message: 'status is required to be equal to \'disapprove\'' } });
+      case request.status === 'disapproved':
+        return res.status(400).json({ error: { message: 'Request already disapproved' } });
+      case request.status !== 'pending':
+        return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
+      default: 
+        requestDB.updateStatus([status, request.id])
+          .then(() => res.status(200).json({ success: { message: 'Request has been disapproved' } }));
     }
   }
 }
