@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import bcrypt from 'bcrypt';
-import db from '../db/';
+import userDB from '../models/userDB';
 
 require('dotenv').config();
 
@@ -22,7 +22,7 @@ export default {
       hashedPassword,
       'user'
     ];
-    return db.query('INSERT INTO users (fullname, username, email, password, role) VALUES ($1, $2, $3, $4, $5)', newUser)
+    return userDB.registerUser(newUser)
       .then(() => ({ success: { message: 'Registered successfully, login to make a request' } }));
   }
 };

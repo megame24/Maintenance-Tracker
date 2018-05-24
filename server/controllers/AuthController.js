@@ -3,14 +3,14 @@
 import bcrypt from 'bcrypt';
 import JWToken from '../helpers/JWToken';
 import authHelper from '../helpers/authHelper';
-import users from '../models/users';
+import userDB from '../models/userDB';
 
 class UsersController {
   static login(req, res) {
     const { username, password } = req.body;
     if (username && password) {
       // const user = users.filter(element => element.username === username)[0];
-      users.getUser(username)
+      userDB.getUser(username)
         .then((result) => {
           const user = result.rows[0];
           if (user && bcrypt.compareSync(password, user.password)) {
@@ -35,7 +35,7 @@ class UsersController {
       fullname, email, username, password
     } = req.body;
     let duplicateUser;
-    users.getUser(username)
+    userDB.getUser(username)
       .then((result) => {
         if (result.rows[0]) {
           duplicateUser = result.rows[0].username;

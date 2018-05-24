@@ -19,7 +19,7 @@ class AuthMiddleware {
     requestsHelper.foundRequest(req)
       .then(() => {
         const { decoded, request } = req.body;
-        if (decoded.id === Number(request.ownerid)) {
+        if (decoded.id === request.ownerid) {
           return next();
         }
         res.status(403).json({ error: { message: 'You do not have permission to do that' } });
