@@ -13,13 +13,13 @@ export default {
       fullname, email, username, password
     } = req.body;
     // encrypt password
-    const hash = bcrypt.hashSync(password, salt);
+    const hashedPassword = bcrypt.hashSync(password, salt);
 
     const newUser = [
       fullname,
       username,
       email,
-      hash,
+      hashedPassword,
       'user'
     ];
     return db.query('INSERT INTO users (fullname, username, email, password, role) VALUES ($1, $2, $3, $4, $5)', newUser)

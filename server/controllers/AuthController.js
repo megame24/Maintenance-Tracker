@@ -1,28 +1,34 @@
 /* eslint-disable no-console */
 
-import users from '../db/mock/mock-users';
+import bcrypt from 'bcrypt';
 import db from '../db';
 import JWToken from '../helpers/JWToken';
-import usersHelper from '../helpers/usersHelper';
+import authHelper from '../helpers/authHelper';
 
 class UsersController {
   static login(req, res) {
     const { username, password } = req.body;
     if (username && password) {
-      const user = users.filter(element => element.username === username)[0];
-      if (user && (password === user.password)) {
-        const userDetails = {
-          id: user.id,
-          username: user.username,
-          fullname: user.fullname,
-          role: user.role
-        };
-        const token = JWToken.generateToken(userDetails);
-        return res.status(200).json({ token, success: { message: 'Logged in successfully' } });
-      }
-      return res.status(401).json({ error: { message: 'Invalid username or password' } });
+      // const user = users.filter(element => element.username === username)[0];
+      db.query('SELECT * FROM users WHERE username = $1', [username])
+        .then((result) => {
+          const user = result.rows[0];
+          if (user && bcrypt.compareSync(password, user.password)) {
+            const userDetails = {
+              id: user.id,
+              username: user.username,
+              fullname: user.fullname,
+              role: user.role
+            };
+            const token = JWToken.generateToken(userDetails);
+            return res.status(200).json({ token, success: { message: 'Logged in successfully' } });
+          }
+          return res.status(401).json({ error: { message: 'Invalid username or password' } });
+        })
+        .catch(() => res.status(500).json({ error: { message: 'Something went wrong' } }));
+    } else {
+      return res.status(401).json({ error: { message: 'Username and password required' } });
     }
-    return res.status(401).json({ error: { message: 'Username and password required' } });
   }
 
   static register(req, res) {
@@ -49,16 +55,14 @@ class UsersController {
           case !!password:
             res.status(400).json({ error: { message: 'password is required' } }); break;
           default: {
-            usersHelper.registerUser(req)
+            authHelper.registerUser(req)
               .then((message) => {
                 res.status(201).json(message);
               });
           }
         }
       })
-      .catch(() => {
-        res.status(500).json({ error: { message: 'Something went wrong' } });
-      });
+      .catch(() => res.status(500).json({ error: { message: 'Something went wrong' } }));
   }
 }
 
