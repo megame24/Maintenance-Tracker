@@ -10,7 +10,7 @@ db.query('CREATE TABLE users(id SERIAL PRIMARY KEY, fullname TEXT NOT NULL, user
     console.log(err);
   });
 
-db.query('CREATE TABLE requests(id SERIAL PRIMARY KEY, title TEXT NOT NULL, description TEXT NOT NULL, type TEXT NOT NULL, status TEXT NOT NULL, trashed TEXT NOT NULL, feedback TEXT NOT NULL, owner TEXT NOT NULL, date TEXT NOT NULL, ownerId TEXT NOT NULL)', null)
+db.query('CREATE TABLE requests(id SERIAL PRIMARY KEY, title TEXT NOT NULL, description TEXT NOT NULL, type TEXT NOT NULL, status TEXT NOT NULL, trashed BOOLEAN NOT NULL, feedback TEXT NOT NULL, owner TEXT NOT NULL, date TEXT NOT NULL, ownerId INTEGER NOT NULL)', null)
   .then(() => {
     console.log('table created');
   })

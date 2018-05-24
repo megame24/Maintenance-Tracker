@@ -148,121 +148,106 @@ describe('Requests', () => {
   });
 
   // Create request route
-  // describe('Making a POST request to /users/requests', () => {
-  //   it('Should only allow users to create a request', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .set({ authorization: adminToken })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(403);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('You do not have permission to do that');
-  //         done();
-  //       });
-  //   });
-  //   it('Should not create a request if no \'title\' was provided', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(400);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('title is required');
-  //         done();
-  //       });
-  //   });
-  //   it('Should not create a request if provided \'title\' is not unique', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .send({ title: request1.title })
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(400);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('Request with that title already exists');
-  //         done();
-  //       });
-  //   });
-  //   it('Should not create a request if no \'description\' was provided', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .send({ title: 'New request' })
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(400);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('description is required');
-  //         done();
-  //       });
-  //   });
-  //   it('Should not create a request if no \'type\' was provided', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .send({
-  //         title: 'New request',
-  //         description: 'This is a new request'
-  //       })
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(400);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('type is required');
-  //         done();
-  //       });
-  //   });
-  //   it('Should not create a request if \'type\' is niether \'maintenance\' nor \'repair\'', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .send({
-  //         title: 'New request',
-  //         description: 'This is a new request',
-  //         type: 'not-maintenance-nor-repair'
-  //       })
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(400);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('Request must be of either type maintenance or repair');
-  //         done();
-  //       });
-  //   });
-  //   it('Should create a request if title and description are provide and type equals maintenance', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .send({
-  //         title: 'New request',
-  //         description: 'This is a new request',
-  //         type: 'maintenance'
-  //       })
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(201);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.type).to.equal('maintenance');
-  //         done();
-  //         // remove the created request from memory after test
-  //         requests.splice((requests.length - 1), 1);
-  //       });
-  //   });
-  //   it('Should create a request if title and description are provide and type equals repair', (done) => {
-  //     chai.request(server)
-  //       .post(`${baseUrl}/requests`)
-  //       .send({
-  //         title: 'New request',
-  //         description: 'This is a new request',
-  //         type: 'repair'
-  //       })
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(201);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.type).to.equal('repair');
-  //         done();
-  //         // remove the created request from memory after test
-  //         requests.splice((requests.length - 1), 1);
-  //       });
-  //   });
-  // });
+  describe('Making a POST request to /users/requests', () => {
+    it('Should not create a request if no \'title\' was provided', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('title is required');
+          done();
+        });
+    });
+    it('Should not create a request if provided \'title\' is not unique', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .send({ title: request1.title })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request with that title already exists');
+          done();
+        });
+    });
+    it('Should not create a request if no \'description\' was provided', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .send({ title: 'New request' })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('description is required');
+          done();
+        });
+    });
+    it('Should not create a request if no \'type\' was provided', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .send({
+          title: 'New request',
+          description: 'This is a new request'
+        })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('type is required');
+          done();
+        });
+    });
+    it('Should not create a request if \'type\' is niether \'maintenance\' nor \'repair\'', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .send({
+          title: 'New request',
+          description: 'This is a new request',
+          type: 'not-maintenance-nor-repair'
+        })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request must be of either type maintenance or repair');
+          done();
+        });
+    });
+    it('Should create a request if title and description are provide and type equals maintenance', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .send({
+          title: 'New request',
+          description: 'This is a new request',
+          type: 'maintenance'
+        })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request created successfully');
+          done();
+        });
+    });
+    it('Should create a request if title and description are provide and type equals repair', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/requests`)
+        .send({
+          title: 'New request still',
+          description: 'This is a new request',
+          type: 'repair'
+        })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request created successfully');
+          done();
+        });
+    });
+  });
 
   // // Update a request
   // describe('Making a PUT request to /users/requests/<requestId>', () => {

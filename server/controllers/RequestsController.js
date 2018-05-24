@@ -1,11 +1,11 @@
 import requests from '../db/mock/mock-requests';
 import requestsHelper from '../helpers/requestsHelper';
-import requestss from '../models/requests';
+import requestDB from '../models/requestDB';
 
 class RequestsController {
   static getRequests(req, res) {
     const { decoded } = req.body;
-    requestss.getUserRequests(decoded.id)
+    requestDB.getUserRequests(decoded.id)
       .then((result) => {
         const userRequests = result.rows;
         return res.status(200).json(userRequests);
@@ -19,30 +19,34 @@ class RequestsController {
 
   static createRequest(req, res) {
     const {
-      title, description, type, decoded
+      title, description, type
     } = req.body;
-    // only allow users to make a request
-    if (!requestsHelper.isAUser(decoded)) {
-      return res.status(403).json({ error: { message: 'You do not have permission to do that' } });
-    }
-    const duplicateRequest = requests.filter(elem => elem.title === title)[0];
-    switch (false) {
-      case !!title: 
-        return res.status(400).json({ error: { message: 'title is required' } });
-      case !duplicateRequest: 
-        return res.status(400).json({ error: { message: 'Request with that title already exists' } });
-      case !!description: 
-        return res.status(400).json({ error: { message: 'description is required' } });
-      case !!type: 
-        return res.status(400).json({ error: { message: 'type is required' } });
-      case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
-        res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
-        break;
-      default: {
-        const newRequest = requestsHelper.createRequest(req);
-        res.status(201).json(newRequest);
-      }
-    }
+    let duplicateRequest;
+    requestDB.findRequestByTitle(title)
+      .then((result) => {
+        if (result.rows[0]) {
+          duplicateRequest = result.rows[0].title;
+        } else {
+          duplicateRequest = null;
+        }
+        switch (false) {
+          case !!title: 
+            return res.status(400).json({ error: { message: 'title is required' } });
+          case !duplicateRequest: 
+            return res.status(400).json({ error: { message: 'Request with that title already exists' } });
+          case !!description: 
+            return res.status(400).json({ error: { message: 'description is required' } });
+          case !!type: 
+            return res.status(400).json({ error: { message: 'type is required' } });
+          case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
+            res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
+            break;
+          default: {
+            requestsHelper.createRequest(req)
+              .then(message => res.status(201).json(message));
+          }
+        }
+      });
   }
 
   static updateRequest(req, res) {

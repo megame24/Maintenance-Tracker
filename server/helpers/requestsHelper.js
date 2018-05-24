@@ -1,10 +1,10 @@
 import requests from '../db/mock/mock-requests';
-import requestss from '../models/requests';
+import requestDB from '../models/requestDB';
 
 export default {
   foundRequest(req) {
     const requestId = Number(req.params.id);
-    return requestss.findRequestById(requestId)
+    return requestDB.findRequestById(requestId)
       .then((result) => {
         const request = result.rows[0];
         if (request) {
@@ -15,33 +15,23 @@ export default {
       });
   },
 
-  isAUser(decoded) {
-    if (decoded.role === 'user') {
-      return true;
-    }
-    return false;
-  },
-
   createRequest(req) {
     const {
       title, description, type, decoded
     } = req.body;
-    // create new request's id by increasing the id of the last request in mock db(requests)
-    const id = requests[requests.length - 1].id + 1;
-    const newRequest = {
-      id,
+    const newRequest = [
       title,
       description,
-      type: type.toLowerCase(),
-      status: 'pending',
-      trashed: false,
-      feedback: '',
-      owner: decoded.fullname,
-      date: Date.now(),
-      ownerId: decoded.id
-    };
-    requests.push(newRequest);
-    return newRequest;
+      type.toLowerCase(),
+      'pending',
+      false,
+      '',
+      decoded.fullname,
+      Date.now(),
+      decoded.id
+    ];
+    return requestDB.createRequest(newRequest)
+      .then(() => ({ success: { message: 'Request created successfully' } }));
   },
 
   canUpdate(req) {
