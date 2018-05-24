@@ -1,6 +1,9 @@
 import db from '../db/';
 
 export default {
+  getAllRequests() {
+    return db.query('SELECT * FROM requests');
+  },
   getUserRequests(id) {
     return db.query('SELECT * FROM requests WHERE ownerId = $1', [id]);
   },
