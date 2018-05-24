@@ -1,6 +1,7 @@
 import requestDB from '../models/requestDB';
+import RequestsController from './RequestsController';
 
-class AdminController {
+class AdminController extends RequestsController {
   static getRequests(req, res) {
     const { decoded } = req.body;
     if (decoded.role !== 'admin') {
@@ -20,7 +21,7 @@ class AdminController {
       case request.status !== 'pending':
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
-        requestDB.updateStatus([status, request.id])
+        requestDB.updateStatus(['approved', request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }));
     }
   }
@@ -35,8 +36,23 @@ class AdminController {
       case request.status !== 'pending':
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
-        requestDB.updateStatus([status, request.id])
+        requestDB.updateStatus(['disapproved', request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been disapproved' } }));
+    }
+  }
+
+  static resolveRequest(req, res) {
+    const { request, status } = req.body;
+    switch (true) {
+      case status !== 'resolve':
+        return res.status(400).json({ error: { message: 'status is required to be equal to \'resolve\'' } });
+      case request.status === 'resolved':
+        return res.status(400).json({ error: { message: 'Request already resolved' } });
+      case request.status !== 'approved':
+        return res.status(400).json({ error: { message: 'Only requests with status approved can be resolved' } });
+      default: 
+        requestDB.updateStatus(['resolved', request.id])
+          .then(() => res.status(200).json({ success: { message: 'Request has been resolved' } }));
     }
   }
 }

@@ -5,6 +5,11 @@ import AdminController from '../controllers/AdminController';
 const router = express.Router();
 
 router.get('/requests', AuthMiddleware.verifyUser, AdminController.getRequests);
+router.get(
+  '/requests/:id',
+  [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
+  AdminController.getRequestById
+);
 router.put(
   '/requests/:id/approve',
   [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
@@ -15,10 +20,10 @@ router.put(
   [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
   AdminController.disapproveRequest
 );
-// router.delete(
-//   '/requests/:id/resolve',
-//   [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
-//   AdminController.resolveRequest
-// );
+router.put(
+  '/requests/:id/resolve',
+  [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
+  AdminController.resolveRequest
+);
 
 export default router;
