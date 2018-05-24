@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  connectionString = process.env.PRODUCTION_TEST_URL;
+  connectionString = process.env.DATABASE_PRODUCTION_URL;
 }
 
 
