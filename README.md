@@ -1,10 +1,11 @@
 # Maintenance-Tracker
 
-[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=feature-api-v1)](https://travis-ci.org/megame24/Maintenance-Tracker) [![Coverage Status](https://coveralls.io/repos/github/megame24/Maintenance-Tracker/badge.svg?branch=feature-api-v1)](https://coveralls.io/github/megame24/Maintenance-Tracker?branch=feature-api-v1) [![Maintainability](https://api.codeclimate.com/v1/badges/f02f4c11dd89fe071136/maintainability)](https://codeclimate.com/github/megame24/Maintenance-Tracker/maintainability)
+[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=develop)](https://travis-ci.org/megame24/Maintenance-Tracker) [![Coverage Status](https://coveralls.io/repos/github/megame24/Maintenance-Tracker/badge.svg?branch=develop)](https://coveralls.io/github/megame24/Maintenance-Tracker?branch=feature-api-v1) [![Maintainability](https://api.codeclimate.com/v1/badges/f02f4c11dd89fe071136/maintainability)](https://codeclimate.com/github/megame24/Maintenance-Tracker/maintainability)
 
 Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
 
 [Click here](https://megame24.github.io/Maintenance-Tracker/) to view the app on github pages.
+
 The link to the api deployed to heroku: https://in-maintenance-tracker.herokuapp.com/api/v1
 
 ## Features
@@ -18,7 +19,6 @@ The app has the following features for the respective categories;
   * view all his/her requests.
   * view the details of a single request, which includes a feedback from an admin if any.
   * update a request, if it is yet to be approved.
-  * delete a resolved, yet to be approved, or a disapproved request from the 'view requests' page.
 
 * An admin can:
 
@@ -28,11 +28,10 @@ The app has the following features for the respective categories;
   * filter requests.
   * view the details of a request.
   * provide feedback on approving/disapproving or on resolving a request.
-  * trash a resolved or a disapproved request from the 'dashboard' page.
 
 ## Technologies
 
-The application uses `Nodejs` and `Express` frameworks on the server. On the front-end, `HTML`, `CSS` & `JavaScript` are used for templating.
+The application uses `Nodejs` and `Express` frameworks on the server and `PostgreSQL` for persisting data. On the front-end, `HTML`, `CSS` & `JavaScript` are used for templating.
 
 ## Installation
 
@@ -55,13 +54,17 @@ Follow the steps below to test the application.
 
 EndPoint                      |   Functionality
 ------------------------------|------------------------
-POST /users/register          |   User sign up.
-POST /users/login             |   User login.
-GET /users/requests           |   Gets all requests of a logged in user (if user is an admin, gets all requests in database).
-GET /users/requests/:id       |   Get a single request through it's id.
+POST /auth/signup          |   User sign up.
+POST /auth/login             |   User login.
+GET /users/requests           |   Gets all requests of a logged in user 
+GET /users/requests/:id       |   Get a single request by id
 POST /users/requests          |   Creates a new request
-PUT /users/requests/:id       |   Updates a request (admin can resolve, approve, or disapprove a request through this endpoint)
-DELETE /users/requests/:id    |   Deletes a request (admin can trash(remove from admin's workspace) a request through this endpoint)
+PUT /users/requests/:id       |   Updates a request only if it has a status of pending
+GET /requests           |   Gets all requests for an admin(only available to admin)
+GET /requests/:id           |   Gets a request by id(only available to admin)
+PUT /requests/:id/approve       |   Request approve endpoint(only available to admin)
+PUT /requests/:id/dissapprove          |   Request disapprove endpoint(only available to admin)
+PUT /requests/:id/resolve      |   Request resolve endpoint(only available to admin)
 
 ## Licence
 

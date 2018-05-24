@@ -1,4 +1,3 @@
-import requests from '../db/mock/mock-requests';
 import requestsHelper from '../helpers/requestsHelper';
 import requestDB from '../models/requestDB';
 
@@ -55,7 +54,7 @@ class RequestsController {
       const title = req.body.title || request.title;
       const description = req.body.description || request.description;
       let typeUpdate = (req.body.type || '').toLowerCase();
-      if (typeUpdate !== 'maintenance' || typeUpdate !== 'repair') {
+      if (typeUpdate !== 'maintenance' && typeUpdate !== 'repair') {
         typeUpdate = request.type;
       }
       const requestUpdate = [title, description, typeUpdate, request.id];
@@ -64,22 +63,6 @@ class RequestsController {
     } else {
       return res.status(400).json({ error: { message: 'Only requests with status pending can be updated' } });
     }
-  }
-
-  static deleteRequest(req, res) {
-    const canDelete = requestsHelper.canDelete(req);
-    if (canDelete.error) {
-      return res.status(400).json({ error: { message: canDelete.message } });
-    }
-    const { decoded, request } = req.body;
-    if (decoded.role === 'admin') {
-      // trash request in mock db by setting trashed to true
-      const trashedRequest = Object.assign({}, request, { trashed: true });
-      requests[requests.findIndex(elem => elem.id === request.id)] = trashedRequest;
-      return res.status(200).json({ success: { message: 'Request has been trashed' } });
-    }
-    requests.splice(requests.findIndex(ele => ele.id === request.id), 1);
-    return res.status(200).json({ success: { message: 'Request has been deleted' } });
   }
 }
 

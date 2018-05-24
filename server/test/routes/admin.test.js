@@ -11,6 +11,7 @@ const {
   request2,
   request1,
   request6,
+  request4,
   invalidId
 } = testData;
 let adminToken;
@@ -196,6 +197,58 @@ describe('Admin', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('object');
           expect(res.body.success.message).to.equal('Request has been disapproved');
+          done();
+        });
+    });
+  });
+
+  // Resolve request route
+  describe('Making a PUT request to /requests/<requestId>/resolve', () => {
+    it('Should return an error if provided status is not equal to resolve', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request3.id}/resolve`)
+        .set({ authorization: adminToken })
+        .send({ status: 'approve' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('status is required to be equal to \'resolve\'');
+          done();
+        });
+    });
+    it('Should return an error if request is already resolved', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request4.id}/resolve`)
+        .set({ authorization: adminToken })
+        .send({ status: 'resolve' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request already resolved');
+          done();
+        });
+    });
+    it('Should return an error if request\'s status is not approved', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request1.id}/resolve`)
+        .set({ authorization: adminToken })
+        .send({ status: 'resolve' })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Only requests with status approved can be resolved');
+          done();
+        });
+    });
+    it('Should resolve the request if no error was encountered', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${request2.id}/resolve`)
+        .set({ authorization: adminToken })
+        .send({ status: 'resolve' })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request has been resolved');
           done();
         });
     });
