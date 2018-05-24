@@ -15,18 +15,16 @@ class AuthMiddleware {
     return res.status(401).json({ error: { message: 'Authentication failed' } });
   }
 
-  static authorized(req, res, next) {
-    if (!requestsHelper.foundRequest(req)) {
-      return res.status(404).json({ error: { message: 'Request not found' } });
-    }
-    const { decoded, request } = req.body;
-    if (decoded.role === 'admin') {
-      return next();
-    }
-    if (decoded.role === 'user' && decoded.id === request.ownerId) {
-      return next();
-    }
-    res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+  static userPass(req, res, next) {
+    requestsHelper.foundRequest(req)
+      .then(() => {
+        const { decoded, request } = req.body;
+        if (decoded.id === Number(request.ownerid)) {
+          return next();
+        }
+        res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+      })
+      .catch(() => res.status(404).json({ error: { message: 'Request not found' } }));
   }
 }
 

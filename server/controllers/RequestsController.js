@@ -13,15 +13,8 @@ class RequestsController {
   }
 
   static getRequestById(req, res) {
-    const { decoded, request } = req.body;
-    if (decoded.id === request.ownerId) {
-      return res.status(200).json(request);
-    }
-    if (decoded.role === 'admin' && !request.trashed) {
-      res.status(200).json(request);
-    } else {
-      res.status(400).json({ error: { message: 'Cannot retrieve trashed request' } });
-    }
+    const { request } = req.body;
+    return res.status(200).json(request);
   }
 
   static createRequest(req, res) {

@@ -8,17 +8,17 @@ router.get('/users/requests', AuthMiddleware.verifyUser, RequestsController.getR
 router.post('/users/requests', AuthMiddleware.verifyUser, RequestsController.createRequest);
 router.get(
   '/users/requests/:id',
-  [AuthMiddleware.verifyUser, AuthMiddleware.authorized],
+  [AuthMiddleware.verifyUser, AuthMiddleware.userPass],
   RequestsController.getRequestById
 );
 router.put(
   '/users/requests/:id',
-  [AuthMiddleware.verifyUser, AuthMiddleware.authorized],
+  [AuthMiddleware.verifyUser, AuthMiddleware.userPass],
   RequestsController.updateRequest
 );
 router.delete(
   '/users/requests/:id',
-  [AuthMiddleware.verifyUser, AuthMiddleware.authorized],
+  [AuthMiddleware.verifyUser, AuthMiddleware.userPass],
   RequestsController.deleteRequest
 );
 
