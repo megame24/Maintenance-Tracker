@@ -13,7 +13,8 @@
     "createTB": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/createTB",
     "test:watch": "npm test -- --watch",
     "lint": "./node_modules/.bin/esw  server",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "seedDB": "NODE_ENV=development node_modules/.bin/babel-node server/db/seeders/"
   },
   "nyc": {
     "require": [

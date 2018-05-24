@@ -1,15 +1,15 @@
 import requests from '../db/mock/mock-requests';
 import requestsHelper from '../helpers/requestsHelper';
+import requestss from '../models/requests';
 
 class RequestsController {
   static getRequests(req, res) {
     const { decoded } = req.body;
-    if (decoded.role === 'admin') {
-      const adminRequests = requests.filter(elem => !elem.trashed);
-      return res.status(200).json(adminRequests);
-    }
-    const userRequests = requests.filter(elem => elem.ownerId === decoded.id);
-    return res.status(200).json(userRequests);
+    requestss.getUserRequests(decoded.id)
+      .then((result) => {
+        const userRequests = result.rows;
+        return res.status(200).json(userRequests);
+      });
   }
 
   static getRequestById(req, res) {
