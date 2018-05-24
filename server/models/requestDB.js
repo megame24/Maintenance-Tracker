@@ -19,7 +19,7 @@ export default {
   updateRequest(requestUpdate) {
     return db.query('UPDATE requests SET title = $1, description = $2, type = $3 WHERE id = $4', Object.values(requestUpdate).map(el => el));
   },
-  approveRequest(approveDetails) {
-    return db.query('UPDATE requests SET status = $1 WHERE id = $2', approveDetails);
+  updateStatus(statusDetails) {
+    return db.query('UPDATE requests SET status = $1 WHERE id = $2', statusDetails);
   }
 };

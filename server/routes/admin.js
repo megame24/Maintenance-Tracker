@@ -10,11 +10,11 @@ router.put(
   [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
   AdminController.approveRequest
 );
-// router.put(
-//   '/requests/:id/disapprove',
-//   [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
-//   AdminController.disapproveRequest
-// );
+router.put(
+  '/requests/:id/disapprove',
+  [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
+  AdminController.disapproveRequest
+);
 // router.delete(
 //   '/requests/:id/resolve',
 //   [AuthMiddleware.verifyUser, AuthMiddleware.adminPass],
