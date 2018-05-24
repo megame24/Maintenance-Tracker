@@ -34,15 +34,6 @@ export default {
       .then(() => ({ success: { message: 'Request created successfully' } }));
   },
 
-  adminUpdateSuccess(req, res, status) {
-    const { request } = req.body;
-    const feedback = req.body.feedback || request.feedback;
-    const updatedRequest = Object.assign({}, request, { status, feedback });
-    // updating request in mock db
-    requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
-    return res.status(200).json({ success: { message: `Request ${status}` } });
-  },
-
   canDelete(req) {
     const { request, decoded } = req.body;
     // cannot delete pending requests

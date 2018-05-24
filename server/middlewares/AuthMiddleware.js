@@ -26,6 +26,18 @@ class AuthMiddleware {
       })
       .catch(() => res.status(404).json({ error: { message: 'Request not found' } }));
   }
+
+  static adminPass(req, res, next) {
+    requestsHelper.foundRequest(req)
+      .then(() => {
+        const { decoded } = req.body;
+        if (decoded.role === 'admin') {
+          return next();
+        }
+        res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+      })
+      .catch(() => res.status(404).json({ error: { message: 'Request not found' } }));
+  }
 }
 
 export default AuthMiddleware;
