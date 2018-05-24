@@ -1,14 +1,18 @@
 import requests from '../db/mock/mock-requests';
+import requestss from '../models/requests';
 
 export default {
   foundRequest(req) {
     const requestId = Number(req.params.id);
-    const request = requests.filter(elem => elem.id === requestId)[0];
-    if (request) {
-      req.body.request = request;
-      return true;
-    }
-    return false;
+    return requestss.findRequestById(requestId)
+      .then((result) => {
+        const request = result.rows[0];
+        if (request) {
+          req.body.request = request;
+          return true;
+        }
+        return false;
+      });
   },
 
   isAUser(decoded) {
