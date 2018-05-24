@@ -50,23 +50,20 @@ class RequestsController {
   }
 
   static updateRequest(req, res) {
-    const canUpdate = requestsHelper.canUpdate(req);
-    if (canUpdate.error) {
-      return res.status(400).json({ error: { message: canUpdate.message } });
-    }
-    const { decoded } = req.body;
-    if (decoded.role === 'admin') {
-      const { status } = req.body;
-      switch (true) {
-        case status === 'approve':
-          return requestsHelper.adminUpdateSuccess(req, res, 'approved');
-        case status === 'disapprove':
-          return requestsHelper.adminUpdateSuccess(req, res, 'disapproved');
-        default:
-          return requestsHelper.adminUpdateSuccess(req, res, 'resolved');
+    const { request } = req.body;
+    if (request.status === 'pending') {
+      const title = req.body.title || request.title;
+      const description = req.body.description || request.description;
+      let typeUpdate = (req.body.type || '').toLowerCase();
+      if (typeUpdate !== 'maintenance' || typeUpdate !== 'repair') {
+        typeUpdate = request.type;
       }
+      const requestUpdate = [title, description, typeUpdate, request.id];
+      requestDB.updateRequest(requestUpdate)
+        .then(() => res.status(200).json({ success: { message: 'Request updated successfully' } }));
+    } else {
+      return res.status(400).json({ error: { message: 'Only requests with status pending can be updated' } });
     }
-    return requestsHelper.userUpdateSuccess(req, res);
   }
 
   static deleteRequest(req, res) {

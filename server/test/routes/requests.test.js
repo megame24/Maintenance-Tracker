@@ -249,175 +249,54 @@ describe('Requests', () => {
     });
   });
 
-  // // Update a request
-  // describe('Making a PUT request to /users/requests/<requestId>', () => {
-  //   it('Should return a 404 error(request not found) if id is invalid', (done) => {
-  //     chai.request(server)
-  //       .put(`${baseUrl}/requests/${invalidId}`)
-  //       .set({ authorization: regularUser1Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(404);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('Request not found');
-  //         done();
-  //       });
-  //   });
-  //   it('Should only allow an admin or the owner of a request to update it', (done) => {
-  //     chai.request(server)
-  //       .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
-  //       .set({ authorization: regularUser2Token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(403);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.error.message).to.equal('You do not have permission to do that');
-  //         done();
-  //       });
-  //   });
-  //   describe('Admin making a PUT request to /users/requests/<requestId>', () => {
-  //     describe('Error', () => {
-  //       it('Should return a 400 error(Invalid request) if no \'status\' was provided', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request1.id}`)
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(400);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message.title).to.equal('Invalid Request');
-  //             done();
-  //           });
-  //       });
-  //       it('Should return a 400 error(Invalid request) if provided \'status\' does not have value equal to \'approve\', \'disapprove\', nor \'resolve\'', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request1.id}`)
-  //           .send({ status: 'invalid' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(400);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message.title).to.equal('Invalid Request');
-  //             done();
-  //           });
-  //       });
-  //       it('Should not approve a request if the request is already disapproved or resolved', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request1.id}`)
-  //           .send({ status: 'approve' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(400);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message.title).to.equal('Invalid Request');
-  //             done();
-  //           });
-  //       });
-  //       it('Should not disapprove a request if the request is already approved or resolved', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request2.id}`)
-  //           .send({ status: 'disapprove' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(400);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message.title).to.equal('Invalid Request');
-  //             done();
-  //           });
-  //       });
-  //       it('Should not resolve a request if the request is not approved', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request1.id}`)
-  //           .send({ status: 'resolve' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(400);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message.title).to.equal('Invalid Request');
-  //             done();
-  //           });
-  //       });
-  //     });
-  //     describe('Success', () => {
-  //       afterEach((done) => {
-  //         // reset request status after testing
-  //         let resetRequest = requests.filter(elem => elem.id === request3.id)[0];
-  //         resetRequest = Object.assign({}, resetRequest, { status: 'pending' });
-  //         requests[requests.findIndex(elem => elem.id === resetRequest.id)] = resetRequest;
-  //         done();
-  //       });
-  //       it('Should disapprove a pending request if provided \'status\' has a value of \'disapprove\'', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request3.id}`)
-  //           .send({ status: 'disapprove' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(200);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.success.message).to.equal('Request disapproved');
-  //             done();
-  //           });
-  //       });
-  //       it('Should approve a pending request if provided \'status\' has a value of \'approve\'', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request3.id}`)
-  //           .send({ status: 'approve' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(200);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.success.message).to.equal('Request approved');
-  //             done();
-  //           });
-  //       });
-  //       it('Should resolve an approved request if provided \'status\' has a value of \'resolve\'', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${request2.id}`)
-  //           .send({ status: 'resolve' })
-  //           .set({ authorization: adminToken })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(200);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.success.message).to.equal('Request resolved');
-  //             done();
-  //           });
-  //       });
-  //     });
-  //     describe('A user making a PUT request to /users/requests/<requestId>', () => {
-  //       it('Should not update if request do not belong to user', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
-  //           .set({ authorization: regularUser2Token })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(403);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message).to.equal('You do not have permission to do that');
-  //             done();
-  //           });
-  //       });
-  //       it('Should not update if the request\'s status do not have a value of pending', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
-  //           .set({ authorization: regularUser1Token })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(400);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.error.message).to.equal('Only requests with status pending can be updated');
-  //             done();
-  //           });
-  //       });
-  //       it('Should update if the request\'s status has a value of pending', (done) => {
-  //         chai.request(server)
-  //           .put(`${baseUrl}/requests/${regularUser1.requestsId[3]}`)
-  //           .send({ title: 'updated title' })
-  //           .set({ authorization: regularUser1Token })
-  //           .end((err, res) => {
-  //             expect(res.status).to.equal(200);
-  //             expect(res.body).to.be.a('object');
-  //             expect(res.body.title).to.equal('updated title');
-  //             done();
-  //           });
-  //       });
-  //     });
-  //   });
-  // });
+  // Update a request
+  describe('Making a PUT request to /users/requests/<requestId>', () => {
+    it('Should return a 404 error(request not found) if id is invalid', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${invalidId}`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request not found');
+          done();
+        });
+    });
+    it('Should only the owner of a request to update it', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
+        .set({ authorization: regularUser2Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('You do not have permission to do that');
+          done();
+        });
+    });
+    it('Should not update if the request is not pending', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Only requests with status pending can be updated');
+          done();
+        });
+    });
+    it('Should update if the request\'s status has a value of pending', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/${regularUser1.requestsId[3]}`)
+        .send({ title: 'updated title' })
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request updated successfully');
+          done();
+        });
+    });
+  });
 
   // // Delete a single request route
   // describe('Making a DELETE request to /users/requests/<requestId>', () => {
