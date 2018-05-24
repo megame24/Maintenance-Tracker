@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import bcrypt from 'bcrypt';
 import JWToken from '../helpers/JWToken';
 import authHelper from '../helpers/authHelper';
@@ -9,7 +7,6 @@ class UsersController {
   static login(req, res) {
     const { username, password } = req.body;
     if (username && password) {
-      // const user = users.filter(element => element.username === username)[0];
       userDB.getUser(username)
         .then((result) => {
           const user = result.rows[0];

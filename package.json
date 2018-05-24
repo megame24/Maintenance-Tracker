@@ -10,13 +10,13 @@
     "test": "cross-env NODE_ENV=test nyc mocha server/test/**/*.js",
     "pretest": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./server/db/tables/createTables && cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./server/db/seeders/",
     "posttest": "cross-env NODE_ENV=test ./node_modules/.bin/babel-node ./server/db/tables/dropTables",
-    "createTB": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/createTB",
     "test:watch": "npm test -- --watch",
     "lint": "./node_modules/.bin/esw  server",
     "lint:watch": "npm run lint -- --watch",
-    "seedDB": "cross-env NODE_ENV=development node_modules/.bin/babel-node server/db/seeders/",
+    "seedDB": "node_modules/.bin/babel-node server/db/seeders/",
     "createTables": "./node_modules/.bin/babel-node ./server/db/tables/createTables",
-    "dropTables": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/dropTables"
+    "dropTables": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/dropTables",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "nyc": {
     "require": [
@@ -61,6 +61,7 @@
     "babel-plugin-istanbul": "^4.1.6",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "codecov": "^3.0.2",
     "concurrently": "^3.5.1",
     "coveralls": "^3.0.1",
     "cross-env": "^5.1.5",

@@ -1,6 +1,7 @@
 # Maintenance-Tracker
 
-[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=develop)](https://travis-ci.org/megame24/Maintenance-Tracker) [![Coverage Status](https://coveralls.io/repos/github/megame24/Maintenance-Tracker/badge.svg?branch=develop)](https://coveralls.io/github/megame24/Maintenance-Tracker?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/f02f4c11dd89fe071136/maintainability)](https://codeclimate.com/github/megame24/Maintenance-Tracker/maintainability)
+[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=develop)](https://travis-ci.org/megame24/Maintenance-Tracker) [![codecov](https://codecov.io/gh/megame24/Maintenance-Tracker/branch/develop/graph/badge.svg)](https://codecov.io/gh/megame24/Maintenance-Tracker)
+ [![Maintainability](https://api.codeclimate.com/v1/badges/f02f4c11dd89fe071136/maintainability)](https://codeclimate.com/github/megame24/Maintenance-Tracker/maintainability)
 
 Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
 
@@ -60,7 +61,7 @@ GET /users/requests           |   Gets all requests of a logged in user
 GET /users/requests/:id       |   Get a single request by id
 POST /users/requests          |   Creates a new request
 PUT /users/requests/:id       |   Updates a request only if it has a status of pending
-GET /requests           |   Gets all requests for an admin(only available to admin)
+GET /requests            |   Gets all requests for an admin(only available to admin)
 GET /requests/:id           |   Gets a request by id(only available to admin)
 PUT /requests/:id/approve       |   Request approve endpoint(only available to admin)
 PUT /requests/:id/dissapprove          |   Request disapprove endpoint(only available to admin)

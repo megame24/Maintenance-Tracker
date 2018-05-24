@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import bcrypt from 'bcrypt';
 import userDB from '../models/userDB';
 
@@ -12,7 +10,6 @@ export default {
     const {
       fullname, email, username, password
     } = req.body;
-    // encrypt password
     const hashedPassword = bcrypt.hashSync(password, salt);
 
     const newUser = [

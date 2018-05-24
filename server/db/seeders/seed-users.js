@@ -1,4 +1,3 @@
-
 import bcrypt from 'bcrypt';
 
 require('dotenv').config();

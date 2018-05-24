@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
 
 
 const pool = new Pool({ connectionString });
-// client.connect();
 
 export default {
   query: (text, params) => pool.query(text, params)
