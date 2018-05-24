@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
 
 import bcrypt from 'bcrypt';
-import db from '../db';
 import JWToken from '../helpers/JWToken';
 import authHelper from '../helpers/authHelper';
+import users from '../models/users';
 
 class UsersController {
   static login(req, res) {
     const { username, password } = req.body;
     if (username && password) {
       // const user = users.filter(element => element.username === username)[0];
-      db.query('SELECT * FROM users WHERE username = $1', [username])
+      users.getUser(username)
         .then((result) => {
           const user = result.rows[0];
           if (user && bcrypt.compareSync(password, user.password)) {
@@ -24,8 +24,7 @@ class UsersController {
             return res.status(200).json({ token, success: { message: 'Logged in successfully' } });
           }
           return res.status(401).json({ error: { message: 'Invalid username or password' } });
-        })
-        .catch(() => res.status(500).json({ error: { message: 'Something went wrong' } }));
+        });
     } else {
       return res.status(401).json({ error: { message: 'Username and password required' } });
     }
@@ -36,7 +35,7 @@ class UsersController {
       fullname, email, username, password
     } = req.body;
     let duplicateUser;
-    db.query('SELECT * FROM users WHERE username = $1', [username])
+    users.getUser(username)
       .then((result) => {
         if (result.rows[0]) {
           duplicateUser = result.rows[0].username;
@@ -61,8 +60,7 @@ class UsersController {
               });
           }
         }
-      })
-      .catch(() => res.status(500).json({ error: { message: 'Something went wrong' } }));
+      });
   }
 }
 
