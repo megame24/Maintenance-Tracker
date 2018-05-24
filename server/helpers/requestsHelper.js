@@ -34,26 +34,6 @@ export default {
       .then(() => ({ success: { message: 'Request created successfully' } }));
   },
 
-  canUpdate(req) {
-    const { decoded, request } = req.body;
-    let { status } = req.body;
-    status = (status || '').toLowerCase();
-    if (decoded.role === 'user') {
-      if (request.status === 'pending') return { error: null };
-      return { error: true, message: 'Only requests with status pending can be updated' };
-    }
-    if (status === 'resolve' && request.status === 'approved') return { error: null };
-    if (status === 'approve' && request.status === 'pending') return { error: null };
-    if (status === 'disapprove' && request.status === 'pending') return { error: null };
-    return {
-      error: true,
-      message: {
-        title: 'Invalid Request',
-        detail: 'Ensure status is sent with the appropriate value(\'resolve\', \'approve\', or \'disapprove\')'
-      }
-    };
-  },
-
   adminUpdateSuccess(req, res, status) {
     const { request } = req.body;
     const feedback = req.body.feedback || request.feedback;
@@ -61,21 +41,6 @@ export default {
     // updating request in mock db
     requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
     return res.status(200).json({ success: { message: `Request ${status}` } });
-  },
-
-  userUpdateSuccess(req, res) {
-    const { request } = req.body;
-    const title = req.body.title || request.title;
-    const description = req.body.description || request.description;
-    let typeUpdate = (req.body.type || '').toLowerCase();
-    if (typeUpdate !== 'maintenance' || typeUpdate !== 'repair') {
-      typeUpdate = request.type;
-    }
-    const updatedRequest = Object
-      .assign({}, request, { title, description, type: typeUpdate.toLowerCase() });
-      // updating request in mock db
-    requests[requests.findIndex(elem => elem.id === request.id)] = updatedRequest;
-    res.status(200).json(updatedRequest);
   },
 
   canDelete(req) {
