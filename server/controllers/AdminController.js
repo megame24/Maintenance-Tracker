@@ -1,5 +1,6 @@
 import requestDB from '../models/requestDB';
 import RequestsController from './RequestsController';
+import errors from '../helpers/errorHelper';
 
 class AdminController extends RequestsController {
   static getRequests(req, res) {
@@ -8,7 +9,10 @@ class AdminController extends RequestsController {
       return res.status(403).json({ error: { message: 'You do not have permission to do that' } });
     }
     requestDB.getAllRequests()
-      .then(result => res.status(200).json(result.rows));
+      .then(result => res.status(200).json(result.rows))
+      .catch(() => {
+        res.status(500).json(errors.error500);
+      });
   }
 
   static approveRequest(req, res) {
@@ -22,7 +26,10 @@ class AdminController extends RequestsController {
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
         requestDB.updateStatus(['approved', request.id])
-          .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }));
+          .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }))
+          .catch(() => {
+            res.status(500).json(errors.error500);
+          });
     }
   }
 
@@ -37,7 +44,10 @@ class AdminController extends RequestsController {
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
         requestDB.updateStatus(['disapproved', request.id])
-          .then(() => res.status(200).json({ success: { message: 'Request has been disapproved' } }));
+          .then(() => res.status(200).json({ success: { message: 'Request has been disapproved' } }))
+          .catch(() => {
+            res.status(500).json(errors.error500);
+          });
     }
   }
 
@@ -52,7 +62,10 @@ class AdminController extends RequestsController {
         return res.status(400).json({ error: { message: 'Only requests with status approved can be resolved' } });
       default: 
         requestDB.updateStatus(['resolved', request.id])
-          .then(() => res.status(200).json({ success: { message: 'Request has been resolved' } }));
+          .then(() => res.status(200).json({ success: { message: 'Request has been resolved' } }))
+          .catch(() => {
+            res.status(500).json(errors.error500);
+          });
     }
   }
 }
