@@ -36,12 +36,13 @@ The application uses `Nodejs` and `Express` frameworks on the server and `Postgr
 
 ## Installation
 
-Follow the steps below to setup a local development environment.
+Follow the steps below to setup a local development environment, make sure to have `Nodejs` and `PostgreSQL` installed.
 
 1.  Clone the repository from a terminal `git clone https://github.com/megame24/Maintenance-Tracker.git`.
 2.  Navigate to the project directory `cd Maintenance-Tracker`
 3.  Run `npm install` on the terminal to install dependencies.
-4.  Run `npm start` to start the application.
+4.  Change `.env-sample` to `.env` and provide the necessary credentials
+5.  Run `npm start` to start the application.
 
 ## Testing
 
@@ -49,7 +50,8 @@ Follow the steps below to test the application.
 
 1.  Navigate to the project directory through a terminal
 2.  If you haven't, install dependencies `npm install`
-3.  Run `npm test`
+3.  Also, Change `.env-sample` to `.env` and provide the necessary credentials if applicable
+4.  Run `npm test`
   
 ## Api EndPoints
 
@@ -64,7 +66,7 @@ PUT /users/requests/:id       |   Updates a request only if it has a status of p
 GET /requests            |   Gets all requests for an admin(only available to admin)
 GET /requests/:id           |   Gets a request by id(only available to admin)
 PUT /requests/:id/approve       |   Request approve endpoint(only available to admin)
-PUT /requests/:id/dissapprove          |   Request disapprove endpoint(only available to admin)
+PUT /requests/:id/disapprove          |   Request disapprove endpoint(only available to admin)
 PUT /requests/:id/resolve      |   Request resolve endpoint(only available to admin)
 
 ## Licence
