@@ -1,5 +1,6 @@
 import requestsHelper from '../helpers/requestsHelper';
 import requestDB from '../models/requestDB';
+import errors from '../helpers/errorHelper';
 
 class RequestsController {
   static getRequests(req, res) {
@@ -8,6 +9,9 @@ class RequestsController {
       .then((result) => {
         const userRequests = result.rows;
         return res.status(200).json(userRequests);
+      })
+      .catch(() => {
+        res.status(500).json(errors.error500);
       });
   }
 
@@ -45,6 +49,9 @@ class RequestsController {
               .then(message => res.status(201).json(message));
           }
         }
+      })
+      .catch(() => {
+        res.status(500).json(errors.error500);
       });
   }
 
@@ -59,7 +66,10 @@ class RequestsController {
       }
       const requestUpdate = [title, description, typeUpdate, request.id];
       requestDB.updateRequest(requestUpdate)
-        .then(() => res.status(200).json({ success: { message: 'Request updated successfully' } }));
+        .then(() => res.status(200).json({ success: { message: 'Request updated successfully' } }))
+        .catch(() => {
+          res.status(500).json(errors.error500);
+        });
     } else {
       return res.status(400).json({ error: { message: 'Only requests with status pending can be updated' } });
     }

@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import JWToken from '../helpers/JWToken';
-import authHelper from '../helpers/authHelper';
+import usersHelper from '../helpers/usersHelper';
 import userDB from '../models/userDB';
+import errors from '../helpers/errorHelper';
 
 class UsersController {
   static login(req, res) {
@@ -21,6 +22,9 @@ class UsersController {
             return res.status(200).json({ token, success: { message: 'Logged in successfully' } });
           }
           return res.status(401).json({ error: { message: 'Invalid username or password' } });
+        })
+        .catch(() => {
+          res.status(500).json(errors.error500);
         });
     } else {
       return res.status(401).json({ error: { message: 'Username and password required' } });
@@ -51,12 +55,15 @@ class UsersController {
           case !!password:
             res.status(400).json({ error: { message: 'password is required' } }); break;
           default: {
-            authHelper.registerUser(req)
+            usersHelper.registerUser(req)
               .then((message) => {
                 res.status(201).json(message);
               });
           }
         }
+      })
+      .catch(() => {
+        res.status(500).json(errors.error500);
       });
   }
 }
