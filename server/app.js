@@ -1,10 +1,13 @@
 import express from 'express';
+import path from 'path';
 import bodyParser from 'body-parser';
 import users from './routes/users';
 import requests from './routes/requests';
 import admin from './routes/admin';
 
 const app = express();
+
+app.use('/docs', express.static(path.resolve(__dirname, '../docs/')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

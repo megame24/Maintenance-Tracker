@@ -1,0 +1,830 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>M-Tracer API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="/docs/stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="/docs/stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="/docs/javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="/docs/images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="/docs/images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#technologies" class="toc-h2 toc-link" data-title="technologies">Technologies</a>
+                  </li>
+                  <li>
+                    <a href="#installation" class="toc-h2 toc-link" data-title="installation">Installation</a>
+                  </li>
+                  <li>
+                    <a href="#testing" class="toc-h2 toc-link" data-title="testing">Testing</a>
+                  </li>
+                  <li>
+                    <a href="#api-endpoints" class="toc-h2 toc-link" data-title="api-endpoints">Api EndPoints</a>
+                  </li>
+                  <li>
+                    <a href="#licence" class="toc-h2 toc-link" data-title="licence">Licence</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#users" class="toc-h1 toc-link" data-title="users">Users</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#signup-user" class="toc-h2 toc-link" data-title="signup-user">Signup User</a>
+                  </li>
+                  <li>
+                    <a href="#login-user" class="toc-h2 toc-link" data-title="login-user">Login User</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#requests" class="toc-h1 toc-link" data-title="requests">Requests</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-requests-of-a-logged-in-user" class="toc-h2 toc-link" data-title="get-all-requests-of-a-logged-in-user">Get all requests of a logged in user</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-single-request-of-a-logged-in-user" class="toc-h2 toc-link" data-title="get-a-single-request-of-a-logged-in-user">Get a single request of a logged in user</a>
+                  </li>
+                  <li>
+                    <a href="#creates-a-new-request" class="toc-h2 toc-link" data-title="creates-a-new-request">Creates a new request</a>
+                  </li>
+                  <li>
+                    <a href="#updates-a-request" class="toc-h2 toc-link" data-title="updates-a-request">Updates a request</a>
+                  </li>
+                  <li>
+                    <a href="#gets-all-requests-for-an-admin" class="toc-h2 toc-link" data-title="gets-all-requests-for-an-admin">Gets all requests for an admin</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-single-request-for-an-admin" class="toc-h2 toc-link" data-title="get-a-single-request-for-an-admin">Get a single request for an admin</a>
+                  </li>
+                  <li>
+                    <a href="#approve-a-request" class="toc-h2 toc-link" data-title="approve-a-request">Approve a request</a>
+                  </li>
+                  <li>
+                    <a href="#disapprove-a-request" class="toc-h2 toc-link" data-title="disapprove-a-request">Disapprove a request</a>
+                  </li>
+                  <li>
+                    <a href="#resolve-a-request" class="toc-h2 toc-link" data-title="resolve-a-request">Resolve a request</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li><span>&copy; Developed by Innocent Ngene</span></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p><a href="https://travis-ci.org/megame24/Maintenance-Tracker"><img src="https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=develop" alt="Build Status" /></a> <a href="https://codecov.io/gh/megame24/Maintenance-Tracker"><img src="https://codecov.io/gh/megame24/Maintenance-Tracker/branch/develop/graph/badge.svg" alt="codecov" /></a>
+ <a href="https://codeclimate.com/github/megame24/Maintenance-Tracker/maintainability"><img src="https://api.codeclimate.com/v1/badges/f02f4c11dd89fe071136/maintainability" alt="Maintainability" /></a></p>
+
+<p>Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.</p>
+<h2 id='technologies'>Technologies</h2>
+<p>The application uses <code>Nodejs</code> and <code>Express</code> frameworks on the server and <code>PostgreSQL</code> for persisting data. On the front-end, <code>HTML</code>, <code>CSS</code> &amp; <code>JavaScript</code> are used for templating.</p>
+<h2 id='installation'>Installation</h2>
+<p>Follow the steps below to setup a local development environment, make sure to have <code>Nodejs</code> and <code>PostgreSQL</code> installed.</p>
+
+<ol>
+<li> Clone the repository from a terminal <code>git clone https://github.com/megame24/Maintenance-Tracker.git</code>.</li>
+<li> Navigate to the project directory <code>cd Maintenance-Tracker</code></li>
+<li> Run <code>npm install</code> on the terminal to install dependencies.</li>
+<li> Change <code>.env-sample</code> to <code>.env</code> and provide the necessary credentials</li>
+<li> Run <code>npm start</code> to start the application.</li>
+</ol>
+<h2 id='testing'>Testing</h2>
+<p>Follow the steps below to test the application.</p>
+
+<ol>
+<li> Navigate to the project directory through a terminal</li>
+<li> If you haven&#39;t, install dependencies <code>npm install</code></li>
+<li> Also, change <code>.env-sample</code> to <code>.env</code> and provide the necessary credentials if applicable</li>
+<li> Run <code>npm test</code></li>
+</ol>
+<h2 id='api-endpoints'>Api EndPoints</h2>
+<table><thead>
+<tr>
+<th>EndPoint</th>
+<th>Functionality</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST /auth/signup</td>
+<td>User sign up.</td>
+</tr>
+<tr>
+<td>POST /auth/login</td>
+<td>User login.</td>
+</tr>
+<tr>
+<td>GET /users/requests</td>
+<td>Gets all requests of a logged in user</td>
+</tr>
+<tr>
+<td>GET /users/requests/:id</td>
+<td>Get a single request by id</td>
+</tr>
+<tr>
+<td>POST /users/requests</td>
+<td>Creates a new request</td>
+</tr>
+<tr>
+<td>PUT /users/requests/:id</td>
+<td>Updates a request only if it has a status of pending</td>
+</tr>
+<tr>
+<td>GET /requests</td>
+<td>Gets all requests for an admin(only available to admin)</td>
+</tr>
+<tr>
+<td>GET /requests/:id</td>
+<td>Gets a request by id(only available to admin)</td>
+</tr>
+<tr>
+<td>PUT /requests/:id/approve</td>
+<td>Request approve endpoint(only available to admin)</td>
+</tr>
+<tr>
+<td>PUT /requests/:id/dissapprove</td>
+<td>Request disapprove endpoint(only available to admin)</td>
+</tr>
+<tr>
+<td>PUT /requests/:id/resolve</td>
+<td>Request resolve endpoint(only available to admin)</td>
+</tr>
+</tbody></table>
+<h2 id='licence'>Licence</h2>
+<p>MIT</p>
+<h1 id='users'>Users</h1><h2 id='signup-user'>Signup User</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"fullname"</span><span class="p">:</span> <span class="s2">"Roronoa Zoro"</span><span class="p">,</span>
+  <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"roronoazoro@gamil.com"</span><span class="p">,</span>
+  <span class="s2">"username"</span><span class="p">:</span> <span class="s2">"zoro"</span><span class="p">,</span>
+  <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"zoro"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Registered successfully, login to make a request"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request'>Request</h3>
+<ul>
+<li>Endpoint: POST: <code>/auth/signup</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response'>Response</h3>
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='login-user'>Login User</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"username"</span><span class="p">:</span> <span class="s2">"zoro"</span><span class="p">,</span>
+  <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"zoro"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJ6b3JvIiwiZnVsbG5hbWUiOiJSb3Jvbm9hIFpvcm8iLCJyb2xlIjoidXNlciIsImlhdCI6MTUyNzMzMjExOCwiZXhwIjoxNTI3NDE4NTE4fQ.Bg4H2oc_eTxaDloFaNKm0PEUs-8jli_TRDsyG9BE1j0"</span><span class="p">,</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Logged in successfully"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-2'>Request</h3>
+<ul>
+<li>Endpoint: POST: <code>/auth/login</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response-2'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h1 id='requests'>Requests</h1><h2 id='get-all-requests-of-a-logged-in-user'>Get all requests of a logged in user</h2>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Nasty scratch on the hood"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"I need help!!!, I scratched my wife's new mercedes."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"resolved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your request has been resolved, check your email for further instructions."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Wheel Alignment"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The wheels were a bit off after my last maintenance with you guys, this is unacceptable. Fix it."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"maintenance"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"approved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"We are sorry to hear that you weren't satisfied with our service, your request has been approved and your car is being worked on."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Smashed my car"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"I need a complete body work done on my baby, I don't care how much it cost. Get it done"</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your vehicle was badly damaged. Good news is we can fix it, but it will take a while."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre><h3 id='request'>Request</h3>
+<ul>
+<li>Endpoint: GET: <code>/users/requests</code></li>
+<li>Requires: Authentication</li>
+</ul>
+<h3 id='response'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='get-a-single-request-of-a-logged-in-user'>Get a single request of a logged in user</h2>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Nasty scratch on the hood"</span><span class="p">,</span>
+    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"I need help!!!, I scratched my wife's new mercedes."</span><span class="p">,</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"resolved"</span><span class="p">,</span>
+    <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your request has been resolved, check your email for further instructions."</span><span class="p">,</span>
+    <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+    <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+    <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-2'>Request</h3>
+<ul>
+<li>Endpoint: GET: <code>/users/requests/:id</code></li>
+<li>Requires: Authentication</li>
+</ul>
+<h3 id='response-2'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='creates-a-new-request'>Creates a new request</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Broken side mirror"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The side mirror is in a very bad condition, the mirror is shattered and the mirror frame is badly damaged as well."</span><span class="p">,</span>
+  <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request created successfully"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-3'>Request</h3>
+<ul>
+<li>Endpoint: POST: <code>/users/requests</code></li>
+<li>Requires: Authentication</li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response-3'>Response</h3>
+<ul>
+<li>Status: <code>201: Created</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='updates-a-request'>Updates a request</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Broken side mirror"</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The side mirror is in a very bad condition, the mirror is shattered and the mirror frame is badly damaged as well. Get the work done ASAP"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request updated successfully"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-4'>Request</h3>
+<ul>
+<li>Endpoint: PUT: <code>/users/requests</code></li>
+<li>Requires: Authentication</li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response-4'>Response</h3>
+<ul>
+<li>Status: <code>200: Ok</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='gets-all-requests-for-an-admin'>Gets all requests for an admin</h2>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Broken side mirror"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The side mirror is in a very bad condition, the mirror is shattered and the mirror frame is badly damaged as well."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Sorry, the requested service is not available at the moment. We are out of side mirror frames"</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Harry Potter"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Oil change"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The oil looks alright, but I have been using it for more than a 3 months. I want it changed."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"maintenance"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"approved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your request has been approved, and is being worked on"</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Monkey D. Luffy"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Tire check"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"My tire keeps making weird noises, its driving me crazy :("</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"maintenance"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"disapproved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Harry Potter"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Nasty scratch on the hood"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"I need help!!!, I scratched my wife's new mercedes."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"resolved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your request has been resolved, check your email for further instructions."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Wheel Alignment"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The wheels were a bit off after my last maintenance with you guys, this is unacceptable. Fix it."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"maintenance"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"approved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"We are sorry to hear that you weren't satisfied with our service, your request has been approved and your car is being worked on."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Interior re-design"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Hello, I'll like to have the interior of my vehicle re-designed. I want a leopard skin cover on the seats."</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"maintenance"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"resolved"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your request has been resolved, you'll really love your new seats. Check your email for further instructions."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Harry Potter"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"car repair"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"bashed car"</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"1527334631942"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Smashed my car"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"I need a complete body work done on my baby, I don't care how much it cost. Get it done"</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+        <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your vehicle was badly damaged. Good news is we can fix it, but it will take a while."</span><span class="p">,</span>
+        <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+        <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+        <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre><h3 id='request-5'>Request</h3>
+<ul>
+<li>Endpoint: GET: <code>/requests</code></li>
+<li>Requires: Authentication</li>
+<li>Only available to an admin</li>
+</ul>
+<h3 id='response-5'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='get-a-single-request-for-an-admin'>Get a single request for an admin</h2>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Nasty scratch on the hood"</span><span class="p">,</span>
+    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"I need help!!!, I scratched my wife's new mercedes."</span><span class="p">,</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"repair"</span><span class="p">,</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"resolved"</span><span class="p">,</span>
+    <span class="s2">"trashed"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"feedback"</span><span class="p">:</span> <span class="s2">"Your request has been resolved, check your email for further instructions."</span><span class="p">,</span>
+    <span class="s2">"owner"</span><span class="p">:</span> <span class="s2">"Uzumaki Naruto"</span><span class="p">,</span>
+    <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
+    <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-6'>Request</h3>
+<ul>
+<li>Endpoint: GET: <code>/requests/:id</code></li>
+<li>Requires: Authentication</li>
+<li>Only available to an admin</li>
+</ul>
+<h3 id='response-6'>Response</h3>
+<ul>
+<li>Status: <code>200: OK</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='approve-a-request'>Approve a request</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"approve"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been approved"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-7'>Request</h3>
+<ul>
+<li>Endpoint: PUT: <code>/requests/1/approve</code></li>
+<li>Requires: Authentication</li>
+<li>Only available to an admin</li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response-7'>Response</h3>
+<ul>
+<li>Status: <code>200: Ok</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='disapprove-a-request'>Disapprove a request</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"disapprove"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been disapproved"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-8'>Request</h3>
+<ul>
+<li>Endpoint: PUT: <code>/requests/1/disapprove</code></li>
+<li>Requires: Authentication</li>
+<li>Only available to an admin</li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response-8'>Response</h3>
+<ul>
+<li>Status: <code>200: Ok</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='resolve-a-request'>Resolve a request</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"resolve"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been resolved"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-9'>Request</h3>
+<ul>
+<li>Endpoint: PUT: <code>/requests/1/resolve</code></li>
+<li>Requires: Authentication</li>
+<li>Only available to an admin</li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h3 id='response-9'>Response</h3>
+<ul>
+<li>Status: <code>200: Ok</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h1 id='errors'>Errors</h1>
+<p>The M-Tracker API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request is invalid.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- The username or password is invalid.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden -- The Request requested belongs to another user or the endpoint is for administrators only.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified Request could not be found.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
