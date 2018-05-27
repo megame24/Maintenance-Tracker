@@ -7,6 +7,7 @@ import admin from './routes/admin';
 
 const app = express();
 
+app.use('/', express.static(path.resolve(__dirname, '../client/')));
 app.use('/docs', express.static(path.resolve(__dirname, '../docs/')));
 
 app.use(bodyParser.json());

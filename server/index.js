@@ -10,6 +10,10 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+app.get('/', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
+
 app.get('/api/v1/docs', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../docs/index.html'));
 });
