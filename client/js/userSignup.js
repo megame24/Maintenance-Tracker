@@ -6,7 +6,7 @@ const init = () => {
   const emailField = document.getElementById('email');
   const passwordField = document.getElementById('password');
   const submitBtn = document.getElementById('submit-btn');
-  const errorMessage = document.getElementById('error-message');
+  const errorMessage = document.getElementsByClassName('error-message')[0];
 
   const baseUrl = window.location.origin;
   const url = `${baseUrl}/api/v1/auth/signup`;
