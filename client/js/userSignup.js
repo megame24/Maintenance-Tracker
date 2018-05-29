@@ -43,9 +43,13 @@ const init = () => {
           errorMessage.innerText = result.error.message;
           errorMessage.classList.remove('hide');
         } else {
-          let message = JSON.stringify(result.success.message);
-          message = window.btoa(message);
-          window.location = `${baseUrl}/login.html?messge=${message}`;
+          const message = {
+            success: true,
+            message: result.success.message
+          };
+          let queryString = JSON.stringify(message);
+          queryString = window.btoa(queryString);
+          window.location = `${baseUrl}/login.html?${queryString}`;
         }
       });
   };

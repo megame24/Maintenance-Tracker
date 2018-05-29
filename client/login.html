@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maintenace Tracker</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="gray">
+    <nav>
+        <div class="mobile-container container">
+            <div class="nav-header nav-header-shadow not-mobile-left">
+                <a href="/index.html">M-Tracker</a>
+                <span class="mobile toggle-menu">
+                    <i class="icon ion-android-menu"></i>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+            <ul class="right-menu not-mobile not-mobile-right">
+                <li class="active">
+                    <a href="#" class="nav-item">Login</a>
+                </li>
+                <li>
+                    <a href="/signup.html" class="nav-item">Sign Up</a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </nav>
+    <section id="login">
+        <div class="container">
+            <div id="error-message" class="message error-message hide"></div>
+            <div id="success-message" class="message success-message hide"></div>
+            <div class="form">
+                <div class="form-icon-container">
+                    <div class="center form-icon blue">
+                        <i class="icon ion-person"></i>
+                    </div>
+                </div>
+                <h1 class="center">Login</h1>
+                <form id="loginForm">
+                    <input class="form-input" type="username" id="username" placeholder="Username" required autofocus/>
+                    <input class="form-input" type="password" id="password" placeholder="Password" required/>
+                    <input class="form-input btn btn-primary" type="submit" id="submit-btn" value="Login"/>
+                </form>
+                <div class="forgot-password">
+                    <a href="#" class="blue">Forgot password?</a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-footer center">
+                    <p>Not a member? &nbsp;
+                        <a href="/signup.html" class="blue">Create Account</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; Maintanence Tracker</p> &nbsp; &nbsp;
+            <a href="/about.html" class="blue">About Us</a>
+        </div>
+    </footer>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/userLogin.js"></script>
+</body>
+
+</html>
