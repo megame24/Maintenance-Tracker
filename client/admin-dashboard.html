@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maintenace Tracker</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <nav>
+        <div class="mobile-container container">
+            <div class="nav-header nav-header-shadow not-mobile-left">
+                <a href="/index.html">M-Tracker</a>
+                <span class="mobile toggle-menu">
+                    <i class="icon ion-android-menu"></i>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+            <ul class="right-menu not-mobile not-mobile-right">
+                <li class="admin">
+                    <div>
+                        <a href="#" class="nav-item"><span id="display-username">Welcome &nbsp;</span>
+                            <span class="not-mobile">
+                                <i class="icon ion-android-arrow-dropdown"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="drop-down-menu hide">
+                        <a href="/admin-profile.html">Profile</a>
+                        <a href="#">Dashboard</a>
+                        <a href="#">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </nav>
+    <section id="admin-dashboard" class="min-height">
+        <div class="container">
+            <div class="message error-message hide"></div>
+            <div class="message success-message hide"></div>
+            <div class="admin-dashboard">
+                <h2>Manage requests</h2>
+                <div class="filter right">
+                    <span>Filter</span>&nbsp;&nbsp;
+                    <select>
+                        <option value="none">None</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="repar">Repair</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+                <hr />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th class="table-not-mobile">Type</th>
+                            <th>Approve / Disapprove</th>
+                            <th>Resolve</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; Maintanence Tracker</p> &nbsp; &nbsp;
+            <a href="/about.html" class="blue">About Us</a>
+        </div>
+    </footer>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/getAdminRequests.js"></script>
+</body>
+
+</html>
