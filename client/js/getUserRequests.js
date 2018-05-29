@@ -5,6 +5,17 @@ const init = () => {
   const errorMessage = document.getElementsByClassName('error-message')[0];
   const successMessage = document.getElementsByClassName('success-message')[0];
 
+  const baseUrl = window.location.origin;
+  const url = `${baseUrl}/api/v1/users/requests`;
+  const token = window.localStorage.getItem('token');
+
+  // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
+  const parseJwt = (jwToken) => {
+    const base64Url = jwToken.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(window.atob(base64));
+  };
+
   const displayMessage = (message, successOrerrorMessge) => {
     const successOrerror = successOrerrorMessge;
     successOrerror.innerText = message.message;
@@ -35,11 +46,7 @@ const init = () => {
       displayMessage(message, errorMessage);
     }
   }
-  
-  const token = window.localStorage.getItem('token');
 
-  const baseUrl = window.location.origin;
-  const url = `${baseUrl}/api/v1/users/requests`;
   const headers = new Headers();
   headers.append('authorization', token);
   const request = new Request(url, {
@@ -67,13 +74,8 @@ const init = () => {
         let queryString = JSON.stringify(message);
         queryString = window.btoa(queryString);
         window.location = `${baseUrl}/login.html?${queryString}`;
+        return;
       }
-      // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
-      const parseJwt = (jwToken) => {
-        const base64Url = jwToken.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        return JSON.parse(window.atob(base64));
-      };
       const userDetails = parseJwt(token);
       displayUsername.append(userDetails.username);
       result.forEach((elem) => {
