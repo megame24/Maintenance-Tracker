@@ -4,25 +4,47 @@ const init = () => {
   const usernameField = document.getElementById('username');
   const passwordField = document.getElementById('password');
   const submitBtn = document.getElementById('submit-btn');
-  const errorMessage = document.getElementById('error-message');
-  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementsByClassName('error-message')[0];
+  const successMessage = document.getElementsByClassName('success-message')[0];
+
+  const displayMessage = (message, successOrerrorMessge) => {
+    const successOrerror = successOrerrorMessge;
+    successOrerror.innerText = message.message;
+    successOrerror.classList.remove('hide');
+    window.setTimeout(() => {
+      successOrerror.classList.add('hide');
+    }, 5000);
+  };
+
+  const successRedirect = (baseUrl, subUrl, result) => {
+    const message = {
+      success: true,
+      message: result.success.message
+    };
+    let queryString = JSON.stringify(message);
+    queryString = window.btoa(queryString);
+    window.location = `${baseUrl}/${subUrl}?${queryString}`;
+  };
+
+  const isValidJson = (string) => {
+    try {
+      JSON.parse(string);
+    } catch (err) {
+      return false;
+    }
+    return true;
+  };
 
   if (window.location.search.substring(1)) {
     let message = window.atob(window.location.search.substring(1));
-    message = JSON.parse(message);
+    if (isValidJson(message)) {
+      message = JSON.parse(message);
+    }
     if (message.success) {
-      successMessage.innerText = message.message;
-      successMessage.classList.remove('hide');
-      window.setTimeout(() => {
-        successMessage.classList.add('hide');
-      }, 5000);
+      displayMessage(message, successMessage);
     }
     if (message.error) {
-      errorMessage.innerText = message.message;
-      errorMessage.classList.remove('hide');
-      window.setTimeout(() => {
-        errorMessage.classList.add('hide');
-      }, 5000);
+      displayMessage(message, errorMessage);
     }
   }
 
@@ -62,30 +84,18 @@ const init = () => {
           const { token } = result;
           window.localStorage.setItem('token', token);
           // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
-          const parseJwt = (tk) => {
-            const base64Url = tk.split('.')[1];
+          const parseJwt = (jwToken) => {
+            const base64Url = jwToken.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
             return JSON.parse(window.atob(base64));
           };
 
           const userDetails = parseJwt(token);
           if (userDetails.role === 'admin') {
-            const message = {
-              success: true,
-              message: result.success.message
-            };
-            let queryString = JSON.stringify(message);
-            queryString = window.btoa(queryString);
-            window.location = `${baseUrl}/admin-dashboard.html?${queryString}`;
+            successRedirect(baseUrl, 'admin-dashboard.html', result);
           }
           if (userDetails.role === 'user') {
-            const message = {
-              success: true,
-              message: result.success.message
-            };
-            let queryString = JSON.stringify(message);
-            queryString = window.btoa(queryString);
-            window.location = `${baseUrl}/view-requests.html?${queryString}`;
+            successRedirect(baseUrl, 'view-requests.html', result);
           }
         }
       });
