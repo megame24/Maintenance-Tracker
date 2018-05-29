@@ -3,12 +3,14 @@ export default {
     id: 1,
     username: 'john',
     password: 'wick',
+    email: 'johnwick@gmail.com',
     role: 'admin'
   },
   regularUser1: {
     id: 4,
     username: 'uzumaki',
     password: 'naruto',
+    email: 'uzumakinaruto@gmail.com',
     requestsId: [4, 6, 7, 8],
     role: 'user'
   },
@@ -16,6 +18,7 @@ export default {
     id: 3,
     username: 'wizard12',
     password: 'harry',
+    email: 'harrypotter@gmail.com',
     requestsId: [1, 3, 5],
     role: 'user'
   },

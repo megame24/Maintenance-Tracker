@@ -18,7 +18,7 @@ describe('Users', () => {
       chai.request(server)
         .post(`${baseUrl}/login`)
         .end((err, res) => {
-          expect(res.status).to.equal(401);
+          expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
           expect(res.body.error.message).to.equal('Username and password required');
           done();
@@ -65,6 +65,10 @@ describe('Users', () => {
     it('Should fail if fullname was not provided', (done) => {
       chai.request(server)
         .post(`${baseUrl}/signup`)
+        .send({
+          username: 'username123',
+          email: 'x@x.x'
+        })
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
@@ -72,12 +76,37 @@ describe('Users', () => {
           done();
         });
     });
-    it('Should fail if email was not provided', (done) => {
+    it('Should fail if email is not unique', (done) => {
       chai.request(server)
         .post(`${baseUrl}/signup`)
         .send({
-          fullname: 'Full name'
+          username: 'username1',
+          email: regularUser1.email
         })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('User with that email already exists');
+          done();
+        });
+    });
+    it('Should fail if email is not valid', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/signup`)
+        .send({
+          username: 'username12',
+          email: 'invalidEmail'
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Please provide a valid email');
+          done();
+        });
+    });
+    it('Should fail if email was not provided', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/signup`)
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
@@ -89,7 +118,6 @@ describe('Users', () => {
       chai.request(server)
         .post(`${baseUrl}/signup`)
         .send({
-          fullname: 'Full name',
           email: 'emil@gmail.com'
         })
         .end((err, res) => {
