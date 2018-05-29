@@ -109,7 +109,7 @@ const init = () => {
         const row = createNode('tr');
         row.innerHTML = 
         `<td class="dark-blue table-link">
-            <a href="/admin-request-details.html">${elem.title}</a>
+            <a href="/admin-request-details.html?${elem.id}">${elem.title}</a>
         </td>
         <td class="table-not-mobile">${elem.type}</td>
         ${approveAndDisapproveColumn(elem.status)}

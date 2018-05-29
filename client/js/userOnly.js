@@ -11,7 +11,14 @@ const parseJwt = (jwToken) => {
 
 if (token) {
   const userDetails = parseJwt(token);
-  if (userDetails.role === 'admin') {
-    window.location = `${baseUrl}/admin-dashboard.html`;
+  const currentTime = Math.floor(Date.now() / 1000);
+  if (userDetails.exp > currentTime) {
+    if (userDetails.role === 'admin') {
+      window.location = `${baseUrl}/admin-dashboard.html`;
+    }
+  } else {
+    window.location = `${baseUrl}/login.html`;
   }
+} else {
+  window.location = `${baseUrl}/login.html`;
 }
