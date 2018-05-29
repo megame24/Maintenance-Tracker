@@ -42,15 +42,15 @@ const init = () => {
           submitBtn.value = 'Create Account';
           errorMessage.innerText = result.error.message;
           errorMessage.classList.remove('hide');
-        } else {
-          const message = {
-            success: true,
-            message: result.success.message
-          };
-          let queryString = JSON.stringify(message);
-          queryString = window.btoa(queryString);
-          window.location = `${baseUrl}/login.html?${queryString}`;
+          return;
         }
+        const message = {
+          success: true,
+          message: result.success.message
+        };
+        let queryString = JSON.stringify(message);
+        queryString = window.btoa(queryString);
+        window.location = `${baseUrl}/login.html?${queryString}`;
       });
   };
 };

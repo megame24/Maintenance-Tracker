@@ -105,6 +105,9 @@ section {
 .btn-danger:hover {
   background-color: #be2727;
 }
+.btn.hide {
+  display: none;
+}
 .form-input {
   display: block;
   width: 100%;
@@ -505,9 +508,11 @@ footer p {
   margin-bottom: 15px;
 }
 .request-detail .status {
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #e7e7e7;
   display: inline-block;
+  border-radius: 20px;
+  font-size: 90%;
 }
 .request-detail .request-type {
   position: absolute;

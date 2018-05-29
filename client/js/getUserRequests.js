@@ -56,13 +56,33 @@ const init = () => {
 
   const createNode = elem => document.createElement(elem);
 
-  const statusBackground = (status) => {
-    if (status === 'resolved') return 'background-success';
-    if (status === 'disapproved') return 'background-danger';
-    if (status === 'approved') return 'background-primary';
-    if (status === 'pending') return 'background-tertiary';
-  };
 
+  const statusDependents = (status) => {
+    if (status === 'resolved') {
+      const statusObj = {};
+      statusObj.backgroundColor = 'background-success';
+      statusObj.message = 'Resolved';
+      return statusObj;
+    }
+    if (status === 'disapproved') {
+      const statusObj = {};
+      statusObj.backgroundColor = 'background-danger';
+      statusObj.message = 'Disapproved';
+      return statusObj;
+    }
+    if (status === 'approved') {
+      const statusObj = {};
+      statusObj.backgroundColor = 'background-primary';
+      statusObj.message = 'Work in Progress';
+      return statusObj;
+    }
+    if (status === 'pending') {
+      const statusObj = {};
+      statusObj.backgroundColor = 'background-tertiary';
+      statusObj.message = 'Approval pending';
+      return statusObj;
+    }
+  };
   fetch(request)
     .then(res => res.json())
     .then((result) => {
@@ -80,7 +100,7 @@ const init = () => {
       displayUsername.append(userDetails.username);
       result.forEach((elem) => {
         const row = createNode('tr');
-        row.innerHTML = `<td class="dark-blue table-link"><a href="/request-details.html?${elem.id}">${elem.title}</a></td><td>${elem.type}</td><td class=${statusBackground(elem.status)}>${elem.status}</td>`;
+        row.innerHTML = `<td class="dark-blue table-link"><a href="/user-request-details.html?${elem.id}">${elem.title}</a></td><td>${elem.type}</td><td class=${statusDependents(elem.status).backgroundColor}>${statusDependents(elem.status).message}</td>`;
         tableBody.appendChild(row);
       });
     });

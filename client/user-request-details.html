@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/userOnly.js"></script>
+    <script src="js/userOnly.js"></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
                         </a>
                     </div>
                     <div class="drop-down-menu hide">
-                        <a href="#">Make Request</a>
+                        <a href="/make-request.html">Make Request</a>
                         <a href="/view-requests.html">View Requests</a>
                     </div>
                 </li>
@@ -53,26 +53,9 @@
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section id="make-request" class="min-height">
+    <section class="user-request-detail min-height">
         <div class="container">
-            <div class="message error-message hide"></div>
-            <div class="message success-message hide"></div>
-            <div class="make-edit-request">
-                <h2>Make a new request</h2>
-                <hr />
-                <form id="make-request-form">
-                    <label for="title">Request title</label>
-                    <input class="form-input" type="text" id="title" placeholder="E.g. Broken side mirror" required autofocus/>
-                    <label for="description">Request Description</label>
-                    <textarea class="form-input" type="text" id="description" required></textarea>
-                    <label for="type">Request type</label>
-                    <span>
-                        <input type="radio" name="type" value="maintenance"/> Maintenance</span> &nbsp; &nbsp;
-                    <span>
-                        <input type="radio" name="type" checked value="repair"/> Repair</span>
-                        <hr />
-                    <input type="submit" id="submit-btn" value="Make Request" class="form-input btn btn-primary"/>
-                </form>
+            <div class="request-detail-parent">
             </div>
         </div>
     </section>
@@ -83,7 +66,7 @@
         </div>
     </footer>
     <script src="/js/navbar.js"></script>
-    <script src="/js/makeRequest.js"></script>
+    <script src="/js/userRequestDetails.js"></script>
 </body>
 
 </html>

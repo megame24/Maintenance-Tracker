@@ -80,25 +80,25 @@ const init = () => {
           submitBtn.value = 'Create Account';
           errorMessage.innerText = result.error.message;
           errorMessage.classList.remove('hide');
-        } else {
-          const { token } = result;
-          window.localStorage.setItem('token', token);
-          // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
-          const parseJwt = (jwToken) => {
-            const base64Url = jwToken.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            return JSON.parse(window.atob(base64));
-          };
-
-          const userDetails = parseJwt(token);
-          if (userDetails.role === 'admin') {
-            successRedirect(baseUrl, 'admin-dashboard.html', result);
-          }
-          if (userDetails.role === 'user') {
-            successRedirect(baseUrl, 'view-requests.html', result);
-          }
+          return;
         }
-      });
+        const { token } = result;
+        window.localStorage.setItem('token', token);
+        // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
+        const parseJwt = (jwToken) => {
+          const base64Url = jwToken.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          return JSON.parse(window.atob(base64));
+        };
+
+        const userDetails = parseJwt(token);
+        if (userDetails.role === 'admin') {
+          successRedirect(baseUrl, 'admin-dashboard.html', result);
+        }
+        if (userDetails.role === 'user') {
+          successRedirect(baseUrl, 'view-requests.html', result);
+        }
+    });
   };
 };
 
