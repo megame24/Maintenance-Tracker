@@ -14,10 +14,10 @@ if (token) {
   const currentTime = Math.floor(Date.now() / 1000);
   if (userDetails.exp > currentTime) {
     if (userDetails.role === 'admin') {
-      window.location = `${baseUrl}/admin-dashboard.html`;
+      handleRedirectSuccess('You are already logged in', 'admin-dashboard.html?');
     }
     if (userDetails.role === 'user') {
-      window.location = `${baseUrl}/view-requests.html`;
+      handleRedirectSuccess('You are already logged in', 'view-requests.html?');
     }
   }
 }
