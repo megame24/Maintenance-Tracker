@@ -34,29 +34,35 @@ const getRequest = () => {
     });
 };
 
-const updateRequest = (event) => {
-  const typeField = document.querySelector('input[name=type]:checked');
-  event.preventDefault();
-  submitBtn.disabled = true;
-  submitBtn.classList.add('disabled');
-  submitBtn.value = 'Updating Request...';
-  let formData = {
-    title: titleField.value,
-    description: descriptionField.value,
-    type: typeField.value
-  };
-  formData = JSON.stringify(formData);
-  headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-  headers.append('authorization', token);
-  request = new Request(url, { method: 'PUT', headers, body: formData });
-  fetch(request).then(res => res.json())
+const updateRequest = (req) => {
+  fetch(req).then(res => res.json())
     .then((result) => {
       if (result.error) {
         return displayError(result.error.message);
       }
       handleRedirectSuccess(result.success.message, `user-request-details.html?${id}&`);
     });
+};
+
+const updateRequestController = () => {
+  updateForm.onsubmit = (event) => {
+    const typeField = document.querySelector('input[name=type]:checked');
+    event.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.classList.add('disabled');
+    submitBtn.value = 'Updating Request...';
+    let formData = {
+      title: titleField.value,
+      description: descriptionField.value,
+      type: typeField.value
+    };
+    formData = JSON.stringify(formData);
+    headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('authorization', token);
+    request = new Request(url, { method: 'PUT', headers, body: formData });
+    updateRequest(request);
+  };
 };
 
 const init = () => {
@@ -69,7 +75,7 @@ const init = () => {
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getRequest();
-  updateForm.addEventListener('submit', updateRequest);
+  updateRequestController();
 };
 
 window.onload = init();

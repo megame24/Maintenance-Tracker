@@ -1,6 +1,7 @@
 let titleField,
   descriptionField,
   submitBtn,
+  makeRequestForm,
   errorMessage;
 
 const url = `${baseUrl}/api/v1/users/requests`;
@@ -25,24 +26,26 @@ const makeRequest = (request) => {
     });
 };
 
-const makeRequestController = (event) => {
-  event.preventDefault();
-  submitBtn.disabled = true;
-  submitBtn.classList.add('disabled');
-  submitBtn.value = 'Making Request...';
-  const typeField = document.querySelector('input[name=type]:checked');
-  let formData = {
-    title: titleField.value,
-    description: descriptionField.value,
-    type: typeField.value
+const makeRequestController = () => {
+  makeRequestForm.onsubmit = (event) => {
+    event.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.classList.add('disabled');
+    submitBtn.value = 'Making Request...';
+    const typeField = document.querySelector('input[name=type]:checked');
+    let formData = {
+      title: titleField.value,
+      description: descriptionField.value,
+      type: typeField.value
+    };
+    formData = JSON.stringify(formData);
+    const request = new Request(url, { method: 'POST', headers, body: formData });
+    makeRequest(request);
   };
-  formData = JSON.stringify(formData);
-  const request = new Request(url, { method: 'POST', headers, body: formData });
-  makeRequest(request);
 };
 
 const init = () => {
-  const makeRequestForm = document.getElementById('make-request-form');
+  makeRequestForm = document.getElementById('make-request-form');
   titleField = document.getElementById('title');
   descriptionField = document.getElementById('description');
   submitBtn = document.getElementById('submit-btn');
@@ -50,7 +53,7 @@ const init = () => {
   displayUsername = document.getElementById('display-username');
   userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
-  makeRequestForm.addEventListener('submit', makeRequestController);
+  makeRequestController();
 };
 
 window.onload = init();

@@ -2,6 +2,7 @@ let submitBtn,
   errorMessage,
   usernameField,
   passwordField,
+  loginForm,
   successMessage;
 const url = `${baseUrl}/api/v1/auth/login`;
 
@@ -26,26 +27,28 @@ const loginUser = (request) => {
 const headers = new Headers();
 headers.append('Content-Type', 'application/json');
 
-const loginController = (event) => {
-  event.preventDefault();
-  submitBtn.disabled = true;
-  submitBtn.classList.add('disabled');
-  submitBtn.value = 'Logging in ...';
-  let formData = { username: usernameField.value, password: passwordField.value };
-  formData = JSON.stringify(formData);
-  const request = new Request(url, { method: 'POST', headers, body: formData });
-  loginUser(request);
+const loginController = () => {
+  loginForm.onsubmit = (event) => {
+    event.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.classList.add('disabled');
+    submitBtn.value = 'Logging in ...';
+    let formData = { username: usernameField.value, password: passwordField.value };
+    formData = JSON.stringify(formData);
+    const request = new Request(url, { method: 'POST', headers, body: formData });
+    loginUser(request);
+  };
 };
 
 const init = () => {
-  const loginForm = document.getElementById('loginForm');
+  loginForm = document.getElementById('loginForm');
   usernameField = document.getElementById('username');
   passwordField = document.getElementById('password');
   submitBtn = document.getElementById('submit-btn');
   errorMessage = document.getElementsByClassName('error-message')[0];
   successMessage = document.getElementsByClassName('success-message')[0];
   getQueryMessage();
-  loginForm.addEventListener('submit', loginController);
+  loginController();
 };
 
 window.onload = init();
