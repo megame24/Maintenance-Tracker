@@ -2,12 +2,44 @@
 const init = () => {
   const requestDetailParent = document.getElementsByClassName('request-detail-parent')[0];
   const displayUsername = document.getElementById('display-username');
+  const errorMessage = document.getElementsByClassName('error-message')[0];
+  const successMessage = document.getElementsByClassName('success-message')[0];
 
   const baseUrl = window.location.origin;
   const token = window.localStorage.getItem('token');
+  const displayMessage = (message, successOrerrorMessge) => {
+    const successOrerror = successOrerrorMessge;
+    successOrerror.innerText = message.message;
+    successOrerror.classList.remove('hide');
+    window.setTimeout(() => {
+      successOrerror.classList.add('hide');
+    }, 5000);
+  };
+  const isValidJson = (string) => {
+    try {
+      JSON.parse(string);
+    } catch (err) {
+      return false;
+    }
+    return true;
+  };
   let id;
   if (window.location.search.substring(1)) {
-    id = window.location.search.substring(1);
+    const params = window.location.search.substring(1).split('&');
+    id = params[0];
+    let message;
+    if (params[1]) {
+      message = window.atob(params[1]);
+      if (isValidJson(message)) {
+        message = JSON.parse(message);
+      }
+      if (message.success) {
+        displayMessage(message, successMessage);
+      }
+      if (message.error) {
+        displayMessage(message, errorMessage);
+      }
+    }
   } else {
     const message = {
       error: true,
