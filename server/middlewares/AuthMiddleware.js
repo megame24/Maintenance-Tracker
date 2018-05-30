@@ -1,5 +1,6 @@
 import JWToken from '../helpers/JWToken';
 import requestsHelper from '../helpers/requestsHelper';
+import errors from '../helpers/errorHelper';
 
 class AuthMiddleware {
   static verifyUser(req, res, next) {
@@ -24,6 +25,9 @@ class AuthMiddleware {
           return next();
         }
         res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+      })
+      .catch(() => {
+        res.status(500).json(errors.error500);
       });
   }
 
@@ -36,6 +40,9 @@ class AuthMiddleware {
           return next();
         }
         res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+      })
+      .catch(() => {
+        res.status(500).json(errors.error500);
       });
   }
 }
