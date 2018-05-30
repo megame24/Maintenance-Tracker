@@ -1,6 +1,5 @@
 let titleField,
   descriptionField,
-  typeField,
   submitBtn,
   errorMessage;
 
@@ -14,8 +13,7 @@ const makeRequest = (request) => {
     .then(res => res.json())
     .then((result) => {
       if (result.error) {
-        displayError(result.error.message);
-        return;
+        return displayError(result.error.message);
       }
       const message = {
         success: true,
@@ -32,6 +30,7 @@ const makeRequestController = (event) => {
   submitBtn.disabled = true;
   submitBtn.classList.add('disabled');
   submitBtn.value = 'Making Request...';
+  const typeField = document.querySelector('input[name=type]:checked');
   let formData = {
     title: titleField.value,
     description: descriptionField.value,
@@ -46,7 +45,6 @@ const init = () => {
   const makeRequestForm = document.getElementById('make-request-form');
   titleField = document.getElementById('title');
   descriptionField = document.getElementById('description');
-  typeField = document.querySelector('input[name=type]:checked');
   submitBtn = document.getElementById('submit-btn');
   errorMessage = document.getElementsByClassName('error-message')[0];
   displayUsername = document.getElementById('display-username');
