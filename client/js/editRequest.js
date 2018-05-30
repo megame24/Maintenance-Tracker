@@ -8,13 +8,6 @@ let updateForm,
   id,
   url;
 
-const handleRedirectError = (errMessage, subUrl) => {
-  const message = { error: true, message: errMessage };
-  let queryString = JSON.stringify(message);
-  queryString = window.btoa(queryString);
-  window.location = `${baseUrl}/${subUrl}?${queryString}`;
-};
-
 const handleRedirectSuccess = (succMessage, subUrl) => {
   const message = { success: true, message: succMessage };
   let queryString = JSON.stringify(message);
