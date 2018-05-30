@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const displayMessage = (message, successOrerrorMessge) => {
   const successOrerror = successOrerrorMessge;
   successOrerror.innerText = message.message;

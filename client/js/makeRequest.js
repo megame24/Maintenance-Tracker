@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 let titleField,
   descriptionField,
   typeField,
