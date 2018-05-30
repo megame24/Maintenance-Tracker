@@ -4,25 +4,6 @@ const init = () => {
   const displayUsername = document.getElementById('display-username');
   const errorMessage = document.getElementsByClassName('error-message')[0];
   const successMessage = document.getElementsByClassName('success-message')[0];
-
-  const baseUrl = window.location.origin;
-  const token = window.localStorage.getItem('token');
-  const displayMessage = (message, successOrerrorMessge) => {
-    const successOrerror = successOrerrorMessge;
-    successOrerror.innerText = message.message;
-    successOrerror.classList.remove('hide');
-    window.setTimeout(() => {
-      successOrerror.classList.add('hide');
-    }, 5000);
-  };
-  const isValidJson = (string) => {
-    try {
-      JSON.parse(string);
-    } catch (err) {
-      return false;
-    }
-    return true;
-  };
   let id;
   if (window.location.search.substring(1)) {
     const params = window.location.search.substring(1).split('&');
@@ -51,14 +32,6 @@ const init = () => {
     return;
   }
   const url = `${baseUrl}/api/v1/users/requests/${id}`;
-
-  // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
-  const parseJwt = (jwToken) => {
-    const base64Url = jwToken.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(window.atob(base64));
-  };
-
   const headers = new Headers();
   headers.append('authorization', token);
   const request = new Request(url, {

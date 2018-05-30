@@ -4,9 +4,7 @@ let updateForm,
   request,
   titleField,
   descriptionField,
-  errorMessage,
-  id,
-  url;
+  errorMessage;
 
 const handleRedirectSuccess = (succMessage, subUrl) => {
   const message = { success: true, message: succMessage };
@@ -33,7 +31,26 @@ const getIdFromQueryString = () => {
   return false;
 };
 
-const submintForm = (event) => {
+id = getIdFromQueryString();
+const url = `${baseUrl}/api/v1/users/requests/${id}`;
+
+const getRequest = () => {
+  headers = new Headers();
+  headers.append('authorization', token);
+  request = new Request(url, { method: 'GET', headers });
+  fetch(request).then(res => res.json())
+    .then((result) => {
+      if (result.error) {
+        handleRedirectError(result.error.message, 'view-requests.html');
+        return;
+      }
+      titleField.value = result.title;
+      descriptionField.innerText = result.description;
+      document.querySelector(`input[value=${result.type}]`).checked = true;
+    });
+};
+
+const updateRequest = (event) => {
   const typeField = document.querySelector('input[name=type]:checked');
   event.preventDefault();
   submitBtn.disabled = true;
@@ -66,26 +83,10 @@ const init = () => {
   submitBtn = document.getElementById('submit-btn');
   updateForm = document.getElementById('update-form');
   errorMessage = document.getElementsByClassName('error-message')[0];
-  if (!getIdFromQueryString) return;
-  id = getIdFromQueryString();
-  url = `${baseUrl}/api/v1/users/requests/${id}`;
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
-  headers = new Headers();
-  headers.append('authorization', token);
-  request = new Request(url, { method: 'GET', headers });
-  fetch(request).then(res => res.json())
-    .then((result) => {
-      if (result.error) {
-        handleRedirectError(result.error.message, 'view-requests.html');
-        return;
-      }
-      titleField.value = result.title;
-      descriptionField.innerText = result.description;
-      document.querySelector(`input[value=${result.type}]`).checked = true;
-    });
-
-  updateForm.addEventListener('submit', submintForm);
+  getRequest();
+  updateForm.addEventListener('submit', updateRequest);
 };
 
 window.onload = init();

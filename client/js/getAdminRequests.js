@@ -2,24 +2,6 @@ let errorMessage,
   successMessage,
   tableBody;
 
-const isValidJson = (string) => {
-  try {
-    JSON.parse(string);
-  } catch (err) {
-    return false;
-  }
-  return true;
-};
-
-const displayMessage = (message, successOrerrorMessge) => {
-  const successOrerror = successOrerrorMessge;
-  successOrerror.innerText = message.message;
-  successOrerror.classList.remove('hide');
-  window.setTimeout(() => {
-    successOrerror.classList.add('hide');
-  }, 5000);
-};
-
 const getQueryMessage = () => {
   if (window.location.search.substring(1)) {
     let message = window.atob(window.location.search.substring(1));
@@ -86,19 +68,12 @@ const populateTableWithRequests = (result) => {
   });
 };
 
+const url = `${baseUrl}/api/v1/requests`;
+const headers = new Headers();
+headers.append('authorization', token);
+const request = new Request(url, { method: 'GET', headers });
 
-const init = () => {
-  tableBody = document.getElementById('table-body');
-  const displayUsername = document.getElementById('display-username');
-  errorMessage = document.getElementsByClassName('error-message')[0];
-  successMessage = document.getElementsByClassName('success-message')[0];
-  const userDetails = parseJwt(token);
-  displayUsername.append(userDetails.username);
-  getQueryMessage();
-  const url = `${baseUrl}/api/v1/requests`;
-  const headers = new Headers();
-  headers.append('authorization', token);
-  const request = new Request(url, { method: 'GET', headers });
+const getAllRequests = () => {
   fetch(request)
     .then(res => res.json())
     .then((result) => {
@@ -108,6 +83,17 @@ const init = () => {
       }
       populateTableWithRequests(result);
     });
+};
+
+const init = () => {
+  tableBody = document.getElementById('table-body');
+  const displayUsername = document.getElementById('display-username');
+  errorMessage = document.getElementsByClassName('error-message')[0];
+  successMessage = document.getElementsByClassName('success-message')[0];
+  const userDetails = parseJwt(token);
+  displayUsername.append(userDetails.username);
+  getQueryMessage();
+  getAllRequests();
 };
 
 window.onload = init();
