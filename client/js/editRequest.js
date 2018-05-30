@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 let updateForm,
   submitBtn,
   headers,
@@ -5,21 +6,6 @@ let updateForm,
   titleField,
   descriptionField,
   errorMessage;
-
-const handleRedirectSuccess = (succMessage, subUrl) => {
-  const message = { success: true, message: succMessage };
-  let queryString = JSON.stringify(message);
-  queryString = window.btoa(queryString);
-  window.location = `${baseUrl}/${subUrl}?${id}&${queryString}`;
-};
-
-const handleUpdateRequestError = (errMessage) => {
-  submitBtn.disabled = false;
-  submitBtn.classList.remove('disabled');
-  submitBtn.value = 'Update Request';
-  errorMessage.innerText = errMessage;
-  errorMessage.classList.remove('hide');
-};
 
 const getIdFromQueryString = () => {
   let gottenId;
@@ -69,10 +55,10 @@ const updateRequest = (event) => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        handleUpdateRequestError(result.error.message);
+        displayError(result.error.message);
         return;
       }
-      handleRedirectSuccess(result.success.message, 'user-request-details.html');
+      handleRedirectSuccess(result.success.message, `user-request-details.html?${id}&`);
     });
 };
 
