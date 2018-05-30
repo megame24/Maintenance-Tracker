@@ -62,8 +62,7 @@ const getAllRequests = () => {
     .then(res => res.json())
     .then((result) => {
       if (result.error) {
-        handleRedirectError(result.error.message, 'login.html');
-        return;
+        return handleRedirectError(result.error.message, 'login.html');
       }
       populateTableWithRequests(result);
     });

@@ -1,23 +1,21 @@
+let submitBtn,
+  errorMessage,
+  passwordField,
+  usernameField,
+  emailField,
+  fullnameField,
+  signupForm;
 
-const init = () => {
-  const signupForm = document.getElementById('signupForm');
-  const fullnameField = document.getElementById('name');
-  const usernameField = document.getElementById('username');
-  const emailField = document.getElementById('email');
-  const passwordField = document.getElementById('password');
-  const submitBtn = document.getElementById('submit-btn');
-  const errorMessage = document.getElementsByClassName('error-message')[0];
+const headers = new Headers();
+headers.append('Content-Type', 'application/json');
+const url = `${baseUrl}/api/v1/auth/signup`;
 
-  const baseUrl = window.location.origin;
-  const url = `${baseUrl}/api/v1/auth/signup`;
-
+const signupController = () => {
   signupForm.onsubmit = (event) => {
     event.preventDefault();
-
     submitBtn.disabled = true;
     submitBtn.classList.add('disabled');
     submitBtn.value = 'Creating Account ...';
-
     let formData = {
       fullname: fullnameField.value,
       username: usernameField.value,
@@ -25,34 +23,26 @@ const init = () => {
       password: passwordField.value
     };
     formData = JSON.stringify(formData);
-
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    const request = new Request(url, {
-      method: 'POST',
-      headers,
-      body: formData
-    });
-    fetch(request)
-      .then(res => res.json())
+    const request = new Request(url, { method: 'POST', headers, body: formData });
+    fetch(request).then(res => res.json())
       .then((result) => {
         if (result.error) {
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('disabled');
-          submitBtn.value = 'Create Account';
-          errorMessage.innerText = result.error.message;
-          errorMessage.classList.remove('hide');
-          return;
+          return displayError(result.error.message);
         }
-        const message = {
-          success: true,
-          message: result.success.message
-        };
-        let queryString = JSON.stringify(message);
-        queryString = window.btoa(queryString);
-        window.location = `${baseUrl}/login.html?${queryString}`;
+        handleRedirectSuccess(result.success.message, 'login.html?');
       });
   };
+};
+
+const init = () => {
+  signupForm = document.getElementById('signupForm');
+  fullnameField = document.getElementById('name');
+  usernameField = document.getElementById('username');
+  emailField = document.getElementById('email');
+  passwordField = document.getElementById('password');
+  submitBtn = document.getElementById('submit-btn');
+  errorMessage = document.getElementsByClassName('error-message')[0];
+  signupController();
 };
 
 window.onload = init();

@@ -26,8 +26,7 @@ const getRequest = () => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        handleRedirectError(result.error.message, 'view-requests.html');
-        return;
+        return handleRedirectError(result.error.message, 'view-requests.html');
       }
       titleField.value = result.title;
       descriptionField.innerText = result.description;
@@ -54,8 +53,7 @@ const updateRequest = (event) => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        displayError(result.error.message);
-        return;
+        return displayError(result.error.message);
       }
       handleRedirectSuccess(result.success.message, `user-request-details.html?${id}&`);
     });

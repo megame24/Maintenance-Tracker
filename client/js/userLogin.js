@@ -9,8 +9,7 @@ const loginUser = (request) => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        displayError(result.error.message);
-        return;
+        return displayError(result.error.message);
       }
       const { token } = result;
       window.localStorage.setItem('token', token);
@@ -45,6 +44,7 @@ const init = () => {
   submitBtn = document.getElementById('submit-btn');
   errorMessage = document.getElementsByClassName('error-message')[0];
   successMessage = document.getElementsByClassName('success-message')[0];
+  getQueryMessage();
   loginForm.addEventListener('submit', loginController);
 };
 
