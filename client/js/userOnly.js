@@ -14,11 +14,11 @@ if (token) {
   const currentTime = Math.floor(Date.now() / 1000);
   if (userDetails.exp > currentTime) {
     if (userDetails.role === 'admin') {
-      window.location = `${baseUrl}/admin-dashboard.html`;
+      handleRedirectError('You do not have permission to visit that page', 'admin-dashboard.html');
     }
   } else {
-    window.location = `${baseUrl}/login.html`;
+    handleRedirectError('Authentication failed', 'login.html');
   }
 } else {
-  window.location = `${baseUrl}/login.html`;
+  handleRedirectError('Authentication failed', 'login.html');
 }
