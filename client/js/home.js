@@ -22,7 +22,6 @@ const adminToken = () =>
 					</a>
 			</div>
 			<div class="drop-down-menu hide">
-					<a href="/admin-profile.html">Profile</a>
 					<a href="/admin-dashboard.html">Dashboard</a>
 					<a href="#">Logout</a>
 			</div>
@@ -46,7 +45,7 @@ const userToken = () =>
 					</a>
 			</div>
 			<div class="drop-down-menu hide">
-				<a href="/user-profile.html">Profile</a><a href="#">Logout</a>
+				<a href="#">Logout</a>
 			</div>
 	</li>`;
 
