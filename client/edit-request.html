@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="js/userOnly.js"></script>
 </head>
 
 <body>
@@ -53,11 +52,24 @@
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section class="user-request-detail min-height">
+    <section id="edit-request">
         <div class="container">
-            <div class="message error-message hide"></div>
-            <div class="message success-message hide"></div>
-            <div class="request-detail-parent">
+            <div class="make-edit-request">
+                <h2>Edit request</h2>
+                <hr />
+                <form id="update-form">
+                    <label for="title">Request title</label>
+                    <input class="form-input" type="text" id="title" placeholder="E.g. Broken side mirror" required value="" autofocus/>
+                    <label for="description">Request Description</label>
+                    <textarea class="form-input" type="text" id="description"></textarea>
+                    <label for="type">Request type</label>
+                    <span>
+                        <input type="radio" name="type" value="maintenance" checked/> Maintenance</span> &nbsp; &nbsp;
+                    <span>
+                        <input type="radio" name="type" value="repair"/> Repair</span>
+                    <hr />
+                    <input type="submit" value="Update Request" id="submit-btn" class="form-input btn btn-primary"/>
+                </form>
             </div>
         </div>
     </section>
@@ -68,7 +80,7 @@
         </div>
     </footer>
     <script src="/js/navbar.js"></script>
-    <script src="/js/userRequestDetails.js"></script>
+    <script src="/js/editRequest.js"></script>
 </body>
 
 </html>
