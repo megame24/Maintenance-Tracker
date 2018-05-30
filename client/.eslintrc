@@ -6,6 +6,7 @@
     "es6": true
   },
   "rules": {
+    "no-unused-vars": 0,
     "prefer-destructuring": 0,
     "one-var": 0,
     "no-undef": 0,

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const handleRedirectSuccess = (succMessage, subUrl) => {
   const message = { success: true, message: succMessage };
   let queryString = JSON.stringify(message);

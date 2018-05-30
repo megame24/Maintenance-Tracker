@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 let errorMessage,
   successMessage,
   tableBody;

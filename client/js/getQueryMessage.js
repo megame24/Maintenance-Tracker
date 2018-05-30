@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const getQueryMessage = () => {
   if (window.location.search.substring(1)) {
     let message = window.atob(window.location.search.substring(1));

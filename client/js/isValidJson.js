@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const isValidJson = (string) => {
   try {
     JSON.parse(string);
