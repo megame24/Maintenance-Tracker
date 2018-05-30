@@ -1,6 +1,7 @@
 let errorMessage,
   requestDetailParent,
   id,
+  feedbackField,
   successMessage;
 
 const getQueryParams = () => {
@@ -39,17 +40,17 @@ const statusDependents = (status) => {
         <label for="feedback">Provide feedback</label>
         <textarea name="feedback" class="form-input" autofocus></textarea>
         <input type="submit" id="resolve" class="btn btn-success form-input" value="Resolve"/>
-    </form>`
+    </form>`;
     return statusObj;
   }
   if (status === 'pending') {
     const statusObj = statusObject('background-tertiary', 'Approval pending');
     statusObj.appendHtml = `<hr /><form">
         <label for="feedback">Provide feedback</label>
-        <textarea name="feedback" class="form-input" autofocus></textarea>
+        <textarea name="feedback" id="feedback" class="form-input" autofocus></textarea>
         <input type="submit" id="approve" class="btn btn-primary form-input" value="Approve"/>
         <input type="submit" id="disapprove" class="btn btn-danger form-input" value="Disapprove"/>
-    </form>`
+    </form>`;
     return statusObj;
   }
 };
@@ -65,7 +66,7 @@ const requestDetailsHTML = result =>
   </div>
   ${statusDependents(result.status).appendHtml}`;
 
-const getRequestDetails = (request) => {
+const getRequestDetails = request => 
   fetch(request)
     .then(res => res.json())
     .then((result) => {
@@ -74,6 +75,24 @@ const getRequestDetails = (request) => {
       }
       requestDetailParent.innerHTML = requestDetailsHTML(result);
     });
+
+const approveRequest = () => {
+  approveBtn.onclick = () => {
+    const url = `${baseUrl}/api/v1/requests/${id}/approve`;
+    const headers = new Headers();
+    headers.append('authorization', token);
+    headers.append('Content-Type', 'application/json');
+    let data = { status: 'approve', feedback: feedbackField.value };
+    data = JSON.stringify(data);
+    const request = new Request(url, { method: 'PUT', headers, body: data });
+    fetch(request).then(res => res.json())
+      .then((result) => {
+        if (result.error) {
+          return handleRedirectError(result.error.message, 'admin-dashboard.html');
+        }
+        handleRedirectSuccess(result.success.message, 'admin-dashboard.html?');
+      });
+  };
 };
 
 const init = () => {
@@ -84,11 +103,19 @@ const init = () => {
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getQueryParams();
+  window.history.replaceState({}, '', `/admin-request-details.html?${id}`);
   const url = `${baseUrl}/api/v1/requests/${id}`;
   const headers = new Headers();
   headers.append('authorization', token);
   const request = new Request(url, { method: 'GET', headers });
-  getRequestDetails(request);
+  getRequestDetails(request)
+    .then(() => {
+      approveBtn = document.getElementById('approve');
+      disapproveBtn = document.getElementById('disapprove');
+      resolveBtn = document.getElementById('resolve');
+      feedbackField = document.getElementById('feedback');
+      approveRequest();
+    });
 };
 
 window.onload = init();

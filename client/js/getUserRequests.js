@@ -54,6 +54,7 @@ const init = () => {
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getQueryMessage();
+  window.history.replaceState({}, '', '/view-requests.html');
   getUserRequests();
 };
 

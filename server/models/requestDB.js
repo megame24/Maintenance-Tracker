@@ -20,6 +20,6 @@ export default {
     return db.query('UPDATE requests SET title = $1, description = $2, type = $3 WHERE id = $4', Object.values(requestUpdate).map(el => el));
   },
   updateStatus(statusDetails) {
-    return db.query('UPDATE requests SET status = $1 WHERE id = $2', statusDetails);
+    return db.query('UPDATE requests SET status = $1, feedback = $2 WHERE id = $3', statusDetails);
   }
 };

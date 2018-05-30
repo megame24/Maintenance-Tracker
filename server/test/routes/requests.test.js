@@ -83,6 +83,17 @@ describe('Requests', () => {
           done();
         });
     });
+    it('Should fail if the id is not an integer', (done) => {
+      chai.request(server)
+        .get(`${baseUrl}/requests/abc`)
+        .set({ authorization: regularUser2Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(500);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Internal server error, check back later');
+          done();
+        });
+    });
     it('Should allow the owner of a request to retrieve it', (done) => {
       chai.request(server)
         .get(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)

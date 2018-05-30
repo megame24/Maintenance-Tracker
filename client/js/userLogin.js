@@ -48,6 +48,7 @@ const init = () => {
   errorMessage = document.getElementsByClassName('error-message')[0];
   successMessage = document.getElementsByClassName('success-message')[0];
   getQueryMessage();
+  window.history.replaceState({}, '', '/login.html');
   loginController();
 };
 

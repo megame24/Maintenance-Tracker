@@ -79,6 +79,7 @@ const init = () => {
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getQueryParams();
+  window.history.replaceState({}, '', '/user-request-details.html');
   const url = `${baseUrl}/api/v1/users/requests/${id}`;
   const headers = new Headers();
   headers.append('authorization', token);

@@ -17,6 +17,7 @@ class AdminController extends RequestsController {
 
   static approveRequest(req, res) {
     const { request, status } = req.body;
+    const feedback = req.body.feedback || '';
     switch (true) {
       case status !== 'approve':
         return res.status(400).json({ error: { message: 'status is required to be equal to \'approve\'' } });
@@ -25,7 +26,7 @@ class AdminController extends RequestsController {
       case request.status !== 'pending':
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
-        requestDB.updateStatus(['approved', request.id])
+        requestDB.updateStatus(['approved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }))
           .catch(() => {
             res.status(500).json(errors.error500);
@@ -35,6 +36,7 @@ class AdminController extends RequestsController {
 
   static disapproveRequest(req, res) {
     const { request, status } = req.body;
+    const feedback = req.body.feedback || '';
     switch (true) {
       case status !== 'disapprove':
         return res.status(400).json({ error: { message: 'status is required to be equal to \'disapprove\'' } });
@@ -43,7 +45,7 @@ class AdminController extends RequestsController {
       case request.status !== 'pending':
         return res.status(400).json({ error: { message: 'Only requests with status pending can be approved' } });
       default: 
-        requestDB.updateStatus(['disapproved', request.id])
+        requestDB.updateStatus(['disapproved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been disapproved' } }))
           .catch(() => {
             res.status(500).json(errors.error500);
@@ -53,6 +55,7 @@ class AdminController extends RequestsController {
 
   static resolveRequest(req, res) {
     const { request, status } = req.body;
+    const feedback = req.body.feedback || '';
     switch (true) {
       case status !== 'resolve':
         return res.status(400).json({ error: { message: 'status is required to be equal to \'resolve\'' } });
@@ -61,7 +64,7 @@ class AdminController extends RequestsController {
       case request.status !== 'approved':
         return res.status(400).json({ error: { message: 'Only requests with status approved can be resolved' } });
       default: 
-        requestDB.updateStatus(['resolved', request.id])
+        requestDB.updateStatus(['resolved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been resolved' } }))
           .catch(() => {
             res.status(500).json(errors.error500);
