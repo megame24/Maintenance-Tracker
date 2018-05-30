@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/userOnly.js"></script>
+    <script src="/js/adminOnly.js"></script>
 </head>
 
 <body>
@@ -23,28 +23,16 @@
                 <div class="clearfix"></div>
             </div>
             <ul class="right-menu not-mobile not-mobile-right">
-                <li class="request">
+                <li class="admin">
                     <div>
-                        <a href="#" class="nav-item">Requests
+                        <a href="#" class="nav-item"><span id="display-username">Welcome &nbsp;</span>
                             <span class="not-mobile">
                                 <i class="icon ion-android-arrow-dropdown"></i>
                             </span>
                         </a>
                     </div>
                     <div class="drop-down-menu hide">
-                        <a href="/make-request.html">Make Request</a>
-                        <a href="#">View Requests</a>
-                    </div>
-                </li>
-                <li class="user">
-                    <div>
-                        <a href="#" class="nav-item"><span  id="display-username">Welcome &nbsp;</span>
-                            <span class="not-mobile">
-                                <i class="icon ion-android-arrow-dropdown"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="drop-down-menu hide">
+                        <a href="/admin-dashboard.html">Dashboard</a>
                         <a id="logout" href="#">Logout</a>
                     </div>
                 </li>
@@ -52,23 +40,10 @@
             <div class="clearfix"></div>
         </div>
     </nav>
-    <section id="view-requests" class="min-height">
+    <section class="admin-request-detail min-height">
         <div class="container">
-            <div class="message error-message hide"></div>
-            <div class="message success-message hide"></div>
-            <h2>All requests</h2>
-            <hr />
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                </tbody>
-            </table>
+            <div class="request-detail-parent">
+            </div>
         </div>
     </section>
     <footer>
@@ -81,9 +56,8 @@
     <script src="/js/logout.js"></script>
     <script src="js/handleError.js"></script>
     <script src="js/isValidJson.js"></script>
-    <script src="js/getQueryMessage.js"></script>
     <script src="js/displayMessage.js"></script>
-    <script src="/js/getUserRequests.js"></script>
+    <script src="/js/adminRequestDetails.js"></script>
 </body>
 
 </html>
