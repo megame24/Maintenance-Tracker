@@ -74,6 +74,16 @@ class RequestsController {
       return res.status(400).json({ error: { message: 'Only requests with status pending can be updated' } });
     }
   }
+
+  static deleteRequest(req, res) {
+    const { status, id } = req.body.request;
+    if (status === 'approved') {
+      return res.status(400).json({ error: { message: 'Requests being worked on cannot be deleted' } });
+    }
+    requestDB.deleteRequest(id)
+      .then(() => res.status(200).json({ success: { message: 'Request has been deleted' } }))
+      .catch(() => res.status(500).json(errors.error500));
+  }
 }
 
 export default RequestsController;

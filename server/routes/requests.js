@@ -16,5 +16,10 @@ router.put(
   [AuthMiddleware.verifyUser, AuthMiddleware.userPass],
   RequestsController.updateRequest
 );
+router.delete(
+  '/users/requests/:id',
+  [AuthMiddleware.verifyUser, AuthMiddleware.userPass],
+  RequestsController.deleteRequest
+);
 
 export default router;

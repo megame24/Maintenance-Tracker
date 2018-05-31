@@ -1,6 +1,7 @@
 let errorMessage,
   requestDetailParent,
   id,
+  url,
   successMessage;
 
 const getQueryParams = () => {
@@ -56,11 +57,12 @@ const requestDetailsHTML = result =>
   <a href="/edit-request.html?${result.id}" class="btn btn-tertiary ${statusDependents(result.status).hideUpdateBtn}">Edit&nbsp;
       <i class="icon ion-edit"></i>
   </a>
-  <a href="#" class="btn btn-danger ${statusDependents(result.status).hideDeleteBtn}">Delete&nbsp;
+  <a href="#" id="delete" class="btn btn-danger ${statusDependents(result.status).hideDeleteBtn}">Delete&nbsp;
       <i class="icon ion-android-delete"></i>
   </a>`;
 
-const getRequestDetails = (request) => {
+
+const getRequestDetails = request => 
   fetch(request)
     .then(res => res.json())
     .then((result) => {
@@ -69,6 +71,21 @@ const getRequestDetails = (request) => {
       }
       requestDetailParent.innerHTML = requestDetailsHTML(result);
     });
+
+const deleteRequest = (deleteBtn) => {
+  const delBtn = deleteBtn;
+  const headers = new Headers();
+  headers.append('authorization', token);
+  const request = new Request(url, { method: 'DELETE', headers });
+  delBtn.onclick = () => {
+    fetch(request).then(res => res.json())
+      .then((result) => {
+        if (result.error) {
+          return handleRedirectError(result.error.message, 'view-requests.html');
+        }
+        handleRedirectSuccess(result.success.message, 'view-requests.html?');
+      });
+  };
 };
 
 const init = () => {
@@ -79,12 +96,16 @@ const init = () => {
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getQueryParams();
-  window.history.replaceState({}, '', '/user-request-details.html');
-  const url = `${baseUrl}/api/v1/users/requests/${id}`;
   const headers = new Headers();
   headers.append('authorization', token);
+  url = `${baseUrl}/api/v1/users/requests/${id}`;
+  window.history.replaceState({}, '', `/user-request-details.html?${id}`);
   const request = new Request(url, { method: 'GET', headers });
-  getRequestDetails(request);
+  getRequestDetails(request)
+    .then(() => {
+      const deleteBtn = document.getElementById('delete');
+      deleteRequest(deleteBtn);
+    });
 };
 
 window.onload = init();
