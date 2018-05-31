@@ -72,6 +72,17 @@ describe('Requests', () => {
           done();
         });
     });
+    it('Should return a 500 error(Internal server error) if id is not an integer', (done) => {
+      chai.request(server)
+        .get(`${baseUrl}/requests/abc`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(500);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Internal server error, check back later');
+          done();
+        });
+    });
     it('Should not allow any user other than the owner of a request to retrieve it', (done) => {
       chai.request(server)
         .get(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
@@ -253,6 +264,32 @@ describe('Requests', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('object');
           expect(res.body.success.message).to.equal('Request updated successfully');
+          done();
+        });
+    });
+  });
+  
+  // Delete a request
+  describe('Making a DELETE request to /users/requests/<requestId>', () => {
+    it('Should not delete if the request has a status of approved', (done) => {
+      chai.request(server)
+        .delete(`${baseUrl}/requests/${regularUser1.requestsId[1]}`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Requests being worked on cannot be deleted');
+          done();
+        });
+    });
+    it('Should delete if the request\'s status has a value other than approved', (done) => {
+      chai.request(server)
+        .delete(`${baseUrl}/requests/${regularUser1.requestsId[3]}`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request has been deleted');
           done();
         });
     });

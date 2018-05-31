@@ -19,6 +19,9 @@ export default {
   updateRequest(requestUpdate) {
     return db.query('UPDATE requests SET title = $1, description = $2, type = $3 WHERE id = $4', Object.values(requestUpdate).map(el => el));
   },
+  deleteRequest(id) {
+    return db.query('DELETE FROM requests WHERE id = $1', [id]);
+  },
   updateStatus(statusDetails) {
     return db.query('UPDATE requests SET status = $1, feedback = $2 WHERE id = $3', statusDetails);
   }
