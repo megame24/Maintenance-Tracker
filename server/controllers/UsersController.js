@@ -42,21 +42,10 @@ class UsersController {
    * @param {Object} res 
    */
   static register(req, res) {
-    const {
-      fullname, password
-    } = req.body;
-    switch (false) {
-      case !!fullname: 
-        return res.status(400).json({ error: { message: 'fullname is required' } });
-      case !!password:
-        res.status(400).json({ error: { message: 'password is required' } }); break;
-      default: {
-        usersHelper.registerUser(req)
-          .then((message) => {
-            res.status(201).json(message);
-          });
-      }
-    }
+    usersHelper.registerUser(req)
+      .then((message) => {
+        res.status(201).json(message);
+      });
   }
 }
 
