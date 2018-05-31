@@ -1,6 +1,6 @@
 # Maintenance-Tracker
 
-[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=develop)](https://travis-ci.org/megame24/Maintenance-Tracker) [![codecov](https://codecov.io/gh/megame24/Maintenance-Tracker/branch/develop/graph/badge.svg)](https://codecov.io/gh/megame24/Maintenance-Tracker)
+[![Build Status](https://travis-ci.org/megame24/Maintenance-Tracker.svg?branch=develop)](https://travis-ci.org/megame24/Maintenance-Tracker) [![Coverage Status](https://coveralls.io/repos/github/megame24/Maintenance-Tracker/badge.svg)](https://coveralls.io/github/megame24/Maintenance-Tracker)
  [![Maintainability](https://api.codeclimate.com/v1/badges/f02f4c11dd89fe071136/maintainability)](https://codeclimate.com/github/megame24/Maintenance-Tracker/maintainability)
 
 Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
