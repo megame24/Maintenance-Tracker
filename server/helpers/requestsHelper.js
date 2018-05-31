@@ -15,7 +15,7 @@ export default {
           req.body.request = request;
           return true;
         }
-        return false;
+        return { error: { message: 'Request not found' } };
       });
   },
 
