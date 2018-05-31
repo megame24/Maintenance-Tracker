@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import JWToken from '../helpers/JWToken';
 import requestsHelper from '../helpers/requestsHelper';
 import errors from '../helpers/errorHelper';
@@ -29,9 +30,13 @@ class AuthMiddleware {
    * @param {Function} next - callback pointing to the next middleware/controller
    */
   static userPass(req, res, next) {
+    if (isNaN(req.params.id)) { 
+      return res.status(400)
+        .json({ error: { message: 'Request id must be a number, correct the url and try again' } });
+    }
     requestsHelper.foundRequest(req)
-      .then((bool) => {
-        if (!bool) return res.status(404).json({ error: { message: 'Request not found' } });
+      .then((result) => {
+        if (result.error) return res.status(404).json(result);
         const { decoded, request } = req.body;
         if (decoded.id === request.ownerid) {
           return next();
@@ -51,8 +56,8 @@ class AuthMiddleware {
    */
   static adminPass(req, res, next) {
     requestsHelper.foundRequest(req)
-      .then((bool) => {
-        if (!bool) return res.status(404).json({ error: { message: 'Request not found' } });
+      .then((result) => {
+        if (result.error) return res.status(404).json(result);
         const { decoded } = req.body;
         if (decoded.role === 'admin') {
           return next();
