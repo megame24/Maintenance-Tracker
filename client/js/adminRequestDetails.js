@@ -38,7 +38,7 @@ const statusDependents = (status) => {
     const statusObj = statusObject('background-primary', 'Work in Progress');
     statusObj.appendHtml = `<hr /><form">
         <label for="feedback">Provide feedback</label>
-        <textarea name="feedback" class="form-input" autofocus></textarea>
+        <textarea name="feedback" id="feedback" class="form-input" autofocus></textarea>
         <input type="submit" id="resolve" class="btn btn-success form-input" value="Resolve"/>
     </form>`;
     return statusObj;
@@ -76,23 +76,45 @@ const getRequestDetails = request =>
       requestDetailParent.innerHTML = requestDetailsHTML(result);
     });
 
+const updateStatus = (status) => {
+  const url = `${baseUrl}/api/v1/requests/${id}/${status}`;
+  const headers = new Headers();
+  headers.append('authorization', token);
+  headers.append('Content-Type', 'application/json');
+  let data = { status, feedback: feedbackField.value };
+  data = JSON.stringify(data);
+  const request = new Request(url, { method: 'PUT', headers, body: data });
+  fetch(request).then(res => res.json())
+    .then((result) => {
+      if (result.error) {
+        return handleRedirectError(result.error.message, 'admin-dashboard.html');
+      }
+      handleRedirectSuccess(result.success.message, 'admin-dashboard.html?');
+    });
+};
+
 const approveRequest = () => {
-  approveBtn.onclick = () => {
-    const url = `${baseUrl}/api/v1/requests/${id}/approve`;
-    const headers = new Headers();
-    headers.append('authorization', token);
-    headers.append('Content-Type', 'application/json');
-    let data = { status: 'approve', feedback: feedbackField.value };
-    data = JSON.stringify(data);
-    const request = new Request(url, { method: 'PUT', headers, body: data });
-    fetch(request).then(res => res.json())
-      .then((result) => {
-        if (result.error) {
-          return handleRedirectError(result.error.message, 'admin-dashboard.html');
-        }
-        handleRedirectSuccess(result.success.message, 'admin-dashboard.html?');
-      });
-  };
+  if (approveBtn) {
+    approveBtn.onclick = () => {
+      updateStatus('approve');
+    };
+  }
+};
+
+const disapproveRequest = () => {
+  if (disapproveBtn) {
+    disapproveBtn.onclick = () => {
+      updateStatus('disapprove');
+    };
+  }
+};
+
+const resolveRequest = () => {
+  if (resolveBtn) {
+    resolveBtn.onclick = () => {
+      updateStatus('resolve');
+    };
+  }
 };
 
 const init = () => {
@@ -115,6 +137,8 @@ const init = () => {
       resolveBtn = document.getElementById('resolve');
       feedbackField = document.getElementById('feedback');
       approveRequest();
+      disapproveRequest();
+      resolveRequest();
     });
 };
 
