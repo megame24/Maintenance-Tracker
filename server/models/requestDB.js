@@ -2,10 +2,10 @@ import db from '../db/';
 
 export default {
   getAllRequests() {
-    return db.query('SELECT * FROM requests');
+    return db.query('SELECT * FROM requests ORDER BY date DESC');
   },
   getUserRequests(id) {
-    return db.query('SELECT * FROM requests WHERE ownerId = $1', [id]);
+    return db.query('SELECT * FROM requests WHERE ownerId = $1 ORDER BY date DESC', [id]);
   },
   findRequestById(id) {
     return db.query('SELECT * FROM requests WHERE id = $1', [id]);

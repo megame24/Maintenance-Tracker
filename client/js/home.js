@@ -1,4 +1,5 @@
 /* eslint-disable indent, no-tabs */
+const baseUrl = window.location.origin;
 const rightNavbar = document.getElementsByClassName('right-menu')[0];
 const token = window.localStorage.getItem('token');
 
@@ -23,7 +24,7 @@ const adminToken = () =>
 			</div>
 			<div class="drop-down-menu hide">
 					<a href="/admin-dashboard.html">Dashboard</a>
-					<a href="#">Logout</a>
+					<a id="logout" href="#">Logout</a>
 			</div>
 	</li>`;
 
@@ -45,7 +46,7 @@ const userToken = () =>
 					</a>
 			</div>
 			<div class="drop-down-menu hide">
-				<a href="#">Logout</a>
+				<a id="logout" href="#">Logout</a>
 			</div>
 	</li>`;
 

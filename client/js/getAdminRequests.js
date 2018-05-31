@@ -71,12 +71,12 @@ const getAllRequests = () => {
     });
 };
 
-const approveRequest = (event) => {
-  const url = `${baseUrl}/api/v1/requests/${event.target.getAttribute('data-id')}/approve`;
+const updateStatus = (event, status) => {
+  const url = `${baseUrl}/api/v1/requests/${event.target.getAttribute('data-id')}/${status}`;
   const headers = new Headers();
   headers.append('authorization', token);
   headers.append('Content-Type', 'application/json');
-  let data = { status: 'approve' };
+  let data = { status };
   data = JSON.stringify(data);
   const request = new Request(url, { method: 'PUT', headers, body: data });
   fetch(request).then(res => res.json())
@@ -86,13 +86,33 @@ const approveRequest = (event) => {
       }
       handleRedirectSuccess(result.success.message, 'admin-dashboard.html?');
     });
+};
+
+const approveRequest = (event) => {
+  updateStatus(event, 'approve');
   event.target.removeEventListener('click', approveRequest);
 };
 
-const adminDuties = () => {
-  for (let i = 0; i < approveBtn.length; i += 1) {
-    approveBtn[i].addEventListener('click', approveRequest);
+const disapproveRequest = (event) => {
+  updateStatus(event, 'disapprove');
+  event.target.removeEventListener('click', disapproveRequest);
+};
+
+const resolveRequest = (event) => {
+  updateStatus(event, 'resolve');
+  event.target.removeEventListener('click', resolveRequest);
+};
+
+const statusUpdateBtnLoop = (btn, func) => {
+  for (let i = 0; i < btn.length; i += 1) {
+    btn[i].addEventListener('click', func);
   }
+};
+
+const adminDuties = () => {
+  statusUpdateBtnLoop(approveBtn, approveRequest);
+  statusUpdateBtnLoop(disapproveBtn, disapproveRequest);
+  statusUpdateBtnLoop(resolveBtn, resolveRequest);
 };
 
 const init = () => {
