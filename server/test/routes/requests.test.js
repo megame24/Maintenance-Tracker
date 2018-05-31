@@ -79,7 +79,7 @@ describe('Requests', () => {
         .end((err, res) => {
           expect(res.status).to.equal(500);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Internal server error, check back later');
+          expect(res.body.error.message).to.equal('Internal server error, check your request parameters or check back later');
           done();
         });
     });
@@ -101,7 +101,7 @@ describe('Requests', () => {
         .end((err, res) => {
           expect(res.status).to.equal(500);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Internal server error, check back later');
+          expect(res.body.error.message).to.equal('Internal server error, check your request parameters or check back later');
           done();
         });
     });
@@ -128,18 +128,6 @@ describe('Requests', () => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
           expect(res.body.error.message).to.equal('title is required');
-          done();
-        });
-    });
-    it('Should not create a request if provided \'title\' is not unique', (done) => {
-      chai.request(server)
-        .post(`${baseUrl}/requests`)
-        .send({ title: request1.title })
-        .set({ authorization: regularUser1Token })
-        .end((err, res) => {
-          expect(res.status).to.equal(400);
-          expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Request with that title already exists');
           done();
         });
     });

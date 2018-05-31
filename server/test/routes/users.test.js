@@ -61,6 +61,7 @@ describe('Users', () => {
         });
     });
   });
+
   describe('Making a POST request to /users/signup', () => {
     it('Should fail if fullname was not provided', (done) => {
       chai.request(server)

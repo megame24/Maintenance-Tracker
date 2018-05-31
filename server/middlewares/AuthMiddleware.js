@@ -3,6 +3,12 @@ import requestsHelper from '../helpers/requestsHelper';
 import errors from '../helpers/errorHelper';
 
 class AuthMiddleware {
+  /**
+   * Verify user through the provided token
+   * @param {Object} req - request from client
+   * @param {Object} res - error message
+   * @param {Function} next - callback pointing to the next middleware/controller
+   */
   static verifyUser(req, res, next) {
     const token = req.headers.authorization || req.query.token;
     if (token) {
@@ -16,6 +22,12 @@ class AuthMiddleware {
     return res.status(401).json({ error: { message: 'Authentication failed' } });
   }
 
+  /**
+   * Give user access to an endpoint
+   * @param {Object} req - request from client
+   * @param {Object} res - error message
+   * @param {Function} next - callback pointing to the next middleware/controller
+   */
   static userPass(req, res, next) {
     requestsHelper.foundRequest(req)
       .then((bool) => {
@@ -31,6 +43,12 @@ class AuthMiddleware {
       });
   }
 
+  /**
+   * Give admin access to an endpoint
+   * @param {Object} req - request from client
+   * @param {Object} res - error message
+   * @param {Function} next - callback pointing to the next middleware/controller
+   */
   static adminPass(req, res, next) {
     requestsHelper.foundRequest(req)
       .then((bool) => {

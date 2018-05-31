@@ -2,7 +2,12 @@ import requestDB from '../models/requestDB';
 import RequestsController from './RequestsController';
 import errors from '../helpers/errorHelper';
 
-class AdminController extends RequestsController {
+class AdminController extends RequestsController {  
+  /**
+  * Gets all requests for an admin
+  * @param {Object} req - request from client
+  * @param {Object} res - array of Requests
+  */
   static getRequests(req, res) {
     const { decoded } = req.body;
     if (decoded.role !== 'admin') {
@@ -15,6 +20,11 @@ class AdminController extends RequestsController {
       });
   }
 
+  /**
+   * Approves a request
+   * @param {Object} req - request from client
+   * @param {Object} res - success message
+   */
   static approveRequest(req, res) {
     const { request, status } = req.body;
     const feedback = req.body.feedback || '';
@@ -34,6 +44,11 @@ class AdminController extends RequestsController {
     }
   }
 
+  /**
+   * Disapproves a request
+   * @param {Object} req - request from client
+   * @param {Object} res - success message
+   */
   static disapproveRequest(req, res) {
     const { request, status } = req.body;
     const feedback = req.body.feedback || '';
@@ -52,7 +67,11 @@ class AdminController extends RequestsController {
           });
     }
   }
-
+  /**
+   * Resolves a request
+   * @param {Object} req - request from client
+   * @param {Object} res - success message
+   */
   static resolveRequest(req, res) {
     const { request, status } = req.body;
     const feedback = req.body.feedback || '';

@@ -240,6 +240,18 @@ describe('Admin', () => {
           done();
         });
     });
+    it('Should return a 500 error(Internal server error) if id passed is not an integer', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/abc/disapprove`)
+        .set({ authorization: adminToken })
+        .send({ status: 'resolve' })
+        .end((err, res) => {
+          expect(res.status).to.equal(500);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Internal server error, check your request parameters or check back later');
+          done();
+        });
+    });
     it('Should resolve the request if no error was encountered', (done) => {
       chai.request(server)
         .put(`${baseUrl}/requests/${request2.id}/resolve`)
