@@ -760,3 +760,11 @@ footer p {
     width: 75%;
   }
 }
+
+.no-requests {
+  text-align: center;
+}
+.no-requests .icon {
+  font-size: 1000%;
+  opacity: 0.4;
+}
