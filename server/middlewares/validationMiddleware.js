@@ -2,6 +2,12 @@ import userDB from '../models/userDB';
 import errors from '../helpers/errorHelper';
 
 class validationMiddleware {
+  /**
+   * Validate the signup credentials
+   * @param {Object} req - request from client
+   * @param {Object} res - error message
+   * @param {Function} next - callback pointing to the next middleware/controller
+   */
   static validateUser(req, res, next) {
     const { email, username } = req.body;
     if (!email) { 
@@ -28,13 +34,9 @@ class validationMiddleware {
             }
             next();
           })
-          .catch(() => {
-            res.status(500).json(errors.error500);
-          });
+          .catch(() => res.status(500).json(errors.error500));
       })
-      .catch(() => {
-        res.status(500).json(errors.error500);
-      });
+      .catch(() => res.status(500).json(errors.error500));
   }
 }
 

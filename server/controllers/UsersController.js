@@ -5,6 +5,11 @@ import userDB from '../models/userDB';
 import errors from '../helpers/errorHelper';
 
 class UsersController {
+  /**
+   * Log in a user
+   * @param {Object} req - request from a client
+   * @param {Object} res - token and a success message
+   */
   static login(req, res) {
     const { username, password } = req.body;
     if (username && password) {
@@ -31,6 +36,11 @@ class UsersController {
     }
   }
 
+  /**
+   * Sign up a user
+   * @param {Object} req 
+   * @param {Object} res 
+   */
   static register(req, res) {
     const {
       fullname, password

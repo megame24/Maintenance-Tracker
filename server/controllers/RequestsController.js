@@ -3,6 +3,11 @@ import requestDB from '../models/requestDB';
 import errors from '../helpers/errorHelper';
 
 class RequestsController {
+  /**
+   * Gets all requests belonging to a logged in user
+   * @param {Object} req - request from the client
+   * @param {Object} res - array of Requests
+   */
   static getRequests(req, res) {
     const { decoded } = req.body;
     requestDB.getUserRequests(decoded.id)
@@ -15,46 +20,47 @@ class RequestsController {
       });
   }
 
+  /**
+   * Gets a single request for a logged in user
+   * @param {Object} req - request from client
+   * @param {Object} res - Request object
+   */
   static getRequestById(req, res) {
     const { request } = req.body;
     return res.status(200).json(request);
   }
 
+  /**
+   * Creates a request
+   * @param {*} req - request from client
+   * @param {*} res - success message
+   */
   static createRequest(req, res) {
     const {
       title, description, type
     } = req.body;
-    let duplicateRequest;
-    requestDB.findRequestByTitle(title)
-      .then((result) => {
-        if (result.rows[0]) {
-          duplicateRequest = result.rows[0].title;
-        } else {
-          duplicateRequest = null;
-        }
-        switch (false) {
-          case !!title: 
-            return res.status(400).json({ error: { message: 'title is required' } });
-          case !duplicateRequest: 
-            return res.status(400).json({ error: { message: 'Request with that title already exists' } });
-          case !!description: 
-            return res.status(400).json({ error: { message: 'description is required' } });
-          case !!type: 
-            return res.status(400).json({ error: { message: 'type is required' } });
-          case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
-            res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
-            break;
-          default: {
-            requestsHelper.createRequest(req)
-              .then(message => res.status(201).json(message));
-          }
-        }
-      })
-      .catch(() => {
-        res.status(500).json(errors.error500);
-      });
+    switch (false) {
+      case !!title: 
+        return res.status(400).json({ error: { message: 'title is required' } });
+      case !!description: 
+        return res.status(400).json({ error: { message: 'description is required' } });
+      case !!type: 
+        return res.status(400).json({ error: { message: 'type is required' } });
+      case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
+        res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
+        break;
+      default: {
+        requestsHelper.createRequest(req)
+          .then(message => res.status(201).json(message));
+      }
+    }
   }
 
+  /**
+   * Updates a request
+   * @param {*} req - request from client
+   * @param {*} res - success message
+   */
   static updateRequest(req, res) {
     const { request } = req.body;
     if (request.status === 'pending') {
@@ -75,6 +81,11 @@ class RequestsController {
     }
   }
 
+  /**
+   * Deletes a request
+   * @param {*} req - request from client
+   * @param {*} res - success message
+   */
   static deleteRequest(req, res) {
     const { status, id } = req.body.request;
     if (status === 'approved') {
