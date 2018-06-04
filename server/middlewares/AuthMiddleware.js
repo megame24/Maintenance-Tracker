@@ -55,6 +55,10 @@ class AuthMiddleware {
    * @param {Function} next - callback pointing to the next middleware/controller
    */
   static adminPass(req, res, next) {
+    if (isNaN(req.params.id)) { 
+      return res.status(400)
+        .json({ error: { message: 'Request id must be a number, correct the url and try again' } });
+    }
     requestsHelper.foundRequest(req)
       .then((result) => {
         if (result.error) return res.status(404).json(result);

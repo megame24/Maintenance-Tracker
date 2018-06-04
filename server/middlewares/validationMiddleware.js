@@ -13,6 +13,7 @@ class validationMiddleware {
     if (fullname) {
       switch (false) {
         case /^[A-Za-z\ ]+$/.test(fullname): return false;
+        case fullname.length > 2: return false;
         case fullname.length < 40: return false;
         default: return true;
       }
@@ -38,7 +39,7 @@ class validationMiddleware {
   static validateUsername(username) {
     if (!username) return { error: { message: 'username is required' } };
     if (!validationMiddleware.regExAndLength(username, null, null)) {
-      return { error: { message: 'Username can only contain letters & numbers, and must be greater than 4 but less tha 30 characters long' } };
+      return { error: { message: 'Username can only contain letters & numbers, and must be greater than 4 but less than 30 characters long' } };
     }
     return {};
   }
@@ -50,7 +51,7 @@ class validationMiddleware {
   static validateFullname(fullname) {
     if (!fullname) return { error: { message: 'fullname is required' } };
     if (!validationMiddleware.regExAndLength(null, null, fullname)) {
-      return { error: { message: 'fullname can only contain letters, and must be less than 40 characters long' } };
+      return { error: { message: 'fullname can only contain letters, and must be greater than 2 but less than 40 characters long' } };
     }
     return {};
   }
