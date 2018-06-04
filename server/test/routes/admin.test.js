@@ -152,6 +152,17 @@ describe('Admin', () => {
 
   // Disapprove request route
   describe('Making a PUT request to /requests/<requestId>/disapprove', () => {
+    it('Should return an error 400 if the id is not an integer', (done) => {
+      chai.request(server)
+        .put(`${baseUrl}/requests/abc/disapprove`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request id must be a number, correct the url and try again');
+          done();
+        });
+    });
     it('Should return an error if provided status is not equal to disapprove', (done) => {
       chai.request(server)
         .put(`${baseUrl}/requests/${request3.id}/disapprove`)
@@ -237,18 +248,6 @@ describe('Admin', () => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
           expect(res.body.error.message).to.equal('Only requests with status approved can be resolved');
-          done();
-        });
-    });
-    it('Should return a 500 error(Internal server error) if id passed is not an integer', (done) => {
-      chai.request(server)
-        .put(`${baseUrl}/requests/abc/disapprove`)
-        .set({ authorization: adminToken })
-        .send({ status: 'resolve' })
-        .end((err, res) => {
-          expect(res.status).to.equal(500);
-          expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Internal server error, check your request parameters or check back later');
           done();
         });
     });

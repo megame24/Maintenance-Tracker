@@ -89,7 +89,22 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('fullname can only contain letters, and must be less than 40 characters long');
+          expect(res.body.error.message).to.equal('fullname can only contain letters, and must be greater than 2 but less than 40 characters long');
+          done();
+        });
+    });
+    it('Should fail if fullname is less than 2 characters long', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/signup`)
+        .send({
+          username: 'username1',
+          email: 'x@x.com',
+          fullname: 'h'
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('fullname can only contain letters, and must be greater than 2 but less than 40 characters long');
           done();
         });
     });
@@ -104,7 +119,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('fullname can only contain letters, and must be less than 40 characters long');
+          expect(res.body.error.message).to.equal('fullname can only contain letters, and must be greater than 2 but less than 40 characters long');
           done();
         });
     });
@@ -162,7 +177,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Username can only contain letters & numbers, and must be greater than 4 but less tha 30 characters long');
+          expect(res.body.error.message).to.equal('Username can only contain letters & numbers, and must be greater than 4 but less than 30 characters long');
           done();
         });
     });
@@ -177,7 +192,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Username can only contain letters & numbers, and must be greater than 4 but less tha 30 characters long');
+          expect(res.body.error.message).to.equal('Username can only contain letters & numbers, and must be greater than 4 but less than 30 characters long');
           done();
         });
     });
@@ -192,7 +207,7 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Username can only contain letters & numbers, and must be greater than 4 but less tha 30 characters long');
+          expect(res.body.error.message).to.equal('Username can only contain letters & numbers, and must be greater than 4 but less than 30 characters long');
           done();
         });
     });
