@@ -37,8 +37,8 @@ class validationMiddleware {
    * @param {String} username - username provided by user
    */
   static validateUsername(username) {
-    if (!username) return { error: { message: 'username is required' } };
-    if (!validationMiddleware.regExAndLength(username, null, null)) {
+    if (!(username && username.trim())) return { error: { message: 'username is required' } };
+    if (!validationMiddleware.regExAndLength(username.trim(), null, null)) {
       return { error: { message: 'Username can only contain letters & numbers, and must be greater than 4 but less than 30 characters long' } };
     }
     return {};
@@ -49,8 +49,8 @@ class validationMiddleware {
    * @param {String} fullname - fullname provided by user
    */
   static validateFullname(fullname) {
-    if (!fullname) return { error: { message: 'fullname is required' } };
-    if (!validationMiddleware.regExAndLength(null, null, fullname)) {
+    if (!(fullname && fullname.trim())) return { error: { message: 'fullname is required' } };
+    if (!validationMiddleware.regExAndLength(null, null, fullname.trim())) {
       return { error: { message: 'fullname can only contain letters, and must be greater than 2 but less than 40 characters long' } };
     }
     return {};
@@ -61,8 +61,8 @@ class validationMiddleware {
    * @param {String} email - email provided by user
    */
   static validateEmail(email) {
-    if (!email) return { error: { message: 'email is required' } };
-    if (!validationMiddleware.regExAndLength(null, email, null)) {
+    if (!(email && email.trim())) return { error: { message: 'email is required' } };
+    if (!validationMiddleware.regExAndLength(null, email.trim(), null)) {
       return { error: { message: 'Please provide a valid email' } };
     }
     return {};
@@ -73,8 +73,8 @@ class validationMiddleware {
    * @param {String} password - password provided by user
    */
   static validatePassword(password) {
-    if (!password) return { error: { message: 'password is required' } };
-    if (password.length < 5) {
+    if (!(password && password.trim())) return { error: { message: 'password is required' } };
+    if (password.trim().length < 5) {
       return { error: { message: 'password must be more than 5 characters long' } };
     }
     return {};
@@ -88,30 +88,30 @@ class validationMiddleware {
    */
   static validateUser(req, res, next) {
     const { email, username, password, fullname } = req.body;
-    if (validationMiddleware.validateFullname(fullname).error) {
-      return res.status(400).json(validationMiddleware.validateFullname(fullname)); 
-    }
-    if (validationMiddleware.validateEmail(email).error) {
-      return res.status(400).json(validationMiddleware.validateEmail(email)); 
-    }
-    if (validationMiddleware.validateUsername(username).error) {
-      return res.status(400).json(validationMiddleware.validateUsername(username)); 
-    }
-    if (validationMiddleware.validatePassword(password).error) {
-      return res.status(400).json(validationMiddleware.validatePassword(password)); 
-    }
-    userDB.getUserByUsername(username)
-      .then((result) => {
-        if (result.rows[0]) {
-          return res.status(400).json({ error: { message: 'User with that username already exists' } });
-        }
-        userDB.getUserByEmail(email)
-          .then((neResult) => {
-            if (neResult.rows[0]) {
-              return res.status(400).json({ error: { message: 'User with that email already exists' } });
-            } next();
+    switch (true) {
+      case !!validationMiddleware.validateFullname(fullname).error:
+        return res.status(400).json(validationMiddleware.validateFullname(fullname));
+      case !!validationMiddleware.validateEmail(email).error:
+        return res.status(400).json(validationMiddleware.validateEmail(email));
+      case !!validationMiddleware.validateUsername(username).error:
+        return res.status(400).json(validationMiddleware.validateUsername(username));
+      case !!validationMiddleware.validatePassword(password).error:
+        return res.status(400).json(validationMiddleware.validatePassword(password));
+      default: {
+        userDB.getUserByUsername(username.trim())
+          .then((result) => {
+            if (result.rows[0]) {
+              return res.status(400).json({ error: { message: 'User with that username already exists' } });
+            }
+            userDB.getUserByEmail(email.trim())
+              .then((neResult) => {
+                if (neResult.rows[0]) {
+                  return res.status(400).json({ error: { message: 'User with that email already exists' } });
+                } next();
+              }).catch(() => res.status(500).json(errors.error500));
           }).catch(() => res.status(500).json(errors.error500));
-      }).catch(() => res.status(500).json(errors.error500));
+      }
+    }
   }
 }
 

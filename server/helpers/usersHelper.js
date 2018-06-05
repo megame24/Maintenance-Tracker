@@ -12,15 +12,13 @@ export default {
    * @returns {Object} a promise that will resolve to a success message
    */
   registerUser(req) {
-    const {
-      fullname, email, username, password
-    } = req.body;
+    const { fullname, email, username } = req.body;
+    const password = req.body.password.trim();
     const hashedPassword = bcrypt.hashSync(password, salt);
-
     const newUser = [
-      fullname,
-      username,
-      email,
+      fullname.trim(),
+      username.trim(),
+      email.trim(),
       hashedPassword,
       'user'
     ];
