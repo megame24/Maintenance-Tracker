@@ -26,8 +26,10 @@ class AdminController extends RequestsController {
    * @param {Object} res - success message
    */
   static approveRequest(req, res) {
-    const { request, status } = req.body;
-    const feedback = req.body.feedback || '';
+    const { request } = req.body;
+    let { status, feedback } = req.body;
+    feedback = feedback && feedback.trim() ? feedback.trim() : '';
+    status = status && status.trim() ? status.trim() : undefined;
     switch (true) {
       case status !== 'approve':
         return res.status(400).json({ error: { message: 'status is required to be equal to \'approve\'' } });
@@ -50,8 +52,10 @@ class AdminController extends RequestsController {
    * @param {Object} res - success message
    */
   static disapproveRequest(req, res) {
-    const { request, status } = req.body;
-    const feedback = req.body.feedback || '';
+    const { request } = req.body;
+    let { status, feedback } = req.body;
+    feedback = feedback && feedback.trim() ? feedback.trim() : '';
+    status = status && status.trim() ? status.trim() : undefined;
     switch (true) {
       case status !== 'disapprove':
         return res.status(400).json({ error: { message: 'status is required to be equal to \'disapprove\'' } });
@@ -73,8 +77,10 @@ class AdminController extends RequestsController {
    * @param {Object} res - success message
    */
   static resolveRequest(req, res) {
-    const { request, status } = req.body;
-    const feedback = req.body.feedback || '';
+    const { request } = req.body;
+    let { status, feedback } = req.body;
+    feedback = feedback && feedback.trim() ? feedback.trim() : '';
+    status = status && status.trim() ? status.trim() : undefined;
     switch (true) {
       case status !== 'resolve':
         return res.status(400).json({ error: { message: 'status is required to be equal to \'resolve\'' } });

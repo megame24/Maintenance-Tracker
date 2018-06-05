@@ -6,7 +6,7 @@ export default {
    * @param {Object} req - request from client
    * @returns {Boolean} true if Request is found or false if not
    */
-  foundRequest(req) {
+  findRequest(req) {
     const requestId = Number(req.params.id);
     return requestDB.findRequestById(requestId)
       .then((result) => {

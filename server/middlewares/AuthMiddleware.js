@@ -34,7 +34,7 @@ class AuthMiddleware {
       return res.status(400)
         .json({ error: { message: 'Request id must be a number, correct the url and try again' } });
     }
-    requestsHelper.foundRequest(req)
+    requestsHelper.findRequest(req)
       .then((result) => {
         if (result.error) return res.status(404).json(result);
         const { decoded, request } = req.body;
@@ -59,7 +59,7 @@ class AuthMiddleware {
       return res.status(400)
         .json({ error: { message: 'Request id must be a number, correct the url and try again' } });
     }
-    requestsHelper.foundRequest(req)
+    requestsHelper.findRequest(req)
       .then((result) => {
         if (result.error) return res.status(404).json(result);
         const { decoded } = req.body;
