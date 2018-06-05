@@ -36,17 +36,15 @@ class RequestsController {
    * @param {*} res - success message
    */
   static createRequest(req, res) {
-    const {
-      title, description, type
-    } = req.body;
+    const { title, description, type } = req.body;
     switch (false) {
-      case !!title: 
+      case !!title && !!title.trim(): 
         return res.status(400).json({ error: { message: 'title is required' } });
-      case !!description: 
+      case !!description && !!description.trim(): 
         return res.status(400).json({ error: { message: 'description is required' } });
-      case !!type: 
+      case !!type && !!type.trim(): 
         return res.status(400).json({ error: { message: 'type is required' } });
-      case type.toLowerCase() === 'maintenance' || type.toLowerCase() === 'repair':
+      case type.toLowerCase().trim() === 'maintenance' || type.toLowerCase().trim() === 'repair':
         res.status(400).json({ error: { message: 'Request must be of either type maintenance or repair' } });
         break;
       default: {
