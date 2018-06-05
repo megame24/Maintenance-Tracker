@@ -60,11 +60,12 @@ class RequestsController {
    * @param {*} res - success message
    */
   static updateRequest(req, res) {
+    let { title, description } = req.body;
     const { request } = req.body;
     if (request.status === 'pending') {
-      const title = req.body.title || request.title;
-      const description = req.body.description || request.description;
-      let typeUpdate = (req.body.type || '').toLowerCase();
+      title = title && title.trim() ? title.trim() : request.title;
+      description = description && description.trim() ? description.trim() : request.description;
+      let typeUpdate = (req.body.type || '').toLowerCase().trim();
       if (typeUpdate !== 'maintenance' && typeUpdate !== 'repair') {
         typeUpdate = request.type;
       }
