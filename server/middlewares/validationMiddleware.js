@@ -27,8 +27,8 @@ class validationMiddleware {
       }
     }
     if (email) {
-      // regular expression from stackoverflow https://stackoverflow.com/a/9204568
-      return /\S+@\S+\.\S+/.test(email);
+      // regular expression from stackoverflow https://stackoverflow.com/a/38137215
+      return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/.test(email);
     }
   }
 
