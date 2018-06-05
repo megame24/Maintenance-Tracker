@@ -1,6 +1,7 @@
 /* eslint-disable indent, no-tabs */
 const baseUrl = window.location.origin;
 const rightNavbar = document.getElementsByClassName('right-menu')[0];
+const getStarted = document.getElementsByClassName('get-started');
 const token = window.localStorage.getItem('token');
 
 // perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
@@ -64,12 +65,18 @@ const init = () => {
 	if (userDetails.role === 'admin') {
 		rightNavbar.innerHTML = adminToken();
 		const displayUsername = document.getElementById('display-username');
+		for (let i = 0; i < getStarted.length; i += 1) {
+			getStarted[i].setAttribute('href', '/admin-dashboard.html');
+		}
 		displayUsername.append(userDetails.username);
 		return;
 	}
 	if (userDetails.role === 'user') {
 		rightNavbar.innerHTML = userToken();
 		const displayUsername = document.getElementById('display-username');
+		for (let i = 0; i < getStarted.length; i += 1) {
+			getStarted[i].setAttribute('href', '/view-requests.html');
+		}
 		displayUsername.append(userDetails.username);
 	}
 };

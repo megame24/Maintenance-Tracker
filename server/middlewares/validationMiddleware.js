@@ -73,8 +73,8 @@ class validationMiddleware {
    * @param {String} password - password provided by user
    */
   static validatePassword(password) {
-    if (!(password && password.trim())) return { error: { message: 'password is required' } };
-    if (password.trim().length < 5) {
+    if (!password) return { error: { message: 'password is required' } };
+    if (password.length < 5) {
       return { error: { message: 'password must be more than 5 characters long' } };
     }
     return {};
