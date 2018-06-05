@@ -29,9 +29,9 @@ export default {
       title, description, type, decoded
     } = req.body;
     const newRequest = [
-      title,
-      description,
-      type.toLowerCase(),
+      title.trim(),
+      description.trim(),
+      type.toLowerCase().trim(),
       'pending',
       false,
       '',
