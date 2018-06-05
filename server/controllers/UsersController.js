@@ -11,7 +11,9 @@ class UsersController {
    * @param {Object} res - token and a success message
    */
   static login(req, res) {
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+    username = username && username.trim() ? username.trim() : undefined;
+    password = password && password.trim() ? password.trim() : undefined;
     if (username && password) {
       userDB.getUserByUsername(username)
         .then((result) => {
