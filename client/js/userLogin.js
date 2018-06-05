@@ -10,7 +10,7 @@ const loginUser = (request) => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        return displayError(result.error.message);
+        return displayError(result.error.message, 'Login');
       }
       const { token } = result;
       window.localStorage.setItem('token', token);

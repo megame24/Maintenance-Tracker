@@ -38,7 +38,7 @@ const updateRequest = (req) => {
   fetch(req).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        return displayError(result.error.message);
+        return displayError(result.error.message, 'Update Request');
       }
       handleRedirectSuccess(result.success.message, `user-request-details.html?${id}&`);
     });

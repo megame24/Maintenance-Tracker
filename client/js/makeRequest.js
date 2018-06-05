@@ -14,7 +14,7 @@ const makeRequest = (request) => {
     .then(res => res.json())
     .then((result) => {
       if (result.error) {
-        return displayError(result.error.message);
+        return displayError(result.error.message, 'Make Request');
       }
       const message = {
         success: true,

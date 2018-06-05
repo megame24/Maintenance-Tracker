@@ -27,7 +27,7 @@ const signupController = () => {
     fetch(request).then(res => res.json())
       .then((result) => {
         if (result.error) {
-          return displayError(result.error.message);
+          return displayError(result.error.message, 'Create Account');
         }
         handleRedirectSuccess(result.success.message, 'login.html?');
       });

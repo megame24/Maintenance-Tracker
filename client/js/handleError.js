@@ -5,10 +5,10 @@ const handleRedirectError = (errMessage, subUrl) => {
   window.location = `${baseUrl}/${subUrl}?${queryString}`;
 };
 
-const displayError = (message) => {
+const displayError = (message, btnValue) => {
   submitBtn.disabled = false;
   submitBtn.classList.remove('disabled');
-  submitBtn.value = 'Make Request';
+  submitBtn.value = btnValue;
   errorMessage.innerText = message;
   errorMessage.classList.remove('hide');
 };
