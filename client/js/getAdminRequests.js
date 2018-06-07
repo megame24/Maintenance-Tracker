@@ -16,16 +16,16 @@ const approveAndDisapproveColumn = (status, elem) => {
     </td>`;
   }
   if (status === 'approved' || status === 'resolved') {
-    return '<td class="background-primary">Approved</td>';
+    return '<td>Approved</td>';
   }
   if (status === 'disapproved') {
-    return '<td class="background-danger">Disapproved</td>';
+    return '<td>Disapproved</td>';
   }
 };
 
 const resolvedColumn = (status, elem) => {
   if (status === 'pending') {
-    return '<td class="background-tertiary"></td>';
+    return '<td></td>';
   }
   if (status === 'approved') {
     return `
@@ -34,10 +34,10 @@ const resolvedColumn = (status, elem) => {
     </td>`;
   }
   if (status === 'disapproved') {
-    return '<td class="background-danger"></td>';
+    return '<td></td>';
   }
   if (status === 'resolved') {
-    return '<td class="background-success">Resolved</td>';
+    return '<td>Resolved</td>';
   }
 };
 

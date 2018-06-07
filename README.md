@@ -24,6 +24,7 @@ The app has the following features for the respective categories;
   * view all his/her requests.
   * view the details of a single request, which includes a feedback from an admin if any.
   * update a request, if it is yet to be approved.
+  * delete a request.
 
 * An admin can:
 
@@ -33,6 +34,7 @@ The app has the following features for the respective categories;
   * filter requests.
   * view the details of a request.
   * provide feedback on approving/disapproving or on resolving a request.
+  * trash a request.
 
 ## Technologies
 
@@ -67,11 +69,13 @@ GET /users/requests           |   Gets all requests of a logged in user
 GET /users/requests/:id       |   Get a single request by id
 POST /users/requests          |   Creates a new request
 PUT /users/requests/:id       |   Updates a request only if it has a status of pending
+DELETE /users/requests/:id    |   Delete a request(cannot delete a request with status approved)
 GET /requests            |   Gets all requests for an admin(only available to admin)
 GET /requests/:id           |   Gets a request by id(only available to admin)
 PUT /requests/:id/approve       |   Request approve endpoint(only available to admin)
 PUT /requests/:id/disapprove          |   Request disapprove endpoint(only available to admin)
 PUT /requests/:id/resolve      |   Request resolve endpoint(only available to admin)
+DELETE /requests/:id    |   Trash a request; only requests with status resolved or disapproved can be trahed(only available to admin)
 
 ## Licence
 
