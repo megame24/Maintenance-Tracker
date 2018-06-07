@@ -265,6 +265,9 @@
                     <a href="#updates-a-request" class="toc-h2 toc-link" data-title="updates-a-request">Updates a request</a>
                   </li>
                   <li>
+                    <a href="#delete-a-request" class="toc-h2 toc-link" data-title="delete-a-request">Delete a request</a>
+                  </li>
+                  <li>
                     <a href="#gets-all-requests-for-an-admin" class="toc-h2 toc-link" data-title="gets-all-requests-for-an-admin">Gets all requests for an admin</a>
                   </li>
                   <li>
@@ -278,6 +281,9 @@
                   </li>
                   <li>
                     <a href="#resolve-a-request" class="toc-h2 toc-link" data-title="resolve-a-request">Resolve a request</a>
+                  </li>
+                  <li>
+                    <a href="#trash-a-request" class="toc-h2 toc-link" data-title="trash-a-request">Trash a request</a>
                   </li>
               </ul>
           </li>
@@ -350,6 +356,10 @@
 <td>Updates a request only if it has a status of pending</td>
 </tr>
 <tr>
+<td>DELETE /users/requests/:id</td>
+<td>Delete a request(cannot delete a request with status approved)</td>
+</tr>
+<tr>
 <td>GET /requests</td>
 <td>Gets all requests for an admin(only available to admin)</td>
 </tr>
@@ -362,12 +372,16 @@
 <td>Request approve endpoint(only available to admin)</td>
 </tr>
 <tr>
-<td>PUT /requests/:id/dissapprove</td>
+<td>PUT /requests/:id/disapprove</td>
 <td>Request disapprove endpoint(only available to admin)</td>
 </tr>
 <tr>
 <td>PUT /requests/:id/resolve</td>
 <td>Request resolve endpoint(only available to admin)</td>
+</tr>
+<tr>
+<td>DELETE /requests/:id</td>
+<td>Trash a request; only requests with status resolved or disapproved can be trahed(only available to admin)</td>
 </tr>
 </tbody></table>
 <h2 id='licence'>Licence</h2>
@@ -555,11 +569,30 @@
 <span class="p">}</span>
 </code></pre><h3 id='request-4'>Request</h3>
 <ul>
-<li>Endpoint: PUT: <code>/users/requests</code></li>
+<li>Endpoint: PUT: <code>/users/requests/:id</code></li>
 <li>Requires: Authentication</li>
 <li>Body <code>application/json; charset=utf-8</code></li>
 </ul>
 <h3 id='response-4'>Response</h3>
+<ul>
+<li>Status: <code>200: Ok</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='delete-a-request'>Delete a request</h2>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been deleted"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-5'>Request</h3>
+<ul>
+<li>Endpoint: DELETE: <code>users/requests/:id</code></li>
+<li>Requires: Authentication</li>
+</ul>
+<h3 id='response-5'>Response</h3>
 <ul>
 <li>Status: <code>200: Ok</code></li>
 <li>Body <code>application/json; charset=utf-8</code></li>
@@ -666,13 +699,13 @@
         <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
     <span class="p">}</span>
 <span class="p">]</span>
-</code></pre><h3 id='request-5'>Request</h3>
+</code></pre><h3 id='request-6'>Request</h3>
 <ul>
 <li>Endpoint: GET: <code>/requests</code></li>
 <li>Requires: Authentication</li>
 <li>Only available to an admin</li>
 </ul>
-<h3 id='response-5'>Response</h3>
+<h3 id='response-6'>Response</h3>
 <ul>
 <li>Status: <code>200: OK</code></li>
 <li>Body <code>application/json; charset=utf-8</code></li>
@@ -693,13 +726,13 @@
     <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"may 22, 2018"</span><span class="p">,</span>
     <span class="s2">"ownerid"</span><span class="p">:</span> <span class="mi">4</span>
 <span class="p">}</span>
-</code></pre><h3 id='request-6'>Request</h3>
+</code></pre><h3 id='request-7'>Request</h3>
 <ul>
 <li>Endpoint: GET: <code>/requests/:id</code></li>
 <li>Requires: Authentication</li>
 <li>Only available to an admin</li>
 </ul>
-<h3 id='response-6'>Response</h3>
+<h3 id='response-7'>Response</h3>
 <ul>
 <li>Status: <code>200: OK</code></li>
 <li>Body <code>application/json; charset=utf-8</code></li>
@@ -720,14 +753,14 @@
         <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been approved"</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='request-7'>Request</h3>
+</code></pre><h3 id='request-8'>Request</h3>
 <ul>
-<li>Endpoint: PUT: <code>/requests/1/approve</code></li>
+<li>Endpoint: PUT: <code>/requests/:id/approve</code></li>
 <li>Requires: Authentication</li>
 <li>Only available to an admin</li>
 <li>Body <code>application/json; charset=utf-8</code></li>
 </ul>
-<h3 id='response-7'>Response</h3>
+<h3 id='response-8'>Response</h3>
 <ul>
 <li>Status: <code>200: Ok</code></li>
 <li>Body <code>application/json; charset=utf-8</code></li>
@@ -748,14 +781,14 @@
         <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been disapproved"</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='request-8'>Request</h3>
+</code></pre><h3 id='request-9'>Request</h3>
 <ul>
-<li>Endpoint: PUT: <code>/requests/1/disapprove</code></li>
+<li>Endpoint: PUT: <code>/requests/:id/disapprove</code></li>
 <li>Requires: Authentication</li>
 <li>Only available to an admin</li>
 <li>Body <code>application/json; charset=utf-8</code></li>
 </ul>
-<h3 id='response-8'>Response</h3>
+<h3 id='response-9'>Response</h3>
 <ul>
 <li>Status: <code>200: Ok</code></li>
 <li>Body <code>application/json; charset=utf-8</code></li>
@@ -776,14 +809,34 @@
         <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been resolved"</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='request-9'>Request</h3>
+</code></pre><h3 id='request-10'>Request</h3>
 <ul>
-<li>Endpoint: PUT: <code>/requests/1/resolve</code></li>
+<li>Endpoint: PUT: <code>/requests/:id/resolve</code></li>
 <li>Requires: Authentication</li>
 <li>Only available to an admin</li>
 <li>Body <code>application/json; charset=utf-8</code></li>
 </ul>
-<h3 id='response-9'>Response</h3>
+<h3 id='response-10'>Response</h3>
+<ul>
+<li>Status: <code>200: Ok</code></li>
+<li>Body <code>application/json; charset=utf-8</code></li>
+</ul>
+<h2 id='trash-a-request'>Trash a request</h2>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"success"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request has been trashed"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='request-11'>Request</h3>
+<ul>
+<li>Endpoint: DELETE: <code>/requests/:id</code></li>
+<li>Requires: Authentication</li>
+<li>Only available to an admin</li>
+</ul>
+<h3 id='response-11'>Response</h3>
 <ul>
 <li>Status: <code>200: Ok</code></li>
 <li>Body <code>application/json; charset=utf-8</code></li>
