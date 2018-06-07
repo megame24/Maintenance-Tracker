@@ -11,7 +11,9 @@ const {
   request2,
   request1,
   request6,
+  request5,
   request4,
+  request7,
   invalidId
 } = testData;
 let adminToken;
@@ -50,7 +52,7 @@ describe('Admin', () => {
   // Get requests route
   describe('Making a GET request to /requests', () => {
     it('Should return all requests if user is an admin', (done) => {
-      const numOfRequests = requests.length;
+      const numOfRequests = requests.filter(elem => !elem.trashed).length;
       chai.request(server)
         .get(`${baseUrl}/requests`)
         .set({ authorization: adminToken })
@@ -69,6 +71,21 @@ describe('Admin', () => {
           expect(res.status).to.equal(403);
           expect(res.body).to.be.a('object');
           expect(res.body.error.message).to.equal('You do not have permission to do that');
+          done();
+        });
+    });
+  });
+
+  // Get request by id route
+  describe('Making a GET request to /requests/<requestId>', () => {
+    it('Should return an error 400, if request has been trashed', (done) => {
+      chai.request(server)
+        .get(`${baseUrl}/requests/${request7.id}`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Cannot retrieve trashed request');
           done();
         });
     });
@@ -260,6 +277,43 @@ describe('Admin', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('object');
           expect(res.body.success.message).to.equal('Request has been resolved');
+          done();
+        });
+    });
+  });
+
+  // Trash request route
+  describe('Making a DELETE request to /requests/<requestId>', () => {
+    it('Should not trash the request if requests\' status is pending', (done) => {
+      chai.request(server)
+        .delete(`${baseUrl}/requests/${request5.id}`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Requests with status pending cannot be trashed');
+          done();
+        });
+    });
+    it('Should not trash the request if requests\' status is approved', (done) => {
+      chai.request(server)
+        .delete(`${baseUrl}/requests/${request3.id}`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Requests with status approved cannot be trashed');
+          done();
+        });
+    });
+    it('Should trash the request if requests\' status is disapproved or resolved', (done) => {
+      chai.request(server)
+        .delete(`${baseUrl}/requests/${request1.id}`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request has been trashed');
           done();
         });
     });
