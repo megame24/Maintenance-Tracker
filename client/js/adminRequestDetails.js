@@ -26,12 +26,16 @@ const statusObject = (backgroundColor, message) => ({
 const statusDependents = (status) => {
   if (status === 'resolved') {
     const statusObj = statusObject('background-success', 'Resolved');
-    statusObj.appendHtml = '&nbsp;';
+    statusObj.appendHtml = `<a href="#" id="trash" class="btn btn-danger">Trash&nbsp;
+        <i class="icon ion-android-delete"></i>
+    </a>`;
     return statusObj;
   }
   if (status === 'disapproved') {
     const statusObj = statusObject('background-danger', 'Disapproved');
-    statusObj.appendHtml = '&nbsp;';
+    statusObj.appendHtml = `<a href="#" id="trash" class="btn btn-danger">Trash&nbsp;
+        <i class="icon ion-android-delete"></i>
+    </a>`;
     return statusObj;
   }
   if (status === 'approved') {
@@ -75,6 +79,28 @@ const getRequestDetails = request =>
       }
       requestDetailParent.innerHTML = requestDetailsHTML(result);
     });
+
+const trashRequest = () => {
+  const url = `${baseUrl}/api/v1/requests/${id}`;
+  const headers = new Headers();
+  headers.append('authorization', token);
+  const request = new Request(url, { method: 'DELETE', headers });
+  fetch(request).then(res => res.json())
+    .then((result) => {
+      if (result.error) {
+        return handleRedirectError(result.error.message, 'admin-dashboard.html');
+      }
+      handleRedirectSuccess(result.success.message, 'admin-dashboard.html?');
+    });
+};
+
+const trashEventHandler = () => {
+  if (trashBtn) {
+    trashBtn.onclick = () => {
+      trashRequest();
+    };
+  }
+};
 
 const updateStatus = (status) => {
   const url = `${baseUrl}/api/v1/requests/${id}/${status}`;
@@ -135,10 +161,12 @@ const init = () => {
       approveBtn = document.getElementById('approve');
       disapproveBtn = document.getElementById('disapprove');
       resolveBtn = document.getElementById('resolve');
+      trashBtn = document.getElementById('trash');
       feedbackField = document.getElementById('feedback');
       approveRequest();
       disapproveRequest();
       resolveRequest();
+      trashEventHandler();
     });
 };
 

@@ -7,7 +7,6 @@ import testData from '../testData';
 const {
   regularUser1,
   regularUser2,
-  request1,
   invalidId
 } = testData;
 let regularUser1Token;
