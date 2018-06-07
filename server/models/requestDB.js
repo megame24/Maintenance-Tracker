@@ -2,7 +2,7 @@ import db from '../db/';
 
 export default {
   getAllRequests() {
-    return db.query('SELECT * FROM requests ORDER BY date DESC');
+    return db.query('SELECT * FROM requests WHERE trashed = false ORDER BY date DESC');
   },
   getUserRequests(id) {
     return db.query('SELECT * FROM requests WHERE ownerId = $1 ORDER BY date DESC', [id]);
@@ -18,6 +18,9 @@ export default {
   },
   deleteRequest(id) {
     return db.query('DELETE FROM requests WHERE id = $1', [id]);
+  },
+  trashRequest(id) {
+    return db.query('UPDATE requests SET trashed = $1 WHERE id = $2', [true, id]);
   },
   updateStatus(statusDetails) {
     return db.query('UPDATE requests SET status = $1, feedback = $2 WHERE id = $3', statusDetails);

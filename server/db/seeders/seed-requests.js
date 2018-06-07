@@ -37,7 +37,7 @@ export default [
     description: 'I need help!!!, I scratched my wife\'s new mercedes.',
     type: 'repair',
     status: 'resolved',
-    trashed: true,
+    trashed: false,
     feedback: 'Your request has been resolved, check your email for further instructions.',
     owner: 'Uzumaki Naruto',
     date: Date.now() + 4,

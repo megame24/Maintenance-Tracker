@@ -71,6 +71,7 @@ class AdminController extends RequestsController {
           });
     }
   }
+
   /**
    * Resolves a request
    * @param {Object} req - request from client
@@ -91,6 +92,27 @@ class AdminController extends RequestsController {
       default: 
         requestDB.updateStatus(['resolved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been resolved' } }))
+          .catch(() => {
+            res.status(500).json(errors.error500);
+          });
+    }
+  }
+
+  /**
+   * Trash a request
+   * @param {Object} req - request from client
+   * @param {Object} res - success message
+   */
+  static trashRequest(req, res) {
+    const { status, id } = req.body.request;
+    switch (true) {
+      case status === 'pending':
+        return res.status(400).json({ error: { message: 'Requests with status pending cannot be trashed' } });
+      case status === 'approved':
+        return res.status(400).json({ error: { message: 'Requests with status approved cannot be trashed' } });
+      default:
+        requestDB.trashRequest(id)
+          .then(() => res.status(200).json({ success: { message: 'Request has been trashed' } }))
           .catch(() => {
             res.status(500).json(errors.error500);
           });

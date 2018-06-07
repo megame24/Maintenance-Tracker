@@ -49,7 +49,10 @@ class RequestsController {
         break;
       default: {
         requestsHelper.createRequest(req)
-          .then(message => res.status(201).json(message));
+          .then(message => res.status(201).json(message))
+          .catch(() => {
+            res.status(500).json(errors.error500);
+          });
       }
     }
   }
