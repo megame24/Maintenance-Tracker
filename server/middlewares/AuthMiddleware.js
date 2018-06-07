@@ -62,11 +62,15 @@ class AuthMiddleware {
     requestsHelper.findRequest(req)
       .then((result) => {
         if (result.error) return res.status(404).json(result);
-        const { decoded } = req.body;
-        if (decoded.role === 'admin') {
-          return next();
+        const { decoded, request } = req.body;
+        switch (false) {
+          case !request.trashed:
+            return res.status(400).json({ error: { message: 'Cannot retrieve trashed request' } });
+          case decoded.role === 'admin':
+            return res.status(403).json({ error: { message: 'You do not have permission to do that' } });
+          default:
+            return next();
         }
-        res.status(403).json({ error: { message: 'You do not have permission to do that' } });
       })
       .catch(() => {
         res.status(500).json(errors.error500);
