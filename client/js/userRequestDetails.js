@@ -4,20 +4,6 @@ let errorMessage,
   url,
   successMessage;
 
-const getQueryParams = () => {
-  if (window.location.search.substring(1)) {
-    const params = window.location.search.substring(1).split('&');
-    id = params[0];
-    if (params[1]) {
-      message = window.atob(params[1]);
-      if (!isValidJson(message)) return;
-      message = JSON.parse(message);
-      if (message.success) displayMessage(message, successMessage);
-      if (message.error) displayMessage(message, errorMessage);
-    }
-  } else handleRedirectError('Request not found', 'view-requests.html');
-};
-
 const statusObj = (backgroundColor, message, hideDeleteBtn, hideUpdateBtn) => ({
   backgroundColor,
   message,
@@ -73,6 +59,7 @@ const getRequestDetails = request =>
     });
 
 const deleteRequest = (deleteBtn) => {
+  if (!deleteBtn) return;
   const delBtn = deleteBtn;
   const headers = new Headers();
   headers.append('authorization', token);
@@ -95,7 +82,7 @@ const init = () => {
   successMessage = document.getElementsByClassName('success-message')[0];
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
-  getQueryParams();
+  getQueryParams('view-requests.html');
   const headers = new Headers();
   headers.append('authorization', token);
   url = `${baseUrl}/api/v1/users/requests/${id}`;

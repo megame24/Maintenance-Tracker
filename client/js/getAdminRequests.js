@@ -3,7 +3,9 @@ let errorMessage,
   resolveBtn,
   approveBtn,
   disapproveBtn,
-  tableBody;
+  tableBody,
+  tableRows,
+  filterSelection;
 
 const createNode = elem => document.createElement(elem);
 
@@ -44,6 +46,7 @@ const resolvedColumn = (status, elem) => {
 const populateTableWithRequests = (result) => {
   result.forEach((elem) => {
     const row = createNode('tr');
+    row.classList.add('tr');
     row.innerHTML = 
     `<td class="dark-blue table-link">
         <a href="/admin-request-details.html?${elem.id}">${elem.title}</a>
@@ -115,11 +118,51 @@ const adminDuties = () => {
   statusUpdateBtnLoop(resolveBtn, resolveRequest);
 };
 
+const filterByNone = (filter, elements) => {
+  if (filter === 'none') {
+    for (let i = 0; i < elements.length; i += 1) {
+      elements[i].classList.remove('hide');
+    }
+  }
+};
+
+const filterByMaintenance = (filter, elements) => {
+  if (filter !== 'maintenance') return;
+  for (let i = 0; i < elements.length; i += 1) {
+    if (elements[i].getElementsByTagName('td')[1].innerHTML === 'repair') {
+      elements[i].classList.add('hide');
+    } else {
+      elements[i].classList.remove('hide');
+    }
+  }
+};
+
+const filterByRepair = (filter, elements) => {
+  if (filter !== 'repair') return;
+  for (let i = 0; i < tableRows.length; i += 1) {
+    if (tableRows[i].getElementsByTagName('td')[1].innerHTML === 'maintenance') {
+      tableRows[i].classList.add('hide');
+    } else {
+      tableRows[i].classList.remove('hide');
+    }
+  }
+};
+
+const filterHandler = () => {
+  filterSelection.onchange = (event) => {
+    const filter = event.target.value;
+    filterByNone(filter, tableRows);
+    filterByMaintenance(filter, tableRows);
+    filterByRepair(filter, tableRows);
+  };
+};
+
 const init = () => {
   tableBody = document.getElementById('table-body');
   const displayUsername = document.getElementById('display-username');
   errorMessage = document.getElementsByClassName('error-message')[0];
   successMessage = document.getElementsByClassName('success-message')[0];
+  filterSelection = document.getElementById('filter');
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getQueryMessage();
@@ -129,7 +172,9 @@ const init = () => {
       approveBtn = document.getElementsByClassName('approve');
       disapproveBtn = document.getElementsByClassName('disapprove');
       resolveBtn = document.getElementsByClassName('resolve');
+      tableRows = document.getElementsByClassName('tr');
       adminDuties();
+      filterHandler();
     });
 };
 

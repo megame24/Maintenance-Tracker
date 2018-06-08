@@ -4,20 +4,6 @@ let errorMessage,
   feedbackField,
   successMessage;
 
-const getQueryParams = () => {
-  if (window.location.search.substring(1)) {
-    const params = window.location.search.substring(1).split('&');
-    id = params[0];
-    if (params[1]) {
-      message = window.atob(params[1]);
-      if (!isValidJson(message)) return;
-      message = JSON.parse(message);
-      if (message.success) displayMessage(message, successMessage);
-      if (message.error) displayMessage(message, errorMessage);
-    }
-  } else handleRedirectError('Request not found', 'admin-dashboard.html');
-};
-
 const statusObject = (backgroundColor, message) => ({
   backgroundColor,
   message
@@ -150,7 +136,7 @@ const init = () => {
   successMessage = document.getElementsByClassName('success-message')[0];
   const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
-  getQueryParams();
+  getQueryParams('admin-dashboard.html');
   window.history.replaceState({}, '', `/admin-request-details.html?${id}`);
   const url = `${baseUrl}/api/v1/requests/${id}`;
   const headers = new Headers();
