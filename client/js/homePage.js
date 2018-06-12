@@ -1,19 +1,26 @@
+/**
+ * ========================================================
+ * Import required function(s) from additional scripts
+ * (these scripts are present in the appropriate html file)
+ * ========================================================
+ * import parseJwt from './helpers/parseJwt.js';
+ */
+
 /* eslint-disable indent, no-tabs */
 const baseUrl = window.location.origin;
 const rightNavbar = document.getElementsByClassName('right-menu')[0];
 const getStarted = document.getElementsByClassName('get-started');
 const token = window.localStorage.getItem('token');
 
-// perseJwt function from stackoverflow >> https://stackoverflow.com/a/38552302
-const parseJwt = (jwToken) => {
-  const base64Url = jwToken.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  return JSON.parse(window.atob(base64));
-};
-
+/**
+ * update navbar if user is not logged in
+ */
 const noOrExpiredToken = () => 
 	'<li><a href="/login.html" class="nav-item">Login</a></li><li><a href="/signup.html" class="nav-item">Sign Up</a></li>';
 
+/**
+ * update navbar if logged in user is an admin
+ */
 const adminToken = () =>
 	`<li class="admin">
 			<div>
@@ -29,6 +36,9 @@ const adminToken = () =>
 			</div>
 	</li>`;
 
+/**
+ * update navbar if logged in user is a regular user
+ */
 const userToken = () =>
 	`<li class="request">
 			<div>
@@ -51,6 +61,9 @@ const userToken = () =>
 			</div>
 	</li>`;
 
+/**
+ * call this on page load
+ */
 const init = () => {
   if (!token) {
 		rightNavbar.innerHTML = noOrExpiredToken();
@@ -65,19 +78,19 @@ const init = () => {
 	if (userDetails.role === 'admin') {
 		rightNavbar.innerHTML = adminToken();
 		const displayUsername = document.getElementById('display-username');
+		displayUsername.append(userDetails.username);
 		for (let i = 0; i < getStarted.length; i += 1) {
 			getStarted[i].setAttribute('href', '/admin-dashboard.html');
 		}
-		displayUsername.append(userDetails.username);
 		return;
 	}
 	if (userDetails.role === 'user') {
 		rightNavbar.innerHTML = userToken();
 		const displayUsername = document.getElementById('display-username');
+		displayUsername.append(userDetails.username);
 		for (let i = 0; i < getStarted.length; i += 1) {
 			getStarted[i].setAttribute('href', '/view-requests.html');
 		}
-		displayUsername.append(userDetails.username);
 	}
 };
 

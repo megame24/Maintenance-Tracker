@@ -1,20 +1,43 @@
-let errorMessage,
-  successMessage,
-  resolveBtn,
+/**
+ * ========================================================
+ * Import required function(s) from additional scripts
+ * (these scripts are present in the appropriate html file)
+ * ========================================================
+ * import getQueryMessage from './helpers/getQueryMessage.js';
+ * import { handleRedirectError } from './helpers/handleError.js';
+ * import handleRedirectSuccess from './helpers/handleSuccess.js';
+ * import parseJwt from './helpers/parseJwt.js';
+ */
+
+let resolveBtn,
   approveBtn,
   disapproveBtn,
-  tableBody,
-  tableRows,
-  filterSelection;
+  tableRows;
 
+const tableBody = document.getElementById('table-body');
+const displayUsername = document.getElementById('display-username');
+const errorMessage = document.getElementsByClassName('error-message')[0];
+const successMessage = document.getElementsByClassName('success-message')[0];
+const filterSelection = document.getElementById('filter');
+const userDetails = parseJwt(token);
+
+/**
+ * create html node
+ * @param {String} elem - html element string
+ */
 const createNode = elem => document.createElement(elem);
 
-const approveAndDisapproveColumn = (status, elem) => {
+/**
+ * build out 'approve/disapprove' html page column
+ * @param {Object} elem - request
+ */
+const approveOrDisapproveColumn = (elem) => {
+  const { status, id } = elem;
   if (status === 'pending') {
     return `
     <td>
-        <a href="#" data-id="${elem.id}" class="approve btn btn-small btn-primary">Approve</a>&nbsp;&nbsp;&nbsp;
-        <a href="#" data-id="${elem.id}" class="disapprove btn btn-small btn-danger">Disapprove</a>
+        <a href="#" data-id="${id}" class="approve btn btn-small btn-primary">Approve</a>&nbsp;&nbsp;&nbsp;
+        <a href="#" data-id="${id}" class="disapprove btn btn-small btn-danger">Disapprove</a>
     </td>`;
   }
   if (status === 'approved' || status === 'resolved') {
@@ -25,14 +48,19 @@ const approveAndDisapproveColumn = (status, elem) => {
   }
 };
 
-const resolvedColumn = (status, elem) => {
+/**
+ * build out 'resolve' html page column
+ * @param {Object} elem - request
+ */
+const resolvedColumn = (elem) => {
+  const { status, id } = elem;
   if (status === 'pending') {
     return '<td></td>';
   }
   if (status === 'approved') {
     return `
     <td>
-      <a href="#" data-id="${elem.id}" class="resolve btn btn-small btn-success">Resolve</a>
+      <a href="#" data-id="${id}" class="resolve btn btn-small btn-success">Resolve</a>
     </td>`;
   }
   if (status === 'disapproved') {
@@ -43,6 +71,10 @@ const resolvedColumn = (status, elem) => {
   }
 };
 
+/**
+ * populate html table with requests details
+ * @param {Object} result - array of requests from API 
+ */
 const populateTableWithRequests = (result) => {
   result.forEach((elem) => {
     const row = createNode('tr');
@@ -52,13 +84,15 @@ const populateTableWithRequests = (result) => {
         <a href="/admin-request-details.html?${elem.id}">${elem.title}</a>
     </td>
     <td class="table-not-mobile">${elem.type}</td>
-    ${approveAndDisapproveColumn(elem.status, elem)}
-    ${resolvedColumn(elem.status, elem)}`;
+    ${approveOrDisapproveColumn(elem)}
+    ${resolvedColumn(elem)}`;
     tableBody.appendChild(row);
   });
 };
 
-
+/**
+ * get all requests from API
+ */
 const getAllRequests = () => {
   const url = `${baseUrl}/api/v1/requests`;
   const headers = new Headers();
@@ -74,6 +108,11 @@ const getAllRequests = () => {
     });
 };
 
+/**
+ * handle admin roles(approve, disapprove and resolve)
+ * @param {Object} event - event handler's event object
+ * @param {String} status - request's status
+ */
 const updateStatus = (event, status) => {
   const url = `${baseUrl}/api/v1/requests/${event.target.getAttribute('data-id')}/${status}`;
   const headers = new Headers();
@@ -91,33 +130,58 @@ const updateStatus = (event, status) => {
     });
 };
 
+/**
+ * handle approve request
+ * @param {Object} event - event handler's event object 
+ */
 const approveRequest = (event) => {
   updateStatus(event, 'approve');
   event.target.removeEventListener('click', approveRequest);
 };
 
+/**
+ * handle disaprrove request
+ * @param {Object} event - event handler's event object
+ */
 const disapproveRequest = (event) => {
   updateStatus(event, 'disapprove');
   event.target.removeEventListener('click', disapproveRequest);
 };
 
+/**
+ * handle resolve request
+ * @param {Object} event - event handler's event object 
+ */
 const resolveRequest = (event) => {
   updateStatus(event, 'resolve');
   event.target.removeEventListener('click', resolveRequest);
 };
 
+/**
+ * add event listener to html buttons responsible for requests' status update
+ * @param {Object} btn - html button elements 
+ * @param {Function} func - event listener function
+ */
 const statusUpdateBtnLoop = (btn, func) => {
   for (let i = 0; i < btn.length; i += 1) {
     btn[i].addEventListener('click', func);
   }
 };
 
+/**
+ * assign event handlers to the appropriate html buttons on the page
+ */
 const adminDuties = () => {
   statusUpdateBtnLoop(approveBtn, approveRequest);
   statusUpdateBtnLoop(disapproveBtn, disapproveRequest);
   statusUpdateBtnLoop(resolveBtn, resolveRequest);
 };
 
+/**
+ * remove request filter
+ * @param {String} filter - filter 
+ * @param {Object} elements - html 'tr' elements
+ */
 const filterByNone = (filter, elements) => {
   if (filter === 'none') {
     for (let i = 0; i < elements.length; i += 1) {
@@ -126,6 +190,11 @@ const filterByNone = (filter, elements) => {
   }
 };
 
+/**
+ * filter requests by type maintenance
+ * @param {String} filter - filter 
+ * @param {Object} elements - html 'tr' elements
+ */
 const filterByMaintenance = (filter, elements) => {
   if (filter !== 'maintenance') return;
   for (let i = 0; i < elements.length; i += 1) {
@@ -137,6 +206,11 @@ const filterByMaintenance = (filter, elements) => {
   }
 };
 
+/**
+ * filter requests by type repair
+ * @param {String} filter - filter 
+ * @param {Object} elements - html 'tr' elements
+ */
 const filterByRepair = (filter, elements) => {
   if (filter !== 'repair') return;
   for (let i = 0; i < tableRows.length; i += 1) {
@@ -148,6 +222,9 @@ const filterByRepair = (filter, elements) => {
   }
 };
 
+/**
+ * handle filter request functionality
+ */
 const filterHandler = () => {
   filterSelection.onchange = (event) => {
     const filter = event.target.value;
@@ -157,15 +234,13 @@ const filterHandler = () => {
   };
 };
 
+/**
+ * call this on page load
+ */
 const init = () => {
-  tableBody = document.getElementById('table-body');
-  const displayUsername = document.getElementById('display-username');
-  errorMessage = document.getElementsByClassName('error-message')[0];
-  successMessage = document.getElementsByClassName('success-message')[0];
-  filterSelection = document.getElementById('filter');
-  const userDetails = parseJwt(token);
   displayUsername.append(userDetails.username);
   getQueryMessage();
+  // do not persist encrypted error or success message query string after page load
   window.history.replaceState({}, '', '/admin-dashboard.html');
   getAllRequests()
     .then(() => {

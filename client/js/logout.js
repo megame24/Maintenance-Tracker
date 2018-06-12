@@ -1,3 +1,4 @@
+// logout user
 const logout = document.getElementById('logout');
 if (logout) {
   logout.onclick = () => {

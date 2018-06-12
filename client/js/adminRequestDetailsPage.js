@@ -1,14 +1,34 @@
-let errorMessage,
-  requestDetailParent,
-  id,
-  feedbackField,
-  successMessage;
+/**
+ * ========================================================
+ * Import required function(s) from additional scripts
+ * (these scripts are present in the appropriate html file)
+ * ========================================================
+ * import { getId, displayErrOrsuccMessage } from './helpers/getIdAndQueryMessage.js';
+ * import { handleRedirectError } from './helpers/handleError.js';
+ * import handleRedirectSuccess from './helpers/handleSuccess.js';
+ * import parseJwt from './helpers/parseJwt.js';
+ */
 
-const statusObject = (backgroundColor, message) => ({
-  backgroundColor,
-  message
-});
+let id,
+  feedbackField;
 
+const errorMessage = document.getElementsByClassName('error-message')[0];
+const successMessage = document.getElementsByClassName('success-message')[0];
+const requestDetailParent = document.getElementsByClassName('request-detail-parent')[0];
+const displayUsername = document.getElementById('display-username');
+const userDetails = parseJwt(token);
+
+/**
+ * abstract status properties
+ * @param {String} backgroundColor - visual indicator of status
+ * @param {String} message - written indicator of status
+ */
+const statusObject = (backgroundColor, message) => ({ backgroundColor, message });
+
+/**
+ * update page content based on status
+ * @param {String} status -  request's status
+ */
 const statusDependents = (status) => {
   if (status === 'resolved') {
     const statusObj = statusObject('background-success', 'Resolved');
@@ -45,6 +65,10 @@ const statusDependents = (status) => {
   }
 };
 
+/**
+ * build out request details page
+ * @param {Object} result - returned object from API call
+ */
 const requestDetailsHTML = result =>
   `<div class="request-detail">
       <h2>${result.title}</h2>
@@ -56,6 +80,10 @@ const requestDetailsHTML = result =>
   </div>
   ${statusDependents(result.status).appendHtml}`;
 
+/**
+ * get request details from the API
+ * @param {Object} request - fetch API request object 
+ */
 const getRequestDetails = request => 
   fetch(request)
     .then(res => res.json())
@@ -66,6 +94,9 @@ const getRequestDetails = request =>
       requestDetailParent.innerHTML = requestDetailsHTML(result);
     });
 
+/**
+ * handle trash request functionality
+ */
 const trashRequest = () => {
   const url = `${baseUrl}/api/v1/requests/${id}`;
   const headers = new Headers();
@@ -80,6 +111,9 @@ const trashRequest = () => {
     });
 };
 
+/**
+ * add event handler to trash button
+ */
 const trashEventHandler = () => {
   if (trashBtn) {
     trashBtn.onclick = () => {
@@ -88,6 +122,10 @@ const trashEventHandler = () => {
   }
 };
 
+/**
+ * handle admin roles(approve, disapprove and resolve)
+ * @param {String} status - request's status 
+ */
 const updateStatus = (status) => {
   const url = `${baseUrl}/api/v1/requests/${id}/${status}`;
   const headers = new Headers();
@@ -105,7 +143,10 @@ const updateStatus = (status) => {
     });
 };
 
-const approveRequest = () => {
+/**
+ * add event listener to approve request button
+ */
+const approveRequestEventHandler = () => {
   if (approveBtn) {
     approveBtn.onclick = () => {
       updateStatus('approve');
@@ -113,7 +154,10 @@ const approveRequest = () => {
   }
 };
 
-const disapproveRequest = () => {
+/**
+ * add event listener to disapprove request button
+ */
+const disapproveRequestEventHandler = () => {
   if (disapproveBtn) {
     disapproveBtn.onclick = () => {
       updateStatus('disapprove');
@@ -121,7 +165,10 @@ const disapproveRequest = () => {
   }
 };
 
-const resolveRequest = () => {
+/**
+ * add event listener to resolve request button
+ */
+const resolveRequestEventHandler = () => {
   if (resolveBtn) {
     resolveBtn.onclick = () => {
       updateStatus('resolve');
@@ -129,15 +176,16 @@ const resolveRequest = () => {
   }
 };
 
+/**
+ * call this on page load
+ */
 const init = () => {
-  requestDetailParent = document.getElementsByClassName('request-detail-parent')[0];
-  const displayUsername = document.getElementById('display-username');
-  errorMessage = document.getElementsByClassName('error-message')[0];
-  successMessage = document.getElementsByClassName('success-message')[0];
-  const userDetails = parseJwt(token);
-  displayUsername.append(userDetails.username);
-  getQueryParams('admin-dashboard.html');
+  id = getId();
+  if (!id) return handleRedirectError('Request not found', 'admin-dashboard.html');
+  displayErrOrSuccMessage(successMessage, errorMessage);
+  // do not persist encrypted error or success message query string after page load
   window.history.replaceState({}, '', `/admin-request-details.html?${id}`);
+  displayUsername.append(userDetails.username);
   const url = `${baseUrl}/api/v1/requests/${id}`;
   const headers = new Headers();
   headers.append('authorization', token);
@@ -149,9 +197,9 @@ const init = () => {
       resolveBtn = document.getElementById('resolve');
       trashBtn = document.getElementById('trash');
       feedbackField = document.getElementById('feedback');
-      approveRequest();
-      disapproveRequest();
-      resolveRequest();
+      approveRequestEventHandler();
+      disapproveRequestEventHandler();
+      resolveRequestEventHandler();
       trashEventHandler();
     });
 };

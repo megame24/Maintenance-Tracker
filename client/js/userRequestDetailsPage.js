@@ -1,9 +1,34 @@
-let errorMessage,
-  requestDetailParent,
-  id,
-  url,
-  successMessage;
+/**
+ * ========================================================
+ * Import required function(s) from additional scripts
+ * (these scripts are present in the appropriate html file)
+ * ========================================================
+ * import { getId, displayErrOrsuccMessage } from './helpers/getIdAndQueryMessage.js';
+ * import { handleRedirectError } from './helpers/handleError.js';
+ * import handleRedirectSuccess from './helpers/handleSuccess.js';
+ * import parseJwt from './helpers/parseJwt.js';
+ */
 
+let id,
+  url;
+  
+const requestDetailParent = document.getElementsByClassName('request-detail-parent')[0];
+const displayUsername = document.getElementById('display-username');
+const errorMessage = document.getElementsByClassName('error-message')[0];
+const successMessage = document.getElementsByClassName('success-message')[0];
+const userDetails = parseJwt(token);
+
+// fetch request header
+const headers = new Headers();
+headers.append('authorization', token);
+
+/**
+ * abstract status properties
+ * @param {String} backgroundColor - visual indication of status
+ * @param {String} message - written indication of status
+ * @param {String} hideDeleteBtn - hide delete button
+ * @param {String} hideUpdateBtn - hide update button
+ */
 const statusObj = (backgroundColor, message, hideDeleteBtn, hideUpdateBtn) => ({
   backgroundColor,
   message,
@@ -11,6 +36,10 @@ const statusObj = (backgroundColor, message, hideDeleteBtn, hideUpdateBtn) => ({
   hideUpdateBtn
 });
 
+/**
+ * update page content based on status
+ * @param {String} status -  request's status
+ */
 const statusDependents = (status) => {
   if (status === 'resolved') {
     return statusObj('background-success', 'Resolved', '', 'hide');
@@ -26,6 +55,10 @@ const statusDependents = (status) => {
   }
 };
 
+/**
+ * build out request details page
+ * @param {Object} result - returned object from API call 
+ */
 const requestDetailsHTML = result =>
   `<a href="/view-requests.html" class="btn btn-primary-ghost">All requests</a>
   <div class="request-detail">
@@ -47,7 +80,10 @@ const requestDetailsHTML = result =>
       <i class="icon ion-android-delete"></i>
   </a>`;
 
-
+/**
+ * get request's details from the API
+ * @param {Object} request - fetch API request object 
+ */
 const getRequestDetails = request => 
   fetch(request)
     .then(res => res.json())
@@ -58,11 +94,13 @@ const getRequestDetails = request =>
       requestDetailParent.innerHTML = requestDetailsHTML(result);
     });
 
+/**
+ * handle delete request
+ * @param {Object} deleteBtn - html delete button element
+ */
 const deleteRequest = (deleteBtn) => {
   if (!deleteBtn) return;
   const delBtn = deleteBtn;
-  const headers = new Headers();
-  headers.append('authorization', token);
   const request = new Request(url, { method: 'DELETE', headers });
   delBtn.onclick = () => {
     fetch(request).then(res => res.json())
@@ -75,18 +113,19 @@ const deleteRequest = (deleteBtn) => {
   };
 };
 
+/**
+ * call this on page load
+ */
 const init = () => {
-  requestDetailParent = document.getElementsByClassName('request-detail-parent')[0];
-  const displayUsername = document.getElementById('display-username');
-  errorMessage = document.getElementsByClassName('error-message')[0];
-  successMessage = document.getElementsByClassName('success-message')[0];
-  const userDetails = parseJwt(token);
-  displayUsername.append(userDetails.username);
-  getQueryParams('view-requests.html');
-  const headers = new Headers();
-  headers.append('authorization', token);
-  url = `${baseUrl}/api/v1/users/requests/${id}`;
+  // retrieve id from query string
+  id = getId();
+  if (!id) return handleRedirectError('Request not found', 'view-requests.html');
+  // display parsed error or success message from query string
+  displayErrOrSuccMessage(successMessage, errorMessage);
+  // do not persist encrypted error or success message query string after page load
   window.history.replaceState({}, '', `/user-request-details.html?${id}`);
+  displayUsername.append(userDetails.username);
+  url = `${baseUrl}/api/v1/users/requests/${id}`;
   const request = new Request(url, { method: 'GET', headers });
   getRequestDetails(request)
     .then(() => {
