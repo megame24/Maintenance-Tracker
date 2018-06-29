@@ -20,29 +20,29 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Username and password required');
+          expect(res.body.error.message).to.equal('Username / email and password required');
           done();
         });
     });
     it('Should fail if user with provided username do not exist', (done) => {
       chai.request(server)
         .post(`${baseUrl}/login`)
-        .send({ username: 'invalidUsername', password: 'password' })
+        .send({ usernameOrEmail: 'invalidUsername', password: 'password' })
         .end((err, res) => {
           expect(res.status).to.equal(401);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Invalid username or password');
+          expect(res.body.error.message).to.equal('Invalid username / email or password');
           done();
         });
     });
     it('Should fail if password is incorrect', (done) => {
       chai.request(server)
         .post(`${baseUrl}/login`)
-        .send({ username: regularUser1.username, password: 'password' })
+        .send({ usernameOrEmail: regularUser1.username, password: 'password' })
         .end((err, res) => {
           expect(res.status).to.equal(401);
           expect(res.body).to.be.a('object');
-          expect(res.body.error.message).to.equal('Invalid username or password');
+          expect(res.body.error.message).to.equal('Invalid username / email or password');
           done();
         });
     });
@@ -50,7 +50,7 @@ describe('Users', () => {
       chai.request(server)
         .post(`${baseUrl}/login`)
         .send({
-          username: regularUser1.username,
+          usernameOrEmail: regularUser1.username,
           password: regularUser1.password
         })
         .end((err, res) => {

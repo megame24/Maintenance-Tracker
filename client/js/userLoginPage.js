@@ -9,7 +9,7 @@
  */
 
 const loginForm = document.getElementById('loginForm');
-const usernameField = document.getElementById('username');
+const usernameOrEmailField = document.getElementById('username');
 const passwordField = document.getElementById('password');
 const submitBtn = document.getElementById('submit-btn');
 const errorMessage = document.getElementsByClassName('error-message')[0];
@@ -47,7 +47,7 @@ const loginController = () => {
     submitBtn.disabled = true;
     submitBtn.classList.add('disabled');
     submitBtn.value = 'Logging in...';
-    let formData = { username: usernameField.value, password: passwordField.value };
+    let formData = { usernameOrEmail: usernameOrEmailField.value, password: passwordField.value };
     formData = JSON.stringify(formData);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

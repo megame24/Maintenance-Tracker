@@ -21,7 +21,7 @@ describe('Requests', () => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
-        username: regularUser1.username,
+        usernameOrEmail: regularUser1.username,
         password: regularUser1.password
       })
       .end((err, res) => {
@@ -33,7 +33,7 @@ describe('Requests', () => {
     chai.request(server)
       .post('/api/v1/auth/login')
       .send({
-        username: regularUser2.username,
+        usernameOrEmail: regularUser2.username,
         password: regularUser2.password
       })
       .end((err, res) => {
