@@ -38,6 +38,9 @@ class AuthMiddleware {
       .then((result) => {
         if (result.error) return res.status(404).json(result);
         const { decoded, request } = req.body;
+        if (request.deleted) {
+          return res.status(404).json({ error: { message: 'Request not found' } });
+        }
         if (decoded.id === request.ownerid) {
           return next();
         }

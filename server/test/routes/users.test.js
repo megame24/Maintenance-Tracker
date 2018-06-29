@@ -46,11 +46,25 @@ describe('Users', () => {
           done();
         });
     });
-    it('Should login a user and return a token if credentials are correct', (done) => {
+    it('Should login a user with the username and return a token if credentials are correct', (done) => {
       chai.request(server)
         .post(`${baseUrl}/login`)
         .send({
           usernameOrEmail: regularUser1.username,
+          password: regularUser1.password
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.have.property('token');
+          done();
+        });
+    });
+    it('Should login a user with the email and return a token if credentials are correct', (done) => {
+      chai.request(server)
+        .post(`${baseUrl}/login`)
+        .send({
+          usernameOrEmail: regularUser1.email,
           password: regularUser1.password
         })
         .end((err, res) => {

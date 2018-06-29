@@ -34,6 +34,7 @@ export default {
       type.toLowerCase().trim(),
       'pending',
       false,
+      false,
       '',
       decoded.fullname,
       Date.now(),

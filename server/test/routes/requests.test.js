@@ -45,7 +45,8 @@ describe('Requests', () => {
   // Get requests route
   describe('Making a GET request to /users/requests', () => {
     it('Should return all requests belonging to a logged in user', (done) => {
-      const numOfRequests = requests.filter(elem => elem.ownerId === regularUser1.id).length;
+      const numOfRequests = requests
+        .filter(elem => !elem.deleted && elem.ownerId === regularUser1.id).length;
       chai.request(server)
         .get(`${baseUrl}/requests`)
         .set({ authorization: regularUser1Token })
@@ -101,6 +102,17 @@ describe('Requests', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('object');
           expect(Number(res.body.ownerid)).to.equal(regularUser1.id);
+          done();
+        });
+    });
+    it('Should return a 404 error(request not found) if request has been deleted by the user', (done) => {
+      chai.request(server)
+        .get(`${baseUrl}/requests/${regularUser1.requestsId[2]}`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body).to.be.a('object');
+          expect(res.body.error.message).to.equal('Request not found');
           done();
         });
     });

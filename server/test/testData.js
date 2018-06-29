@@ -29,6 +29,7 @@ export default {
     type: 'maintenance',
     status: 'disapproved',
     trashed: false,
+    deleted: false,
     feedback: '',
     ownerId: 3
   },
@@ -39,6 +40,7 @@ export default {
     type: 'maintenance',
     status: 'approved',
     trashed: false,
+    deleted: false,
     feedback: 'Your request has been approved, and is being worked on',
     ownerId: 2
   },
@@ -49,6 +51,7 @@ export default {
     type: 'repair',
     status: 'pending',
     trashed: false,
+    deleted: false,
     feedback: 'Sorry, the requested service is not available at the moment. We are out of side mirror frames',
     ownerId: 3
   },
@@ -59,6 +62,7 @@ export default {
     type: 'repair',
     status: 'resolved',
     trashed: false,
+    deleted: false,
     feedback: 'Your request has been resolved, check your email for further instructions.',
     ownerId: 4
   },
@@ -69,6 +73,7 @@ export default {
     type: 'repair',
     status: 'pending',
     trashed: false,
+    deleted: false,
     feedback: 'Your vehicle was badly damaged. Good news is we can fix it, but it will take a while.',
     ownerId: 4
   },
@@ -79,6 +84,7 @@ export default {
     type: 'maintenance',
     status: 'pending',
     trashed: false,
+    deleted: false,
     feedback: 'Your request has been resolved, you\'ll really love your new seats. Check your email for further instructions.',
     ownerId: 3
   },
@@ -89,6 +95,7 @@ export default {
     type: 'repair',
     status: 'disapproved',
     trashed: true,
+    deleted: true,
     feedback: '',
     owner: 'Uzumaki Naruto',
     date: Date.now() + 7,
