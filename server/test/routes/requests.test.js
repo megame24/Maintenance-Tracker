@@ -270,7 +270,7 @@ describe('Requests', () => {
           done();
         });
     });
-    it('Should delete if the request\'s status has a value other than approved', (done) => {
+    it('Should delete if the request\'s status has a value of pending', (done) => {
       chai.request(server)
         .delete(`${baseUrl}/requests/${regularUser1.requestsId[3]}`)
         .set({ authorization: regularUser1Token })
@@ -278,6 +278,17 @@ describe('Requests', () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a('object');
           expect(res.body.success.message).to.equal('Request has been deleted');
+          done();
+        });
+    });
+    it('Should delete with persistence if the request\'s status has a value of resolved or disapproved', (done) => {
+      chai.request(server)
+        .delete(`${baseUrl}/requests/${regularUser1.requestsId[0]}`)
+        .set({ authorization: regularUser1Token })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.success.message).to.equal('Request has been trash');
           done();
         });
     });

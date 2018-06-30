@@ -4,7 +4,8 @@ import server from '../../app';
 import testData from '../testData';
 
 const {
-  regularUser1
+  regularUser1,
+  regularUser2
 } = testData;
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -50,8 +51,8 @@ describe('Users', () => {
       chai.request(server)
         .post(`${baseUrl}/login`)
         .send({
-          usernameOrEmail: regularUser1.username,
-          password: regularUser1.password
+          usernameOrEmail: regularUser2.username,
+          password: regularUser2.password
         })
         .end((err, res) => {
           expect(res.status).to.equal(200);

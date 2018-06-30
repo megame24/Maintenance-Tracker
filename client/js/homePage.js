@@ -25,7 +25,7 @@ const adminToken = () =>
 	`<li class="admin">
 			<div>
 					<a href="#" class="nav-item"><span id="display-username">Welcome &nbsp;</span>
-							<span class="not-mobile">
+							<span>
 									<i class="icon ion-android-arrow-dropdown"></i>
 							</span>
 					</a>
@@ -43,7 +43,7 @@ const userToken = () =>
 	`<li class="request">
 			<div>
 					<a href="#" class="nav-item">Requests
-							<span class="not-mobile"><i class="icon ion-android-arrow-dropdown"></i></span>
+							<span><i class="icon ion-android-arrow-dropdown"></i></span>
 					</a>
 			</div>
 			<div class="drop-down-menu hide">
@@ -53,7 +53,7 @@ const userToken = () =>
 	<li class="user">
 			<div>
 					<a href="#" class="nav-item"><span  id="display-username">Welcome &nbsp;</span>
-							<span class="not-mobile"><i class="icon ion-android-arrow-dropdown"></i></span>
+							<span><i class="icon ion-android-arrow-dropdown"></i></span>
 					</a>
 			</div>
 			<div class="drop-down-menu hide">

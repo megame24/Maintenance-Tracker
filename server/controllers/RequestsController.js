@@ -94,12 +94,12 @@ class RequestsController {
       return res.status(400).json({ error: { message: 'Requests being worked on cannot be deleted' } });
     }
     if (status === 'pending') {
-      requestDB.deleteRequest(id)
+      return requestDB.deleteRequest(id)
         .then(() => res.status(200).json({ success: { message: 'Request has been deleted' } }))
         .catch(() => res.status(500).json(errors.error500));
     }
     requestDB.deleteRequestWithPersistance(id)
-      .then(() => res.status(200).json({ success: { message: 'Request has been deleted' } }))
+      .then(() => res.status(200).json({ success: { message: 'Request has been trash' } }))
       .catch(() => res.status(500).json(errors.error500));
   }
 }

@@ -344,7 +344,7 @@ tbody tr:nth-child(odd) {
     width: 100%;
     border-bottom: 1px solid #e7e7e7;
   }
-  .drop-down-menu a:hover {
+  .drop-down-menu a:hover:not(.disable-highlight) {
     background-color: rgb(240, 240, 240);
   }
 }
@@ -771,4 +771,9 @@ footer p {
 
 .make-edit-request hr {
   margin-bottom: 40px;
+}
+
+.disable-highlight {
+  cursor: not-allowed;
+  background-color: #c6dafc;
 }
