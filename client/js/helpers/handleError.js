@@ -19,10 +19,12 @@ const handleRedirectError = (errMessage, subUrl) => {
  * @param {String} message - error message 
  * @param {String} btnValue - button label
  */
-const displayError = (submitBtn, errorMessage, message, btnValue) => {
-  submitBtn.disabled = false;
-  submitBtn.classList.remove('disabled');
-  submitBtn.value = btnValue;
+const displayError = (errorMessage, message, submitBtn, btnValue) => {
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('disabled');
+    submitBtn.value = btnValue;
+  }
   errorMessage.innerText = message;
   errorMessage.classList.remove('hide');
 };

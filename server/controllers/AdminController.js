@@ -10,13 +10,14 @@ class AdminController extends RequestsController {
   */
   static getRequests(req, res) {
     const { decoded } = req.body;
+    const { filter } = req.query;
     if (decoded.role !== 'admin') {
       return res.status(403).json({ error: { message: 'You do not have permission to do that' } });
     }
-    requestDB.getAllRequests()
+    requestDB.getAllRequests(filter)
       .then(result => res.status(200).json(result.rows))
-      .catch(() => {
-        res.status(500).json(errors.error500);
+      .catch((err) => {
+        res.status(500).json(errors.error500(err));
       });
   }
 
@@ -40,8 +41,8 @@ class AdminController extends RequestsController {
       default: 
         requestDB.updateStatus(['approved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been approved' } }))
-          .catch(() => {
-            res.status(500).json(errors.error500);
+          .catch((err) => {
+            res.status(500).json(errors.error500(err));
           });
     }
   }
@@ -66,8 +67,8 @@ class AdminController extends RequestsController {
       default: 
         requestDB.updateStatus(['disapproved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been disapproved' } }))
-          .catch(() => {
-            res.status(500).json(errors.error500);
+          .catch((err) => {
+            res.status(500).json(errors.error500(err));
           });
     }
   }
@@ -92,8 +93,8 @@ class AdminController extends RequestsController {
       default: 
         requestDB.updateStatus(['resolved', feedback, request.id])
           .then(() => res.status(200).json({ success: { message: 'Request has been resolved' } }))
-          .catch(() => {
-            res.status(500).json(errors.error500);
+          .catch((err) => {
+            res.status(500).json(errors.error500(err));
           });
     }
   }
@@ -113,8 +114,8 @@ class AdminController extends RequestsController {
       default:
         requestDB.trashRequest(id)
           .then(() => res.status(200).json({ success: { message: 'Request has been trashed' } }))
-          .catch(() => {
-            res.status(500).json(errors.error500);
+          .catch((err) => {
+            res.status(500).json(errors.error500(err));
           });
     }
   }

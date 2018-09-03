@@ -24,6 +24,7 @@ const makeRequest = (request) => {
   fetch(request)
     .then(res => res.json())
     .then((result) => {
+      console.log(result);
       if (result.error) {
         return displayError(submitBtn, errorMessage, result.error.message, 'Make Request');
       }

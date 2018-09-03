@@ -46,8 +46,8 @@ class AuthMiddleware {
         }
         res.status(403).json({ error: { message: 'You do not have permission to do that' } });
       })
-      .catch(() => {
-        res.status(500).json(errors.error500);
+      .catch((err) => {
+        res.status(500).json(errors.error500(err));
       });
   }
 
@@ -75,8 +75,8 @@ class AuthMiddleware {
             return next();
         }
       })
-      .catch(() => {
-        res.status(500).json(errors.error500);
+      .catch((err) => {
+        res.status(500).json(errors.error500(err));
       });
   }
 }

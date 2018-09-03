@@ -1,7 +1,10 @@
 import db from '../db/';
 
 export default {
-  getAllRequests() {
+  getAllRequests(filter) {
+    if (filter === 'repair' || filter === 'maintenance') {
+      return db.query('SELECT * FROM requests WHERE trashed = false AND type = $1 ORDER BY date DESC', [filter]);
+    }
     return db.query('SELECT * FROM requests WHERE trashed = false ORDER BY date DESC');
   },
   getUserRequests(id) {

@@ -24,7 +24,7 @@ const loginUser = (request) => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        return displayError(submitBtn, errorMessage, result.error.message, 'Login');
+        return displayError(errorMessage, result.error.message, submitBtn, 'Login');
       }
       const { token } = result;
       window.localStorage.setItem('token', token);

@@ -15,8 +15,8 @@ class RequestsController {
         const userRequests = result.rows;
         return res.status(200).json(userRequests);
       })
-      .catch(() => {
-        res.status(500).json(errors.error500);
+      .catch((err) => {
+        res.status(500).json(errors.error500(err));
       });
   }
 
@@ -50,8 +50,8 @@ class RequestsController {
       default: {
         requestsHelper.createRequest(req)
           .then(message => res.status(201).json(message))
-          .catch(() => {
-            res.status(500).json(errors.error500);
+          .catch((err) => {
+            res.status(500).json(errors.error500(err));
           });
       }
     }
@@ -75,8 +75,8 @@ class RequestsController {
       const requestUpdate = [title, description, typeUpdate, request.id];
       requestDB.updateRequest(requestUpdate)
         .then(() => res.status(200).json({ success: { message: 'Request updated successfully' } }))
-        .catch(() => {
-          res.status(500).json(errors.error500);
+        .catch((err) => {
+          res.status(500).json(errors.error500(err));
         });
     } else {
       return res.status(400).json({ error: { message: 'Only requests with status pending can be updated' } });
@@ -96,11 +96,11 @@ class RequestsController {
     if (status === 'pending') {
       return requestDB.deleteRequest(id)
         .then(() => res.status(200).json({ success: { message: 'Request has been deleted' } }))
-        .catch(() => res.status(500).json(errors.error500));
+        .catch(err => res.status(500).json(errors.error500(err)));
     }
     requestDB.deleteRequestWithPersistance(id)
       .then(() => res.status(200).json({ success: { message: 'Request has been trash' } }))
-      .catch(() => res.status(500).json(errors.error500));
+      .catch(err => res.status(500).json(errors.error500(err)));
   }
 }
 

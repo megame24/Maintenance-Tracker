@@ -25,7 +25,16 @@ export default {
       'user'
     ];
     return userDB.registerUser(newUser)
-      .then(() => ({ success: { message: 'Registered successfully, login to make a request' } }));
+      .then(() => userDB.getUserByEmail(email.trim()))
+      .then((user) => {
+        const {
+          id, role
+        } = user.rows[0];
+        const token = JWToken.generateToken({
+          id, username, role, fullname,
+        });
+        return { token, success: { message: 'Registered successfully, login to make a request' } };
+      });
   },
 
   /**

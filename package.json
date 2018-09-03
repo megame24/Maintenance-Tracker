@@ -4,7 +4,7 @@
   "description": "Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server/index.js",
+    "start": "./node_modules/.bin/babel-node server/index.js",
     "dev": "concurrently \"npm run start:dev\" \"npm run lint:watch\"",
     "start:dev": "cross-env NODE_ENV=development nodemon --exec babel-node -- server",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/**/*.js",
@@ -13,10 +13,10 @@
     "test:watch": "npm test -- --watch",
     "lint": "./node_modules/.bin/esw  server",
     "lint:watch": "npm run lint -- --watch",
-    "seedDB": "cross-env NODE_ENV=development node_modules/.bin/babel-node server/db/seeders/",
-    "createTables": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/createTables",
+    "seedDB": "node_modules/.bin/babel-node server/db/seeders/",
+    "createTables": "./node_modules/.bin/babel-node ./server/db/tables/createTables",
     "alterTable": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/alterTable",
-    "dropTables": "cross-env NODE_ENV=development ./node_modules/.bin/babel-node ./server/db/tables/dropTables",
+    "dropTables": "./node_modules/.bin/babel-node ./server/db/tables/dropTables",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "nyc": {
@@ -46,10 +46,17 @@
   },
   "homepage": "https://github.com/megame24/Maintenance-Tracker#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
+    "cryptiles": "^4.1.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
@@ -57,11 +64,6 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-istanbul": "^4.1.6",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "codecov": "^3.0.2",
     "concurrently": "^3.5.1",
     "coveralls": "^3.0.1",

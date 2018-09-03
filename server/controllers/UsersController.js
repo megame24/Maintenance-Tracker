@@ -23,14 +23,14 @@ class UsersController {
           const resObject = usersHelper.loginAfterValidation(emailResult, password);
           res.status(resObject.status).json(resObject.json);
         })
-        .catch(() => res.status(500).json(errors.error500));
+        .catch(err => res.status(500).json(errors.error500(err)));
     }
     userDB.getUserByUsername(usernameOrEmail)
       .then((usernameResult) => {
         const resObject = usersHelper.loginAfterValidation(usernameResult, password);
         res.status(resObject.status).json(resObject.json);
       })
-      .catch(() => res.status(500).json(errors.error500));
+      .catch(err => res.status(500).json(errors.error500(err)));
   }
 
   /**

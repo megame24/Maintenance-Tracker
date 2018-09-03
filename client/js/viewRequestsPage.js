@@ -74,8 +74,7 @@ const getUserRequests = () => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        handleRedirectError(result.error.message, 'login.html');
-        return;
+        return displayError(errorMessage, result.error.message);
       }
       populateTableWithRequests(result);
     });

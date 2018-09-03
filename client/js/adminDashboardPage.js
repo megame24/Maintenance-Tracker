@@ -102,7 +102,7 @@ const getAllRequests = () => {
     .then(res => res.json())
     .then((result) => {
       if (result.error) {
-        return handleRedirectError(result.error.message, 'login.html');
+        return displayError(errorMessage, result.error.message);
       }
       populateTableWithRequests(result);
     });

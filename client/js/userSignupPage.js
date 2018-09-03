@@ -24,9 +24,17 @@ const signupUser = (request) => {
   fetch(request).then(res => res.json())
     .then((result) => {
       if (result.error) {
-        return displayError(submitBtn, errorMessage, result.error.message, 'Create Account');
+        return displayError(errorMessage, result.error.message, submitBtn, 'Create Account');
       }
-      handleRedirectSuccess(result.success.message, 'login.html?');
+      const { token } = result;
+      window.localStorage.setItem('token', token);
+      const userDetails = parseJwt(token);
+      if (userDetails.role === 'admin') {
+        handleRedirectSuccess(result.success.message, 'admin-dashboard.html?');
+      }
+      if (userDetails.role === 'user') {
+        handleRedirectSuccess(result.success.message, 'view-requests.html?');
+      }
     });
 };
 

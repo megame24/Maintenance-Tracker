@@ -108,8 +108,8 @@ class validationMiddleware {
                 if (neResult.rows[0]) {
                   return res.status(400).json({ error: { message: 'User with that email already exists' } });
                 } next();
-              }).catch(() => res.status(500).json(errors.error500));
-          }).catch(() => res.status(500).json(errors.error500));
+              }).catch(err => res.status(500).json(errors.error500(err)));
+          }).catch(err => res.status(500).json(errors.error500(err)));
       }
     }
   }

@@ -63,6 +63,18 @@ describe('Admin', () => {
           done();
         });
     });
+    it('Should return filtered requests if filter is specified', (done) => {
+      const numOfRequests = requests.filter(elem => !elem.trashed && elem.type === 'maintenance').length;
+      chai.request(server)
+        .get(`${baseUrl}/requests?filter=maintenance`)
+        .set({ authorization: adminToken })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a('array');
+          expect(res.body.length).to.equal(numOfRequests);
+          done();
+        });
+    });
     it('Should return error for user with role not equal to admin', (done) => {
       chai.request(server)
         .get(`${baseUrl}/requests`)
